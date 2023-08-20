@@ -69,4 +69,24 @@ public class HabitacionList implements List<Habitacion>{
         }
             return false;
     }
+    
+    public Habitacion obtenerHabitacionPorNumero(int numeroHabitacionBuscado) {
+        for (Habitacion habitacion : habitaciones) {
+            if (habitacion.getNumeroHabitacion() == numeroHabitacionBuscado) {
+                return habitacion; // Devuelve la habitación encontrada
+            }
+        }
+        return null; // Devuelve null si la habitación no se encuentra
+    }
+    
+    public boolean actualizarTipoHabitacion(int numeroHabitacion, TipoHabitacion nuevoTipo) {
+        for (Habitacion habitacion : habitaciones) {
+            if (habitacion.getNumeroHabitacion() == numeroHabitacion) {
+                habitacion.setTipoHabitacion(nuevoTipo); // Actualiza el tipo de habitación
+                return true; // Indica que se realizó la actualización
+            }
+        }
+            return false; // Indica que no se encontró la habitación con el número especificado
+    }
+
 }

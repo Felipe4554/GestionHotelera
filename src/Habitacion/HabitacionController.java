@@ -11,6 +11,7 @@ import Views.View;
  *
  * @author ´Felipe Chacón
  */
+
 public class HabitacionController implements Controller<Habitacion> {
     // Atributos de la clase
     private HabitacionList list; // Atributo HabitacionList
@@ -20,49 +21,48 @@ public class HabitacionController implements Controller<Habitacion> {
     public HabitacionController(View view) {
         list = HabitacionList.getInstance(); // Crear una nueva instancia de HabitacionList
         this.view = view; // Asignar la vista proporcionada al atributo view
-    }    
-
-    @Override
-    public boolean Agregar(Habitacion obj) {
-        return list.Agregar(obj);
     }
 
     @Override
-    public boolean Actualizar(Habitacion obj) {
-        if (list.Actualizar(obj)) {
-            view.displayMessaje("Habitación actualizada correctamente.");
-            return true;
+    public void Agregar(Habitacion habitacion) {
+        // Lógica para agregar una habitación
+        if (list.Agregar(habitacion)) {
+            view.displayMessaje("Habitación agregada exitosamente.");
         } else {
-            view.displayErrorMessaje("No se pudo actualizar la habitación.");
-            return false;
+            view.displayErrorMessaje("No se pudo agregar la habitación.");
         }
     }
 
     @Override
-    public boolean Eliminar(Habitacion obj) {
-        if (obj.isOcupada()) {
-            view.displayErrorMessaje("No se puede eliminar una habitación ocupada.");
-            return false;
-        }
-
-        if (list.Eliminar(obj)) {
-            view.displayMessaje("Habitación eliminada correctamente.");
-            return true;
+    public void Actualizar(Habitacion habitacion) {
+        // Lógica para actualizar el tipo de habitación
+        if (list.actualizarTipoHabitacion(habitacion.getNumeroHabitacion(), habitacion.getTipoHabitacion())) {
+            view.displayMessaje("Tipo de habitación actualizado exitosamente.");
         } else {
-            view.displayErrorMessaje("No se pudo eliminar la habitación.");
-            return false;
-        }
-    }
-
-    @Override
-    public boolean Buscar(Object id) {
-        if (list.Buscar(id)) {
-            view.displayMessaje("Habitación encontrada.");
-            return true;
-        } else {
-            view.displayErrorMessaje("Habitación no encontrada.");
-            return false;
-        }
+            view.displayErrorMessaje("No se pudo actualizar el tipo de habitación.");
     }
 }
 
+
+    @Override
+    public void Eliminar(Habitacion habitacion) {
+        // Lógica para eliminar una habitación
+        if (list.Eliminar(habitacion)) {
+            view.displayMessaje("Habitación eliminada exitosamente.");
+        } else {
+            view.displayErrorMessaje("No se pudo eliminar la habitación.");
+        }
+    }
+
+    @Override
+    public void Buscar(Object id) {
+        // Lógica para buscar una habitación por su número
+        if (list.Buscar(id)) {
+            // Si se encuentra la habitación, muestra sus detalles en la vista
+            Habitacion habitacion = list.obtenerHabitacionPorNumero((int) id);
+            view.display(habitacion);
+        } else {
+            view.displayErrorMessaje("Habitación no encontrada.");
+        }
+    }
+}
