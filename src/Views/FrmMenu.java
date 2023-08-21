@@ -5,7 +5,7 @@
 package Views;
     
 import Habitacion.FrmHabitacion;
-
+import Empleado.FrmEmpleado;
 /**
  *
  * @author jprod
@@ -34,6 +34,7 @@ public class FrmMenu extends javax.swing.JFrame {
         menu = new javax.swing.JMenuBar();
         menuManage = new javax.swing.JMenu();
         menuHabitaciones = new javax.swing.JMenuItem();
+        menuMembers = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,6 +65,16 @@ public class FrmMenu extends javax.swing.JFrame {
         });
         menuManage.add(menuHabitaciones);
 
+        menuMembers.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuMembers.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menuMembers.setText("Empleados");
+        menuMembers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuMembersActionPerformed(evt);
+            }
+        });
+        menuManage.add(menuMembers);
+
         menu.add(menuManage);
 
         setJMenuBar(menu);
@@ -86,6 +97,11 @@ public class FrmMenu extends javax.swing.JFrame {
         FrmHabitacion frm = new FrmHabitacion();
         View.showInternal(desktopMenu, frm);
     }//GEN-LAST:event_menuHabitacionesActionPerformed
+
+    private void menuMembersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMembersActionPerformed
+        FrmEmpleado frm = new FrmEmpleado();
+        View.showInternal(desktopMenu, frm);
+    }//GEN-LAST:event_menuMembersActionPerformed
 
     /**
      * @param args the command line arguments
@@ -128,5 +144,6 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JMenuBar menu;
     private javax.swing.JMenuItem menuHabitaciones;
     private javax.swing.JMenu menuManage;
+    private javax.swing.JMenuItem menuMembers;
     // End of variables declaration//GEN-END:variables
 }

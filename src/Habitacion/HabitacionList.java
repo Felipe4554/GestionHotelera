@@ -7,30 +7,22 @@ package Habitacion;
 import Models.List;
 import java.util.ArrayList;
 
-/**
- *
- * @author ´Felipe Chacón
- */
-public class HabitacionList implements List<Habitacion>{
-    
-    // Patron de diseño singleton
+public class HabitacionList implements List<Habitacion> {
+
     private static HabitacionList habitacionList;
-    
-    // ArrayList para almacenar las habitaciones
     private ArrayList<Habitacion> habitaciones;
 
-    // Método estático para obtener la instancia única de la lista de habitaciones    
-    public static HabitacionList getInstance(){
-        if(habitacionList == null){
+    public static HabitacionList getInstance() {
+        if (habitacionList == null) {
             habitacionList = new HabitacionList();
         }
         return habitacionList;
     }
-    
+
     private HabitacionList() {
         habitaciones = new ArrayList<>();
     }
-    
+
     @Override
     public boolean Agregar(Habitacion obj) {
         if (obj != null && !habitaciones.contains(obj)) {
@@ -57,19 +49,20 @@ public class HabitacionList implements List<Habitacion>{
         }
         return false;
     }
-    
+
     @Override
-    public boolean Buscar(Object id) {
-      int numeroHabitacionBuscado = (int) id;
-    
-         for (Habitacion habitacion : habitaciones) {
-             if (habitacion.getNumeroHabitacion() == numeroHabitacionBuscado) {
-                  return true;
+    public Habitacion Buscar(Object id) {
+        if (id instanceof Integer) {
+            int numeroHabitacionBuscado = (int) id;
+            for (Habitacion habitacion : habitaciones) {
+                if (habitacion.getNumeroHabitacion() == numeroHabitacionBuscado) {
+                    return habitacion;
+                }
             }
         }
-            return false;
+        return null; // Devuelve null si no se encuentra la habitación
     }
-    
+
     public Habitacion obtenerHabitacionPorNumero(int numeroHabitacionBuscado) {
         for (Habitacion habitacion : habitaciones) {
             if (habitacion.getNumeroHabitacion() == numeroHabitacionBuscado) {
@@ -78,7 +71,7 @@ public class HabitacionList implements List<Habitacion>{
         }
         return null; // Devuelve null si la habitación no se encuentra
     }
-    
+
     public boolean actualizarTipoHabitacion(int numeroHabitacion, TipoHabitacion nuevoTipo) {
         for (Habitacion habitacion : habitaciones) {
             if (habitacion.getNumeroHabitacion() == numeroHabitacion) {
@@ -86,7 +79,12 @@ public class HabitacionList implements List<Habitacion>{
                 return true; // Indica que se realizó la actualización
             }
         }
-            return false; // Indica que no se encontró la habitación con el número especificado
+        return false; // Indica que no se encontró la habitación con el número especificado
     }
 
+    @Override
+    public Habitacion[] toArray() {
+        return habitaciones.toArray(new Habitacion[0]);
+    }
 }
+

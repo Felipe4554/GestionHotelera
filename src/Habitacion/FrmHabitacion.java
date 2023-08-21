@@ -4,10 +4,12 @@
  */
 package Habitacion;
 
+import Models.HabitacionOcupadaException;
 import Views.FrmMenu;
 import Views.View;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,39 +20,29 @@ import javax.swing.table.DefaultTableModel;
 public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Habitacion> {
 
     private HabitacionController controller; // Agregar una referencia al controlador
+    FrmMenu desktTopMenu;
     private FrmBuscar frmBuscar;
-    private Habitacion habitacion;
     /**
      * Creates new form FrmHabitacion
      */
     public FrmHabitacion() {
         initComponents();
         TipoHabitacion();
-        controller = new HabitacionController(this); // Inicializar el controlador
+        controller = new HabitacionController(this);
         frmBuscar = new FrmBuscar();
-        // Agrega esto dentro del constructor FrmHabitacion después de initComponents()
-        txtTipo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Cuando se seleccione un tipo de habitación, actualiza el precio en el JSpinner
-                String selectedTipo = txtTipo.getSelectedItem().toString();
-                TipoHabitacion tipoHabitacion = TipoHabitacion.valueOf(selectedTipo);
-
-                // Aquí debes definir tu lógica para obtener el precio predeterminado
-                double precioPredeterminado = habitacion.calcularPrecioPredeterminado(tipoHabitacion);
-
-                // Actualiza el valor en el JSpinner
-                spnPrecio.setValue(precioPredeterminado);
-            }
-        });
     }
     
+    private void loadHabitaciones() {  // Cambio del nombre del método
+        // Cargar las habitaciones disponibles en el ComboBox de puestos
+        // Debes reemplazar esta parte con la lógica para cargar los puestos
+        // en el ComboBox según tu implementación
+    }
     @Override
     public void clear() {
         spnNumeroHabitacion.setValue(0);
         txtTipo.setSelectedIndex(0);
-        txtOcupada.setText("");
-        spnPrecio.setValue(0);
+        txtOcupada.setText("No");
+        txtPrecio.setText("0");
     }
     
     private void TipoHabitacion() {
@@ -58,8 +50,6 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
             txtTipo.addItem(tipo.toString());
         }
     }
-
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -76,13 +66,15 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
         txtTipo = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         txtOcupada = new javax.swing.JTextField();
-        spnPrecio = new javax.swing.JSpinner();
         jLabel3 = new javax.swing.JLabel();
+        txtPrecio = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         btnAgregar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
+
+        setClosable(true);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setToolTipText("");
@@ -107,8 +99,6 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
 
         txtOcupada.setEditable(false);
         txtOcupada.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-
-        spnPrecio.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1000));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("Estado");
@@ -135,8 +125,10 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(spnPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 175, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,12 +140,13 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtOcupada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(spnPrecio)
-                    .addComponent(spnNumeroHabitacion))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtOcupada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(spnNumeroHabitacion, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
+                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -204,7 +197,7 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
                 .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(191, Short.MAX_VALUE))
+                .addContainerGap(308, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,30 +231,51 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTipoActionPerformed
-        // TODO add your handling code here:
+    String selectedTipo = txtTipo.getSelectedItem().toString();
+    
+    double precio = 0; // Valor predeterminado si no se encuentra un tipo válido
+    
+    switch (selectedTipo) {
+        case "Individual":
+            precio = 45000;
+            break;
+        case "Doble":
+            precio = 80000;
+            break;
+        case "Suite":
+            precio = 140000;
+            break;
+        default:
+            // Manejo si el tipo no coincide con ninguno de los casos anteriores
+            break;
+    }
+    
+    DecimalFormat decimalFormat = new DecimalFormat("######");
+    String precioFormateado = decimalFormat.format(precio);
+    
+    txtPrecio.setText(precioFormateado);
     }//GEN-LAST:event_txtTipoActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
      // Obtener los datos de los campos de la vista y crear una instancia de Habitacion
-           int numeroHabitacion = (int) spnNumeroHabitacion.getValue();
-            TipoHabitacion tipoHabitacion = TipoHabitacion.valueOf(txtTipo.getSelectedItem().toString());
-            boolean ocupada = false; // No editable desde la vista
-            double precio = Double.parseDouble(spnPrecio.getValue().toString()); // Usuario puede modificar el precio
-            Habitacion habitacion = new Habitacion(numeroHabitacion, tipoHabitacion, ocupada, precio);
-
-        // Llamar al controlador para agregar la habitación
-        controller.Agregar(habitacion);
+        int numeroHabitacion = (int) spnNumeroHabitacion.getValue();
+        TipoHabitacion tipoHabitacion = TipoHabitacion.valueOf(txtTipo.getSelectedItem().toString());
+        boolean ocupada = false;
+        double precio = Double.parseDouble(txtPrecio.getText());
+        Habitacion nuevaHabitacion = new Habitacion(numeroHabitacion, tipoHabitacion, ocupada, precio);
+        controller.Agregar(nuevaHabitacion);
+         // Mostrar la habitación agregada por consola
+    System.out.println("Habitación agregada: " + nuevaHabitacion.toString());
+    
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int numeroHabitacion = (int) spnNumeroHabitacion.getValue();
         TipoHabitacion tipoHabitacion = TipoHabitacion.valueOf(txtTipo.getSelectedItem().toString());
         boolean ocupada = Boolean.parseBoolean(txtOcupada.getText());
-        double precio = Double.parseDouble(spnPrecio.getValue().toString());
-
+        double precio = Double.parseDouble(txtPrecio.getText());
         Habitacion habitacion = new Habitacion(numeroHabitacion, tipoHabitacion, ocupada, precio);
-
-        // Llamar al controlador para eliminar la habitación
+        
         controller.Eliminar(habitacion);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -272,13 +286,9 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // Obtener los datos de los campos de la vista para actualizar el tipo de habitación
         int numeroHabitacion = (int) spnNumeroHabitacion.getValue();
         TipoHabitacion tipoHabitacion = TipoHabitacion.valueOf(txtTipo.getSelectedItem().toString());
-
         Habitacion habitacion = new Habitacion(numeroHabitacion, tipoHabitacion);
-
-        // Llamar al controlador para actualizar el tipo de habitación
         controller.Actualizar(habitacion);
     }//GEN-LAST:event_btnActualizarActionPerformed
 
@@ -293,10 +303,10 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JSpinner spnNumeroHabitacion;
-    private javax.swing.JSpinner spnPrecio;
-    private javax.swing.JTextField txtOcupada;
-    private javax.swing.JComboBox<String> txtTipo;
+    public static javax.swing.JSpinner spnNumeroHabitacion;
+    public static javax.swing.JTextField txtOcupada;
+    public static javax.swing.JTextField txtPrecio;
+    public static javax.swing.JComboBox<String> txtTipo;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -304,13 +314,19 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
         // Mostrar los detalles de la habitación en los campos de la vista
         spnNumeroHabitacion.setValue(habitacion.getNumeroHabitacion());
         txtTipo.setSelectedItem(habitacion.getTipoHabitacion().toString());
-        txtOcupada.setText(String.valueOf(habitacion.isOcupada()));
-        spnPrecio.setValue(habitacion.getPrecio());
+        txtOcupada.setText(habitacion.isOcupada() ? "Sí" : "No");
+        txtPrecio.setText(String.valueOf(habitacion.getPrecio()));
     }
 
     @Override
     public void displayAll(Habitacion[] regs) {
         // Implementar la actualización de una tabla si es necesario
+               // DefaultTableModel tableModel = (DefaultTableModel) tblEmpleados.getModel();
+       // tableModel.setNumRows(0);
+        for (Habitacion habitacion : regs) {
+            Object[] frmBuscar = habitacion.toArrayObject();
+            //tableModel.addRow(data);
+        }
     }
 
     @Override

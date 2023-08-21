@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package Empleado;
+package Habitacion;
 
 
+import Empleado.*;
 import Controller.Controller;
 import Models.Table;
 import Views.FrmMenu;
@@ -21,12 +22,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author jprod
  */
-public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empleado> {  // Cambio del nombre de la clase
+public class FrmHab extends javax.swing.JInternalFrame implements View<Empleado> {  // Cambio del nombre de la clase
     private Controller controller;
     private FrmMenu desktopMenu;
     private boolean datosFrameShown = false;
     
-    public FrmEmpleado() {
+    public FrmHab() {
         initComponents();
         this.loadPuestos();  // Cambio del método
         this.controller = new EmpleadoControler(this);  // Cambio del nombre de la clase

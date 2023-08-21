@@ -4,14 +4,12 @@
  */
 package Controller;
 
+import Models.HabitacionOcupadaException;
+
 /**
  *
  * @author ´Felipe Chacón
  */
-public interface Controller<Type> {
-public void Agregar(Type obj);
-public void Actualizar(Type obj);
-public void Eliminar(Type obj);
-public void Buscar(Object id);
-public void buscarTodo();
+public interface MetodoEliminar<Type> {
+    void Eliminar(Type obj) throws HabitacionOcupadaException;
 }

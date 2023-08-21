@@ -5,27 +5,20 @@
 package Habitacion;
 
 import Controller.Controller;
+import Models.HabitacionOcupadaException;
 import Views.View;
 
-/**
- *
- * @author ´Felipe Chacón
- */
-
 public class HabitacionController implements Controller<Habitacion> {
-    // Atributos de la clase
-    private HabitacionList list; // Atributo HabitacionList
-    private View view; // Atributo View
+    private HabitacionList list;
+    private View view;
 
-    // Constructor que recibe una instancia de la vista para interactuar con ella
     public HabitacionController(View view) {
-        list = HabitacionList.getInstance(); // Crear una nueva instancia de HabitacionList
-        this.view = view; // Asignar la vista proporcionada al atributo view
+        list = HabitacionList.getInstance();
+        this.view = view;
     }
 
     @Override
     public void Agregar(Habitacion habitacion) {
-        // Lógica para agregar una habitación
         if (list.Agregar(habitacion)) {
             view.displayMessaje("Habitación agregada exitosamente.");
         } else {
@@ -40,29 +33,48 @@ public class HabitacionController implements Controller<Habitacion> {
             view.displayMessaje("Tipo de habitación actualizado exitosamente.");
         } else {
             view.displayErrorMessaje("No se pudo actualizar el tipo de habitación.");
+        }
     }
-}
 
 
     @Override
-    public void Eliminar(Habitacion habitacion) {
-        // Lógica para eliminar una habitación
+    public void Eliminar(Habitacion habitacion)  {
+        // Verifica si la habitación está ocupada
+        if (habitacion.isOcupada()) {
+            view.displayErrorMessaje("No se puede eliminar una habitación ocupada.");
+        }
+
+        // Si la habitación no está ocupada, procede con la eliminación
         if (list.Eliminar(habitacion)) {
             view.displayMessaje("Habitación eliminada exitosamente.");
         } else {
             view.displayErrorMessaje("No se pudo eliminar la habitación.");
         }
-    }
+}
+
 
     @Override
     public void Buscar(Object id) {
-        // Lógica para buscar una habitación por su número
-        if (list.Buscar(id)) {
-            // Si se encuentra la habitación, muestra sus detalles en la vista
-            Habitacion habitacion = list.obtenerHabitacionPorNumero((int) id);
-            view.display(habitacion);
+        if (id instanceof Integer) {
+            Habitacion habitacion = list.Buscar(id);
+            if (habitacion != null) {
+                view.display(habitacion);
+            } else {
+                view.displayErrorMessaje("No se encontró la habitación con el número proporcionado.");
+            }
         } else {
-            view.displayErrorMessaje("Habitación no encontrada.");
+            view.displayErrorMessaje("El número de habitación debe ser un valor entero.");
+        }
+    }
+
+    @Override
+    public void buscarTodo() {
+        Habitacion[] habitaciones = list.toArray();
+        if (habitaciones.length > 0) {
+            view.displayAll(habitaciones);
+        } else {
+            view.displayMessaje("No hay habitaciones registradas.");
         }
     }
 }
+
