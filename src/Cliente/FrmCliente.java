@@ -5,7 +5,7 @@
 package Cliente;
 
 
-import static Cliente.FrmBuscar.tblClientes;
+import static Cliente.FrmBuscarCl.tblClientes;
 import Empleado.*;
 import Controller.Controller;
 import Models.Table;
@@ -365,7 +365,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-       FrmBuscar gente = new FrmBuscar();
+       FrmBuscarCl gente = new FrmBuscarCl();
        FrmMenu.desktopMenu.add(gente);
        gente.toFront();
        gente.setVisible(true);
@@ -411,7 +411,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
     public static javax.swing.JFormattedTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 
-    void addObserver(FrmBuscar aThis) {
+    void addObserver(FrmBuscarCl aThis) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

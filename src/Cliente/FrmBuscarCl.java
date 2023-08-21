@@ -24,7 +24,7 @@ import java.awt.event.MouseEvent;
  *
  * @author jprod
  */
-public class FrmBuscar extends javax.swing.JInternalFrame implements View<Cliente> {  
+public class FrmBuscarCl extends javax.swing.JInternalFrame implements View<Cliente> {  
 
     static Object getTblEmpleados() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -34,11 +34,10 @@ public class FrmBuscar extends javax.swing.JInternalFrame implements View<Client
     private Cliente cliente;
     private FrmCliente frmCliente;
 
-    public FrmBuscar() {
+    public FrmBuscarCl() {
         initComponents();
         this.cliente = cliente;
         this.frmCliente = frmCliente;
-        frmCliente.addObserver(this);
         this.loadPuestos();  // Cambio del método
         this.controller = new ClienteController(this);  // Cambio del nombre de la clase
         this.controller.buscarTodo(); 
@@ -59,13 +58,13 @@ public class FrmBuscar extends javax.swing.JInternalFrame implements View<Client
 
     @Override
     public void display(Cliente cliente) {  // Cambio del nombre de la clase
-//        frmCliente.txtIdentificacion.setText(cliente.getIdentificacion());
+        frmCliente.txtIdentificacion.setText(String.valueOf(cliente.getIdentificacion()));
         frmCliente.txtNombre.setText(cliente.getNombre());
-//        frmCliente.txtTelefono.setText(cliente.getTelefono());
+        frmCliente.txtTelefono.setText(String.valueOf(cliente.getTelefono()));
         frmCliente.txtCorreo.setText(cliente.getCorreo());
-        frmCliente.txtFechaNacimiento.setText(String.valueOf(cliente.getFechaNacimiento()));
+        frmCliente.txtFechaNacimiento.setValue(cliente.getFechaNacimiento());
     }
-
+    
     @Override
     public void displayAll(Cliente[] regs) {  // Cambio del nombre de la clase
         DefaultTableModel tableModel = (DefaultTableModel) tblClientes.getModel();
