@@ -12,26 +12,28 @@ import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Empleado.Empleado; 
-import java.awt.event.MouseEvent;
 
 /**
  *
- * @author jprod
+ * @author rsand
  */
 public class datos extends javax.swing.JInternalFrame implements View<Empleado> {  
-
-    static Object getTblEmpleados() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-// Cambio del nombre de la clase
+  
+    private FrmEmpleado frmEmpleado;
     private Controller controller;
     private Empleado empleado;
-
+    
+    public datos(FrmEmpleado frmEmpleado) {
+        this.frmEmpleado = frmEmpleado;
+        frmEmpleado.addObserver(this);
+        // Resto de la inicialización...
+    }
+    
     public datos() {
         initComponents();
         this.empleado = empleado;
         this.loadPuestos();  // Cambio del método
-        this.controller = new EmpleadoControler(this);  // Cambio del nombre de la clase
+        this.controller = new EmpleadoControler(this); 
         this.controller.buscarTodo(); 
         
     }
@@ -52,20 +54,21 @@ public class datos extends javax.swing.JInternalFrame implements View<Empleado> 
 
     @Override
     public void display(Empleado empleado) {  // Cambio del nombre de la clase
-        txtIdentificacion.setText(empleado.getIdentificacion());
-        txtNombre.setText(empleado.getNombre());
-        txtTelefono.setText(empleado.getTelefono());
-        txtPuesto.setText(empleado.getPuesto());
-        txtSalario.setText(String.valueOf(empleado.getSalario()));
+    frmEmpleado.txtIdentificacion.setText(empleado.getIdentificacion());
+    frmEmpleado.txtNombre.setText(empleado.getNombre());
+    frmEmpleado.txtTelefono.setText(empleado.getTelefono());
+    frmEmpleado.txtPuesto.setSelectedItem(empleado.getPuesto());
+    frmEmpleado.txtSalario.setText(String.valueOf(empleado.getSalario()));
+    
     }
-
+    
     @Override
     public void displayAll(Empleado[] regs) {  // Cambio del nombre de la clase
         DefaultTableModel tableModel = (DefaultTableModel) tblEmpleados.getModel();
         tableModel.setNumRows(0);
         for (Empleado empleado : regs) {
-            Object[] data = empleado.toArrayObject();
-            tableModel.addRow(data);
+            Object[] datos = empleado.toArrayObject();
+            tableModel.addRow(datos);
         }
         tblEmpleados.setModel(tableModel);
     }
@@ -86,7 +89,6 @@ public class datos extends javax.swing.JInternalFrame implements View<Empleado> 
         return option == JOptionPane.YES_OPTION;
     }
     
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -115,7 +117,7 @@ public class datos extends javax.swing.JInternalFrame implements View<Empleado> 
 
             },
             new String [] {
-                "Cedula", "Nombre", "Telefono", "Puesto", "Salario"
+                "Cédula", "Nombre", "Teléfono", "Puesto", "Salario"
             }
         ) {
             Class[] types = new Class [] {
@@ -196,7 +198,7 @@ public class datos extends javax.swing.JInternalFrame implements View<Empleado> 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblEmpleados;
+    private static javax.swing.JTable tblEmpleados;
     private javax.swing.JTextField txtFiltro;
     // End of variables declaration//GEN-END:variables
 
