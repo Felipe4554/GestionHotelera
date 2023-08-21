@@ -215,7 +215,7 @@ public class FrmBuscar extends javax.swing.JInternalFrame implements View<Habita
 
     @Override
     public void display(Habitacion regs) {
-//        txtIdentificacion.setText(empleado.getIdentificacion());
+//        spnNumeroHabitacion.setValue(empleado.getIdentificacion());
 //        txtNombre.setText(empleado.getNombre());
 //        txtTelefono.setText(empleado.getTelefono());
 //        txtPuesto.setText(empleado.getPuesto());
@@ -237,4 +237,13 @@ public class FrmBuscar extends javax.swing.JInternalFrame implements View<Habita
         int option = JOptionPane.showConfirmDialog(this, msj, "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         return option == JOptionPane.YES_OPTION;
     }
+    
+    // Agrega un método para agregar una habitación a la tabla
+    public void agregarHabitacionATabla(Habitacion habitacion) {
+        DefaultTableModel tableModel = (DefaultTableModel) tblHabitaciones.getModel();
+        Object[] data = habitacion.toArrayObject();
+        tableModel.addRow(data);
+        tblHabitaciones.setModel(tableModel);
+    }
+
 }

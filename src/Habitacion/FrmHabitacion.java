@@ -257,16 +257,18 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
     }//GEN-LAST:event_txtTipoActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-     // Obtener los datos de los campos de la vista y crear una instancia de Habitacion
+        // Obtener los datos de los campos de la vista y crear una instancia de Habitacion
         int numeroHabitacion = (int) spnNumeroHabitacion.getValue();
         TipoHabitacion tipoHabitacion = TipoHabitacion.valueOf(txtTipo.getSelectedItem().toString());
         boolean ocupada = false;
         double precio = Double.parseDouble(txtPrecio.getText());
         Habitacion nuevaHabitacion = new Habitacion(numeroHabitacion, tipoHabitacion, ocupada, precio);
-        controller.Agregar(nuevaHabitacion);
-         // Mostrar la habitación agregada por consola
-    System.out.println("Habitación agregada: " + nuevaHabitacion.toString());
-    
+
+        // Agrega la habitación a la tabla en FrmBuscar
+        frmBuscar.agregarHabitacionATabla(nuevaHabitacion);
+
+        // Mostrar la habitación agregada por consola
+        System.out.println("Habitación agregada: " + nuevaHabitacion.toString());
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
