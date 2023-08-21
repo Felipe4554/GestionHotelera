@@ -121,14 +121,14 @@ public class FrmBusc extends javax.swing.JInternalFrame implements View<Habitaci
 
             },
             new String [] {
-                "Cedula", "Nombre", "Telefono", "Puesto", "Salario"
+                "Habitacion", "Tipo", "Estado", "Precio"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -202,7 +202,7 @@ public class FrmBusc extends javax.swing.JInternalFrame implements View<Habitaci
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblHabitaciones;
+    private static javax.swing.JTable tblHabitaciones;
     private javax.swing.JTextField txtFiltro;
     // End of variables declaration//GEN-END:variables
 

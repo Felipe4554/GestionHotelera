@@ -8,7 +8,7 @@ import Habitacion.FrmHabitacion;
 import Empleado.FrmEmpleado;
 /**
  *
- * @author jprod
+ * @author rsand
  */
 public class FrmMenu extends javax.swing.JFrame {
 
@@ -67,6 +67,7 @@ public class FrmMenu extends javax.swing.JFrame {
 
         menuMembers.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         menuMembers.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menuMembers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/users (4).png"))); // NOI18N
         menuMembers.setText("Empleados");
         menuMembers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

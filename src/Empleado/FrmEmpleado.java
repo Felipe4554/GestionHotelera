@@ -19,12 +19,13 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author jprod
+ * @author rsand
  */
 public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empleado> {  // Cambio del nombre de la clase
     private Controller controller;
     private FrmMenu desktopMenu;
     private boolean datosFrameShown = false;
+    
     
     public FrmEmpleado() {
         initComponents();
@@ -52,9 +53,10 @@ public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empl
         txtIdentificacion.setText(empleado.getIdentificacion());
         txtNombre.setText(empleado.getNombre());
         txtTelefono.setText(empleado.getTelefono());
+        txtPuesto.setSelectedItem(empleado.getPuesto());
         txtSalario.setText(String.valueOf(empleado.getSalario()));
     }
-
+    
     @Override
     public void displayAll(Empleado[] regs) {  // Cambio del nombre de la clase
        // DefaultTableModel tableModel = (DefaultTableModel) tblEmpleados.getModel();
@@ -63,6 +65,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empl
             Object[] data = empleado.toArrayObject();
             //tableModel.addRow(data);
         }
+        
     }
 
     @Override
@@ -114,13 +117,13 @@ public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empl
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Cedula");
+        jLabel1.setText("Cédula");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Nombre");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel3.setText("Telefono");
+        jLabel3.setText("Teléfono");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("Puesto");
@@ -185,7 +188,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empl
                         .addComponent(jLabel3)
                         .addGap(99, 99, 99)
                         .addComponent(jLabel5)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -213,7 +216,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empl
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        btnClear.setText("Limpiar");
+        btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/clear_left (3).png"))); // NOI18N
         btnClear.setToolTipText("Limpiar");
         btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -221,7 +224,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empl
             }
         });
 
-        btnSave.setText("Guardar");
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/save_all (3).png"))); // NOI18N
         btnSave.setToolTipText("Guardar");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -229,7 +232,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empl
             }
         });
 
-        btnDelete.setText("Borrar");
+        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/dialog-cancel.png"))); // NOI18N
         btnDelete.setToolTipText("Eliminar");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -237,7 +240,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empl
             }
         });
 
-        btnSearch.setText("Buscar");
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/search.png"))); // NOI18N
         btnSearch.setToolTipText("Buscar");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -251,14 +254,14 @@ public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empl
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(323, 323, 323))
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(433, 433, 433))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,7 +293,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empl
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(272, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -308,7 +311,8 @@ public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empl
     double salario = Double.parseDouble(txtSalario.getText());
     
     Empleado nuevoEmpleado = new Empleado(identificacion, nombre, telefono, puesto, salario);  // Cambio del nombre de la clase
-    controller.Agregar(nuevoEmpleado);   
+    controller.Agregar(nuevoEmpleado);
+   
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -352,7 +356,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empl
             salario = 650000;
             break;
         default:
-            // Manejo si el puesto no coincide con ninguno de los casos anteriores
+            
             break;
     }
     
@@ -393,5 +397,9 @@ public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empl
     public static javax.swing.JTextField txtSalario;
     public static javax.swing.JFormattedTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
+
+    void addObserver(datos aThis) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
 }
