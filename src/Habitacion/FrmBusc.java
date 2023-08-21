@@ -2,10 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package Cliente;
+package Habitacion;
 
 
-import static Cliente.FrmCliente.txtCorreo;
 import Empleado.*;
 import Controller.Controller;
 import Models.Table;
@@ -18,31 +17,37 @@ import static Empleado.FrmEmpleado.txtIdentificacion;
 import static Empleado.FrmEmpleado.txtNombre;
 import static Empleado.FrmEmpleado.txtSalario;
 import static Empleado.FrmEmpleado.txtTelefono;
+import static Habitacion.FrmHabitacion.spnNumeroHabitacion;
+import static Habitacion.FrmHabitacion.txtOcupada;
+import static Habitacion.FrmHabitacion.txtPrecio;
+import static Habitacion.FrmHabitacion.txtTipo;
+import static Habitacion.TipoHabitacion.Individual;
 import java.awt.event.MouseEvent;
 
 /**
  *
  * @author jprod
  */
-public class FrmBuscar extends javax.swing.JInternalFrame implements View<Cliente> {  
+public class FrmBusc extends javax.swing.JInternalFrame implements View<Habitacion> {  
 
     static Object getTblEmpleados() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 // Cambio del nombre de la clase
     private Controller controller;
-    private Cliente cliente;
-    private FrmCliente frmCliente;
+    private Habitacion habitacionSeleccionada;
+    private FrmHabitacion frmHabitacion;
 
-    public FrmBuscar() {
+    public FrmBusc() {
         initComponents();
-        this.cliente = cliente;
-        this.frmCliente = frmCliente;
-        frmCliente.addObserver(this);
+        this.habitacionSeleccionada = habitacionSeleccionada;
         this.loadPuestos();  // Cambio del método
-        this.controller = new ClienteController(this);  // Cambio del nombre de la clase
+        this.frmHabitacion = frmHabitacion;
+        this.controller = new HabitacionController(this);  // Cambio del nombre de la clase
         this.controller.buscarTodo(); 
+        
     }
+         
      
     private void loadPuestos() {
    
@@ -50,31 +55,27 @@ public class FrmBuscar extends javax.swing.JInternalFrame implements View<Client
     
     @Override
     public void clear() {
-        txtIdentificacion.setText("");
-        txtNombre.setText("");
-        txtTelefono.setText("");
-//        txtPuesto.setText("");
-        txtSalario.setText("");
+        spnNumeroHabitacion.setValue(0);
+        txtTipo.setSelectedItem(Individual);
+        txtOcupada.setText("");
+        txtPrecio.setText("");
     }
 
-    @Override
-    public void display(Cliente cliente) {  // Cambio del nombre de la clase
-//        frmCliente.txtIdentificacion.setText(cliente.getIdentificacion());
-        frmCliente.txtNombre.setText(cliente.getNombre());
-//        frmCliente.txtTelefono.setText(cliente.getTelefono());
-        frmCliente.txtCorreo.setText(cliente.getCorreo());
-        frmCliente.txtFechaNacimiento.setText(String.valueOf(cliente.getFechaNacimiento()));
+    public void display(Habitacion habitacion) {  // Cambio del nombre de la clase
+        frmHabitacion.spnNumeroHabitacion.setValue(habitacion.getNumeroHabitacion());
+        frmHabitacion.txtTipo.setSelectedItem(habitacion.getTipoHabitacion());
+        // frmHabitacion.txtOcupada.setText((habitacion.isOcupada());
+        frmHabitacion.txtPrecio.setText(String.valueOf(habitacion.getPrecio()));
     }
 
-    @Override
-    public void displayAll(Cliente[] regs) {  // Cambio del nombre de la clase
-        DefaultTableModel tableModel = (DefaultTableModel) tblClientes.getModel();
+    public void displayAll(Habitacion[] regs) {  // Cambio del nombre de la clase
+        DefaultTableModel tableModel = (DefaultTableModel) tblHabitaciones.getModel();
         tableModel.setNumRows(0);
-        for (Cliente cliente : regs) {
-            Object[] data = cliente.toArrayObject();
+        for (Habitacion habitacion : regs) {
+            Object[] data = habitacion.toArrayObject();
             tableModel.addRow(data);
         }
-        tblClientes.setModel(tableModel);
+        tblHabitaciones.setModel(tableModel);
     }
 
     @Override
@@ -92,6 +93,8 @@ public class FrmBuscar extends javax.swing.JInternalFrame implements View<Client
         int option = JOptionPane.showConfirmDialog(this, msj, "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         return option == JOptionPane.YES_OPTION;
     }
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -104,7 +107,7 @@ public class FrmBuscar extends javax.swing.JInternalFrame implements View<Client
 
         txtFiltro = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblClientes = new javax.swing.JTable();
+        tblHabitaciones = new javax.swing.JTable();
 
         setClosable(true);
 
@@ -115,19 +118,19 @@ public class FrmBuscar extends javax.swing.JInternalFrame implements View<Client
             }
         });
 
-        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tblHabitaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Cedula", "Nombre", "Telefono", "Edad", "Correo"
+                "Habitacion", "Tipo", "Estado", "Precio"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -138,20 +141,20 @@ public class FrmBuscar extends javax.swing.JInternalFrame implements View<Client
                 return canEdit [columnIndex];
             }
         });
-        tblClientes.setColumnSelectionAllowed(true);
-        tblClientes.getTableHeader().setReorderingAllowed(false);
-        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblHabitaciones.setColumnSelectionAllowed(true);
+        tblHabitaciones.getTableHeader().setReorderingAllowed(false);
+        tblHabitaciones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblClientesMouseClicked(evt);
+                tblHabitacionesMouseClicked(evt);
             }
         });
-        tblClientes.addKeyListener(new java.awt.event.KeyAdapter() {
+        tblHabitaciones.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                tblClientesKeyReleased(evt);
+                tblHabitacionesKeyReleased(evt);
             }
         });
-        jScrollPane1.setViewportView(tblClientes);
-        tblClientes.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        jScrollPane1.setViewportView(tblHabitaciones);
+        tblHabitaciones.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -177,31 +180,31 @@ public class FrmBuscar extends javax.swing.JInternalFrame implements View<Client
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtFiltroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroKeyReleased
-        Table.filter(this.tblClientes, txtFiltro.getText());
+        Views.Table.filter(this.tblHabitaciones, txtFiltro.getText());
     }//GEN-LAST:event_txtFiltroKeyReleased
 
-    private void tblClientesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblClientesKeyReleased
-        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-            int row = tblClientes.getSelectedRow();
-            if (row > -1) {
-                Object identificacion = tblClientes.getValueAt(row, 0);
-                controller.Eliminar(new Empleado(identificacion.toString()));  // Cambio del nombre de la clase
-            }
-        }
-    }//GEN-LAST:event_tblClientesKeyReleased
+    private void tblHabitacionesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblHabitacionesKeyReleased
+//        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+//            int row = tblHabitaciones.getSelectedRow();
+//            if (row > -1) {
+//                Object numeroHabitacion = tblHabitaciones.getValueAt(row, 0);
+//                controller.Eliminar(new Habitacion(numeroHabitacion.toString()));
+//            }
+//        }
+    }//GEN-LAST:event_tblHabitacionesKeyReleased
 
-    private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
+    private void tblHabitacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHabitacionesMouseClicked
         if (evt.getClickCount() == 2) {
-            int row = tblClientes.getSelectedRow();
-            Object identificacion = tblClientes.getValueAt(row, 0);
-            controller.Buscar(identificacion);
+            int row = tblHabitaciones.getSelectedRow();
+            Object numeroHabitacion = tblHabitaciones.getValueAt(row, 0);
+            controller.Buscar(numeroHabitacion.toString());
         }
-    }//GEN-LAST:event_tblClientesMouseClicked
+    }//GEN-LAST:event_tblHabitacionesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    public static javax.swing.JTable tblClientes;
+    private static javax.swing.JTable tblHabitaciones;
     private javax.swing.JTextField txtFiltro;
     // End of variables declaration//GEN-END:variables
 

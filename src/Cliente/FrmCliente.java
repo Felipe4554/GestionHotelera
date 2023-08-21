@@ -5,6 +5,7 @@
 package Cliente;
 
 
+import static Cliente.FrmBuscar.tblClientes;
 import Empleado.*;
 import Controller.Controller;
 import Models.Table;
@@ -14,6 +15,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -48,7 +51,6 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
         txtTelefono.setText("");
         txtCorreo.setText("");
         txtFechaNacimiento.setValue(null);
-        txtEdad.setValue(null);
     }
 
     @Override
@@ -58,17 +60,16 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
         txtTelefono.setText(String.valueOf(cliente.getTelefono()));
         txtCorreo.setText(cliente.getCorreo());
         txtFechaNacimiento.setValue(cliente.getFechaNacimiento());
-        txtEdad.setValue(cliente.getEdad());
     }
 
     @Override
     public void displayAll(Cliente[] regs) {
-//        DefaultTableModel tableModel = (DefaultTableModel) tblClientes.getModel();
-//        tableModel.setNumRows(0);
-//        for (Cliente cliente : regs) {
-//            Object[] data = cliente.toArrayObject();
-//            tableModel.addRow(data);
-//        }
+        DefaultTableModel tableModel = (DefaultTableModel) tblClientes.getModel();
+        tableModel.setNumRows(0);
+        for (Cliente cliente : regs) {
+            Object[] data = cliente.toArrayObject();
+            tableModel.addRow(data);
+        }
     }
 
     @Override
@@ -109,8 +110,6 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
         jLabel4 = new javax.swing.JLabel();
         txtCorreo = new javax.swing.JTextField();
         txtFechaNacimiento = new javax.swing.JFormattedTextField();
-        txtEdad = new javax.swing.JFormattedTextField();
-        jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnClear = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
@@ -166,18 +165,12 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
             }
         });
 
-        txtFechaNacimiento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
-
-        txtEdad.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat(""))));
-        txtEdad.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtEdad.addActionListener(new java.awt.event.ActionListener() {
+        txtFechaNacimiento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
+        txtFechaNacimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEdadActionPerformed(evt);
+                txtFechaNacimientoActionPerformed(evt);
             }
         });
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel6.setText("Edad");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -186,33 +179,26 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtFechaNacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(99, 99, 99)
-                                .addComponent(jLabel5)))
-                        .addGap(12, 12, 12)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtFechaNacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jLabel3)
+                        .addGap(99, 99, 99)
+                        .addComponent(jLabel5)))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -233,11 +219,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
                         .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -316,8 +298,8 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(68, 68, 68)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
@@ -330,18 +312,22 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-     String identificacion = txtIdentificacion.getText();
+    String identificacionStr = txtIdentificacion.getText();
     String nombre = txtNombre.getText();
-    String telefono = txtTelefono.getText();
+    String telefonoStr = txtTelefono.getText();
     String correo = txtCorreo.getText();
-    
-    // Asegúrate de manejar las excepciones si el usuario ingresa datos incorrectos
-    try {     
-        // Supongamos que getFechaNacimiento() devuelve una fecha en formato correcto
-        Date fechaNacimiento = (Date) txtFechaNacimiento.getValue();
+    String fechaNacimientoStr = txtFechaNacimiento.getText(); // Obtener la cadena de fecha
+
+    try {
+        int identificacion = Integer.parseInt(identificacionStr);
+        int telefono = Integer.parseInt(telefonoStr);
+        
+        // Crear un formato de fecha para analizar la cadena de fecha
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date fechaNacimiento = dateFormat.parse(fechaNacimientoStr); // Convertir la cadena en Date
         
         // Crear un nuevo objeto Cliente con los datos
-        Cliente nuevoCliente = new Cliente(identificacion , nombre, telefono, correo, fechaNacimiento);
+        Cliente nuevoCliente = new Cliente(identificacion, nombre, fechaNacimiento, telefono, correo);
         
         // Llamar al controlador para agregar el cliente
         controller.Agregar(nuevoCliente);
@@ -352,27 +338,34 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
         // Mostrar mensaje de éxito
         displayMessaje("Cliente agregado exitosamente.");
     } catch (NumberFormatException e) {
-        displayErrorMessaje("Error: Ingresa una edad válida.");
-    } catch (NullPointerException e) {
-        displayErrorMessaje("Error: Ingresa una fecha de nacimiento válida.");
+        displayErrorMessaje("Error: Ingresa un número válido para la identificación o el teléfono.");
+    } catch (ParseException e) {
+        displayErrorMessaje("Error: Ingresa una fecha válida en el formato yyyy-MM-dd.");
     }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-    String identificacionAEliminar = JOptionPane.showInputDialog(this, "Ingrese la identificación del cliente a eliminar:", "Eliminar Cliente", JOptionPane.QUESTION_MESSAGE);
-    if (identificacionAEliminar != null && !identificacionAEliminar.isEmpty()) {
-        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Seguro que deseas eliminar este cliente?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
-        if (confirmacion == JOptionPane.YES_OPTION) {
-            // Crear un objeto Cliente con la identificación a eliminar
-            Cliente clienteAEliminar = new Cliente(identificacionAEliminar);
-            controller.Eliminar(clienteAEliminar);
-            clear();
+    String identificacionAEliminarStr = JOptionPane.showInputDialog(this, "Ingrese la identificación del cliente a eliminar:", "Eliminar Cliente", JOptionPane.QUESTION_MESSAGE);
+    
+    if (identificacionAEliminarStr != null && !identificacionAEliminarStr.isEmpty()) {
+        try {
+            int identificacionAEliminar = Integer.parseInt(identificacionAEliminarStr);
+            
+            int confirmacion = JOptionPane.showConfirmDialog(this, "¿Seguro que deseas eliminar este cliente?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                // Crear un objeto Cliente con la identificación a eliminar
+                Cliente clienteAEliminar = new Cliente(identificacionAEliminar, "", null, 0, "");
+                controller.Eliminar(clienteAEliminar);
+                clear();
+            }
+        } catch (NumberFormatException e) {
+            displayErrorMessaje("Error: Ingresa una identificación válida.");
         }
     }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-       datos gente = new datos();
+       FrmBuscar gente = new FrmBuscar();
        FrmMenu.desktopMenu.add(gente);
        gente.toFront();
        gente.setVisible(true);
@@ -394,9 +387,9 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCorreoActionPerformed
 
-    private void txtEdadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEdadActionPerformed
+    private void txtFechaNacimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaNacimientoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtEdadActionPerformed
+    }//GEN-LAST:event_txtFechaNacimientoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -409,15 +402,17 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     public static javax.swing.JTextField txtCorreo;
-    public static javax.swing.JFormattedTextField txtEdad;
-    private javax.swing.JFormattedTextField txtFechaNacimiento;
+    javax.swing.JFormattedTextField txtFechaNacimiento;
     public static javax.swing.JFormattedTextField txtIdentificacion;
     public static javax.swing.JTextField txtNombre;
     public static javax.swing.JFormattedTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
+
+    void addObserver(FrmBuscar aThis) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
 }

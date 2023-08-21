@@ -43,7 +43,7 @@ public class HabitacionList implements List<Habitacion> {
 
     @Override
     public boolean Eliminar(Habitacion obj) {
-        if (obj != null && habitaciones.contains(obj) && !obj.isOcupada()) {
+        if (obj != null && habitaciones.contains(obj) && obj.isOcupada()) {
             habitaciones.remove(obj);
             return true;
         }

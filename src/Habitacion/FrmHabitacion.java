@@ -24,7 +24,7 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
 
     private HabitacionController controller; // Agregar una referencia al controlador
     FrmMenu desktTopMenu;
-    private FrmBuscar frmBuscar;
+    private FrmBusc frmBuscar;
     /**
      * Creates new form FrmHabitacion
      */
@@ -32,7 +32,7 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
         initComponents();
         TipoHabitacion();
         controller = new HabitacionController(this);
-        frmBuscar = new FrmBuscar();
+        frmBuscar = new FrmBusc();
     }
     
     private void loadHabitaciones() {  // Cambio del nombre del método
@@ -283,7 +283,7 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-       FrmBuscar tblHabitaciones = new FrmBuscar();
+       FrmBusc tblHabitaciones = new FrmBusc();
        FrmMenu.desktopMenu.add(tblHabitaciones);
        tblHabitaciones.toFront();
        tblHabitaciones.setVisible(true);
