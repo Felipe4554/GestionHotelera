@@ -66,13 +66,13 @@ public class FrmBuscar extends javax.swing.JInternalFrame implements View<Emplea
 
     @Override
     public void displayAll(Empleado[] regs) {  // Cambio del nombre de la clase
-        DefaultTableModel tableModel = (DefaultTableModel) tblEmpleados.getModel();
+        DefaultTableModel tableModel = (DefaultTableModel) tblClientes.getModel();
         tableModel.setNumRows(0);
         for (Empleado empleado : regs) {
             Object[] data = empleado.toArrayObject();
             tableModel.addRow(data);
         }
-        tblEmpleados.setModel(tableModel);
+        tblClientes.setModel(tableModel);
     }
 
     @Override
@@ -104,7 +104,7 @@ public class FrmBuscar extends javax.swing.JInternalFrame implements View<Emplea
 
         txtFiltro = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblEmpleados = new javax.swing.JTable();
+        tblClientes = new javax.swing.JTable();
 
         setClosable(true);
 
@@ -115,7 +115,7 @@ public class FrmBuscar extends javax.swing.JInternalFrame implements View<Emplea
             }
         });
 
-        tblEmpleados.setModel(new javax.swing.table.DefaultTableModel(
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -138,20 +138,20 @@ public class FrmBuscar extends javax.swing.JInternalFrame implements View<Emplea
                 return canEdit [columnIndex];
             }
         });
-        tblEmpleados.setColumnSelectionAllowed(true);
-        tblEmpleados.getTableHeader().setReorderingAllowed(false);
-        tblEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblClientes.setColumnSelectionAllowed(true);
+        tblClientes.getTableHeader().setReorderingAllowed(false);
+        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblEmpleadosMouseClicked(evt);
+                tblClientesMouseClicked(evt);
             }
         });
-        tblEmpleados.addKeyListener(new java.awt.event.KeyAdapter() {
+        tblClientes.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                tblEmpleadosKeyReleased(evt);
+                tblClientesKeyReleased(evt);
             }
         });
-        jScrollPane1.setViewportView(tblEmpleados);
-        tblEmpleados.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        jScrollPane1.setViewportView(tblClientes);
+        tblClientes.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -177,31 +177,31 @@ public class FrmBuscar extends javax.swing.JInternalFrame implements View<Emplea
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtFiltroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroKeyReleased
-        Table.filter(this.tblEmpleados, txtFiltro.getText());
+        Table.filter(this.tblClientes, txtFiltro.getText());
     }//GEN-LAST:event_txtFiltroKeyReleased
 
-    private void tblEmpleadosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblEmpleadosKeyReleased
+    private void tblClientesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblClientesKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-            int row = tblEmpleados.getSelectedRow();
+            int row = tblClientes.getSelectedRow();
             if (row > -1) {
-                Object identificacion = tblEmpleados.getValueAt(row, 0);
+                Object identificacion = tblClientes.getValueAt(row, 0);
                 controller.Eliminar(new Empleado(identificacion.toString()));  // Cambio del nombre de la clase
             }
         }
-    }//GEN-LAST:event_tblEmpleadosKeyReleased
+    }//GEN-LAST:event_tblClientesKeyReleased
 
-    private void tblEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmpleadosMouseClicked
+    private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
         if (evt.getClickCount() == 2) {
-            int row = tblEmpleados.getSelectedRow();
-            Object identificacion = tblEmpleados.getValueAt(row, 0);
+            int row = tblClientes.getSelectedRow();
+            Object identificacion = tblClientes.getValueAt(row, 0);
             controller.Buscar(identificacion);
         }
-    }//GEN-LAST:event_tblEmpleadosMouseClicked
+    }//GEN-LAST:event_tblClientesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblEmpleados;
+    public static javax.swing.JTable tblClientes;
     private javax.swing.JTextField txtFiltro;
     // End of variables declaration//GEN-END:variables
 

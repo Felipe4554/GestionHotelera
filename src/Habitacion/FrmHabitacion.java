@@ -7,7 +7,6 @@ package Habitacion;
 import Empleado.datos;
 
 
-import static Habitacion.FrmHab.txtIdentificacion;
 import Models.HabitacionOcupadaException;
 import Views.FrmMenu;
 import Views.View;
@@ -261,28 +260,16 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
     }//GEN-LAST:event_txtTipoActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-<<<<<<< HEAD
+
         // Obtener los datos de los campos de la vista y crear una instancia de Habitacion
-=======
->>>>>>> d4e2045769e77525c9580871a4b22c4438119a71
+
         int numeroHabitacion = (int) spnNumeroHabitacion.getValue();
         TipoHabitacion tipoHabitacion = TipoHabitacion.valueOf(txtTipo.getSelectedItem().toString());
         boolean ocupada = Boolean.parseBoolean(txtOcupada.getText());
         double precio = Double.parseDouble(txtPrecio.getText());
-        
+
         Habitacion nuevaHabitacion = new Habitacion(numeroHabitacion, tipoHabitacion, ocupada, precio);
-<<<<<<< HEAD
-
-        // Agrega la habitación a la tabla en FrmBuscar
-        frmBuscar.agregarHabitacionATabla(nuevaHabitacion);
-
-        // Mostrar la habitación agregada por consola
-        System.out.println("Habitación agregada: " + nuevaHabitacion.toString());
-=======
         controller.Agregar(nuevaHabitacion);
-     
-    
->>>>>>> d4e2045769e77525c9580871a4b22c4438119a71
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -296,7 +283,7 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-       FrmBusc tblHabitaciones = new FrmBusc();
+       FrmBuscar tblHabitaciones = new FrmBuscar();
        FrmMenu.desktopMenu.add(tblHabitaciones);
        tblHabitaciones.toFront();
        tblHabitaciones.setVisible(true);

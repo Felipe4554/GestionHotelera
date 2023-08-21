@@ -5,39 +5,61 @@
 package Cliente;
 
 import Models.List;
+import java.util.HashSet;
 
-/**
- *
- * @author ´Felipe Chacón
- */
 public class ClienteList implements List<Cliente> {
-
     private static ClienteList clienteList;
+    private HashSet<Cliente> clientes;
+
+    // Método estático para obtener la instancia única de la lista de clientes
+    public static ClienteList getInstance() {
+        if (clienteList == null) {
+            clienteList = new ClienteList();
+        }
+        return clienteList;
+    }
+
+    private ClienteList() {
+        clientes = new HashSet<>();
+    }
+
+    @Override
+    public boolean Agregar(Cliente cliente) {
+        if (cliente != null && cliente.getIdentificacion() != 0) {
+            return clientes.add(cliente);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean Actualizar(Cliente cliente) {
+        // Para actualizar, primero eliminamos el cliente existente (si existe)
+        // y luego agregamos el cliente actualizado
+        Eliminar(cliente);
+        return Agregar(cliente);
+    }
+
+    @Override
+    public boolean Eliminar(Cliente cliente) {
+        return clientes.remove(cliente);
+    }
     
-    
     @Override
-    public boolean Agregar(Cliente obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public boolean Actualizar(Cliente obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public boolean Eliminar(Cliente obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Cliente Buscar(Object id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Cliente Buscar(Object identificacion) {
+        if (identificacion instanceof Integer) {
+            int id = (int) identificacion;
+            for (Cliente cliente : clientes) {
+                if (cliente.getIdentificacion() == id) {
+                    return cliente;
+                }
+            }
+        }
+        return null;
     }
 
     @Override
     public Cliente[] toArray() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return clientes.toArray(new Cliente[0]);
     }
-    
+
 }

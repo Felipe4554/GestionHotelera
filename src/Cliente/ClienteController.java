@@ -5,36 +5,80 @@
 package Cliente;
 
 import Controller.Controller;
+import Views.View;
 
 /**
- *
- * @author ´Felipe Chacón
+ * Controller class for managing clients.
+ * Manages client information and interactions with the view.
+ * Implements methods for adding, updating, deleting, searching, and listing clients.
+ * Follows the MVC design pattern.
+ * 
+ * @author Felipe Chacón
  */
-public class ClienteController implements Controller {
+public class ClienteController implements Controller<Cliente> {
 
-    @Override
-    public void Agregar(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private ClienteList clienteList;
+    private View view;
+
+    // Constructor that receives an instance of the view to interact with it
+    public ClienteController(View view) {
+        clienteList = ClienteList.getInstance(); // Create a new instance of ClienteList
+        this.view = view; // Assign the provided view to the view attribute
     }
 
     @Override
-    public void Actualizar(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void Agregar(Cliente cliente) {
+        if (cliente.isComplete()) {
+            clienteList.Agregar(cliente);
+            view.displayMessaje("Cliente agregado exitosamente.");
+            buscarTodo();
+        } else {
+            view.displayErrorMessaje("No se puede agregar el cliente. Faltan datos.");
+        }
     }
 
     @Override
-    public void Eliminar(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void Actualizar(Cliente cliente) {
+        if (cliente.isComplete()) {
+            clienteList.Actualizar(cliente);
+            view.displayMessaje("Cliente actualizado exitosamente.");
+            buscarTodo();
+        } else {
+            view.displayErrorMessaje("No se puede actualizar el cliente. Faltan datos.");
+        }
+    }
+
+    @Override
+    public void Eliminar(Cliente cliente) {
+        // Implement the logic to check for pending reservations before deleting
+        // ...
+
+        if (clienteList.Eliminar(cliente)) {
+            view.displayMessaje("Cliente eliminado exitosamente.");
+            buscarTodo();
+        } else {
+            view.displayErrorMessaje("No se puede eliminar el cliente. No se encontró en la lista.");
+        }
     }
 
     @Override
     public void Buscar(Object id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Cliente cliente = clienteList.Buscar(id);
+        if (cliente != null) {
+            view.display(cliente);
+        } else {
+            view.displayErrorMessaje("No se encontró el cliente con el ID proporcionado.");
+        }
     }
 
     @Override
     public void buscarTodo() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Cliente[] clientes = clienteList.toArray();
+        if (clientes.length > 0) {
+            view.displayAll(clientes);
+        } else {
+            view.displayMessaje("No hay clientes registrados.");
+        }
     }
-    
 }
+
