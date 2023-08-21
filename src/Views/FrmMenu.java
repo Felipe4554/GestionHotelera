@@ -2,13 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Empleado;
-
-import Views.View;
-
-
-
-
+package Views;
+    
+import Habitacion.FrmHabitacion;
+import Empleado.FrmEmpleado;
 /**
  *
  * @author rsand
@@ -21,7 +18,6 @@ public class FrmMenu extends javax.swing.JFrame {
     public FrmMenu() {
         initComponents();
         View.maximize(this);
-        
         //Cargar datos utilizando clase Data.
     }
 
@@ -37,6 +33,7 @@ public class FrmMenu extends javax.swing.JFrame {
         desktopMenu = new javax.swing.JDesktopPane();
         menu = new javax.swing.JMenuBar();
         menuManage = new javax.swing.JMenu();
+        menuHabitaciones = new javax.swing.JMenuItem();
         menuMembers = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -56,6 +53,17 @@ public class FrmMenu extends javax.swing.JFrame {
 
         menuManage.setText("Administrar");
         menuManage.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        menuHabitaciones.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuHabitaciones.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menuHabitaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/Icons/home (6).png"))); // NOI18N
+        menuHabitaciones.setText("Habitaciones");
+        menuHabitaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuHabitacionesActionPerformed(evt);
+            }
+        });
+        menuManage.add(menuHabitaciones);
 
         menuMembers.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         menuMembers.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -85,6 +93,11 @@ public class FrmMenu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void menuHabitacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHabitacionesActionPerformed
+        FrmHabitacion frm = new FrmHabitacion();
+        View.showInternal(desktopMenu, frm);
+    }//GEN-LAST:event_menuHabitacionesActionPerformed
 
     private void menuMembersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMembersActionPerformed
         FrmEmpleado frm = new FrmEmpleado();
@@ -130,6 +143,7 @@ public class FrmMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JDesktopPane desktopMenu;
     private javax.swing.JMenuBar menu;
+    private javax.swing.JMenuItem menuHabitaciones;
     private javax.swing.JMenu menuManage;
     private javax.swing.JMenuItem menuMembers;
     // End of variables declaration//GEN-END:variables
