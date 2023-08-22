@@ -37,6 +37,8 @@ public class Servicio implements Entity {
    }
     // Métodos de acceso
 
+    
+
     public int getCodigoServicio() {
         return codigoServicio;
     }
@@ -56,7 +58,9 @@ public class Servicio implements Entity {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
+    public void setCodigoServicio(int codigoServicio) {
+    this.codigoServicio = codigoServicio;
+    }
     @Override
     public boolean isComplete() {
         return codigoServicio != 0 && !nombre.equals("");

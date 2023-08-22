@@ -66,8 +66,6 @@ public class HabitacionController implements Controller<Habitacion> {
             } else {
                 view.displayErrorMessaje("No se encontró la habitación con el número proporcionado.");
             }
-        } else {
-            view.displayErrorMessaje("El número de habitación debe ser un valor entero.");
         }
     }
 

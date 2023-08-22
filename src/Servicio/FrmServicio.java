@@ -5,11 +5,16 @@
 package Servicio;
 
 
+import Cliente.Cliente;
+import static Cliente.FrmCliente.txtIdentificacion;
 import Empleado.*;
 import Controller.Controller;
 import static Empleado.FrmEmpleado.txtIdentificacion;
-import static Habitacion.FrmHabitacion.spnNumeroHabitacion;
+import static Empleado.FrmEmpleado.txtNombre;
+import static Habitacion.FrmHabitacion.txtNumeroHabitacion;
+import static Habitacion.FrmHabitacion.txtTipo;
 import Habitacion.Habitacion;
+import Habitacion.TipoHabitacion;
 import Models.Table;
 import Views.FrmMenu;
 import Views.View;
@@ -34,21 +39,13 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
     public FrmServicio() {
         initComponents();
        // this.loadRoles();
-        this.loadPuestos();  // Cambio del método
         this.controller = new ServicioControler(this);  // Cambio del nombre de la clase
         this.controller.buscarTodo();
+        
+        int proximoCodigo = ServicioList.getInstance().getNextCodigoServicio();
+        txtCodigo.setText(String.valueOf(proximoCodigo));
     }
-   // private void loadRoles() {
-    //for (TipoServicio tipo : TipoServicio.values()) {
-    //    txtTipo.addItem(tipo.toString());
-    //}
-//}
-    private void loadPuestos() {  // Cambio del nombre del método
-        // Cargar los puestos disponibles en el ComboBox de puestos
-        // Debes reemplazar esta parte con la lógica para cargar los puestos
-        // en el ComboBox según tu implementación
-    }
-    
+  
     @Override
     public void clear() {
         txtCodigo.setText("");
@@ -59,7 +56,7 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
 
     @Override
     public void display(Servicio servicio) {  // Cambio del nombre de la clase
-        txtCodigo.setText(servicio.getDescripcion());
+        txtCodigo.setText(String.valueOf(servicio.getCodigoServicio()));
         txtnombre.setText(servicio.getNombre());
         txtDescripcion.setText(servicio.getDescripcion());
         txtPrecio.setText(String.valueOf(servicio.getPrecio()));
@@ -103,16 +100,17 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JFormattedTextField();
         jPanel2 = new javax.swing.JPanel();
-        btnClear = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
@@ -132,6 +130,7 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("Precio");
 
+        txtCodigo.setEditable(false);
         txtCodigo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#########"))));
         txtCodigo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtCodigo.addActionListener(new java.awt.event.ActionListener() {
@@ -141,14 +140,6 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
         });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/clear_left (3).png"))); // NOI18N
-        btnClear.setToolTipText("Limpiar");
-        btnClear.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClearActionPerformed(evt);
-            }
-        });
 
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/save_all (3).png"))); // NOI18N
         btnSave.setToolTipText("Guardar");
@@ -174,30 +165,37 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
             }
         });
 
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/update-manager.png"))); // NOI18N
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(433, 433, 433))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
-                    .addComponent(btnClear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                    .addComponent(btnSearch, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSave, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -242,11 +240,11 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(182, 182, 182))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(329, 329, 329))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,33 +284,42 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-    clear();
-    }//GEN-LAST:event_btnClearActionPerformed
-
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-    int codigoServicio = Integer.parseInt(txtCodigo.getText());
+    int proximoCodigo = ServicioList.getInstance().getNextCodigoServicio();
+
+    // Incrementar el próximo código
+    proximoCodigo++;
+
+    // Obtener los valores de los campos
     String nombre = txtnombre.getText();
     String descripcion = txtDescripcion.getText();
-    double precio = Double.parseDouble(txtnombre.getText());
-    
-    Servicio nuevoServicio = new Servicio(codigoServicio, nombre, descripcion, precio);  // Cambio del nombre de la clase
+    double precio = Double.parseDouble(txtPrecio.getText());
+
+    // Crear un nuevo objeto Servicio con el código incrementado
+    Servicio nuevoServicio = new Servicio(proximoCodigo, nombre, descripcion, precio);
+
+    // Agregar el servicio al controlador
     controller.Agregar(nuevoServicio);
-   
+
+    // Limpiar los campos
+    clear();
+
+    // Actualizar el campo de código con el próximo número
+    txtCodigo.setText(String.valueOf(proximoCodigo));
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-    int codigoServicio = Integer.parseInt(txtCodigo.getText());
-    if (codigoServicio != 0) { 
-        Servicio ServicioAEliminar = new Servicio(codigoServicio);
-        controller.Eliminar(ServicioAEliminar);
-        clear(); 
+     int codigoServicio = Integer.parseInt(txtCodigo.getText());  // Obtén la cédula directamente de tu campo
+    if (codigoServicio != 0) {
+        Servicio servicioAEliminar = new Servicio(codigoServicio);
+        controller.Eliminar(servicioAEliminar);
+        clear();
     }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
@@ -324,7 +331,7 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
-        clear();
+    
     }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
@@ -335,12 +342,23 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
         clear();
     }//GEN-LAST:event_txtnombreActionPerformed
 
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+    int codigoServicio = Integer.parseInt(txtCodigo.getText());
+    String nombre = txtnombre.getText();
+    String descripcion = txtDescripcion.getText();
+    double precio = Double.parseDouble(txtPrecio.getText());
+        Servicio actServ = new Servicio(codigoServicio, nombre,descripcion,precio);
+        controller.Actualizar(actServ);
+        clear();
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

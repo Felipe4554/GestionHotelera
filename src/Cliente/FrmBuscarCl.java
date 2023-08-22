@@ -63,6 +63,7 @@ public class FrmBuscarCl extends javax.swing.JInternalFrame implements View<Clie
         frmCliente.txtTelefono.setText(String.valueOf(cliente.getTelefono()));
         frmCliente.txtCorreo.setText(cliente.getCorreo());
         frmCliente.txtFechaNacimiento.setValue(cliente.getFechaNacimiento());
+        this.dispose();
     }
     
     @Override

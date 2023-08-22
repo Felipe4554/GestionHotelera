@@ -18,6 +18,7 @@ public class ServicioList implements List<Servicio> {
 
     // Patrón de diseño singleton
     private static ServicioList servicioList;
+    private static int nextCodigoServicio = 1;
 
     // HashMap para almacenar los servicios
     private HashMap<Integer, Servicio> servicios;
@@ -29,19 +30,29 @@ public class ServicioList implements List<Servicio> {
         }
         return servicioList;
     }
-
+public int getNextCodigoServicio() {
+        int maxCodigo = 0;
+        for (Servicio servicio : servicios.values()) {
+            if (servicio.getCodigoServicio() > maxCodigo) {
+                maxCodigo = servicio.getCodigoServicio();
+            }
+        }
+        return maxCodigo + 1;
+    }
     private ServicioList() {
         servicios = new HashMap<>();
     }
 
     @Override
-    public boolean Agregar(Servicio obj) {
-        if (obj != null && obj.getCodigoServicio() != 0) {
-            servicios.put(obj.getCodigoServicio(), obj);
-            return true;
-        }
-        return false;
+public boolean Agregar(Servicio obj) {
+    if (obj != null) {
+        int codigoServicio = nextCodigoServicio++;
+        obj.setCodigoServicio(codigoServicio);
+        servicios.put(codigoServicio, obj);
+        return true;
     }
+    return false;
+}
 
     @Override
     public boolean Actualizar(Servicio obj) {

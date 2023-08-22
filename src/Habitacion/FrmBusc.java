@@ -17,11 +17,12 @@ import static Empleado.FrmEmpleado.txtIdentificacion;
 import static Empleado.FrmEmpleado.txtNombre;
 import static Empleado.FrmEmpleado.txtSalario;
 import static Empleado.FrmEmpleado.txtTelefono;
+import static Habitacion.FrmHabitacion.txtNumeroHabitacion;
 import static Habitacion.FrmHabitacion.txtPrecio;
 import static Habitacion.FrmHabitacion.txtTipo;
 import static Habitacion.TipoHabitacion.Individual;
+import static Habitacion.FrmHabitacion.txtOcupada;
 import java.awt.event.MouseEvent;
-import static Habitacion.FrmHabitacion.spnNumeroHabitacion;
 
 /**
  *
@@ -36,12 +37,21 @@ public class FrmBusc extends javax.swing.JInternalFrame implements View<Habitaci
     private Controller controller;
     private Habitacion habitacionSeleccionada;
     private FrmHabitacion frmHabitacion;
-
+    private Habitacion habitacion;
+    
+    
+    
+    public FrmBusc(FrmHabitacion frmHabitacion) {
+        this.frmHabitacion = frmHabitacion;
+        frmHabitacion.addObserver(this);
+        // Resto de la inicialización...
+    }
     public FrmBusc() {
         initComponents();
         this.habitacionSeleccionada = habitacionSeleccionada;
         this.loadPuestos();  // Cambio del método
         this.frmHabitacion = frmHabitacion;
+        this.habitacion = habitacion;
         this.controller = new HabitacionController(this);  // Cambio del nombre de la clase
         this.controller.buscarTodo(); 
         
@@ -54,31 +64,31 @@ public class FrmBusc extends javax.swing.JInternalFrame implements View<Habitaci
     
     @Override
     public void clear() {
-        spnNumeroHabitacion.setValue(0);
-        txtTipo.setSelectedIndex(0);
-        //frmHabitacion.txtOcupada.setText("No");
-        txtPrecio.setText("0");
+        frmHabitacion.txtNumeroHabitacion.setText("");
+        frmHabitacion.txtTipo.setSelectedIndex(0);
+        frmHabitacion.txtOcupada.setText("No");
+        frmHabitacion.txtPrecio.setText("0");
 
     }
     @Override 
     public void display(Habitacion habitacion) {  // Cambio del nombre de la clase
 
-        frmHabitacion.spnNumeroHabitacion.setValue(habitacion.getNumeroHabitacion());
+        frmHabitacion.txtNumeroHabitacion.setText(String.valueOf(habitacion.getNumeroHabitacion()));
         frmHabitacion.txtTipo.setSelectedItem(habitacion.getTipoHabitacion());
-        //frmHabitacion.txtOcupada.setText(habitacion.estado());
+        //frmHabitacion.txtOcupada.setText(habitacion.getOcupada());
         frmHabitacion.txtPrecio.setText(String.valueOf(habitacion.getPrecio()));
-
+        this.dispose();
     }
 
     @Override
     public void displayAll(Habitacion[] regs) {  // Cambio del nombre de la clase
-        DefaultTableModel tableModel = (DefaultTableModel) FrmBusc.tblHabitaciones.getModel();
+        DefaultTableModel tableModel = (DefaultTableModel) tblHabitaciones.getModel();
     tableModel.setNumRows(0);
     for (Habitacion habitacion : regs) {
-        Object[] datos = habitacion.toArrayObject();
-        tableModel.addRow(datos);
+        Object[] hab = habitacion.toArrayObject();
+        tableModel.addRow(hab);
     }
-    FrmBusc.tblHabitaciones.setModel(tableModel);
+    tblHabitaciones.setModel(tableModel);
     }
 
     @Override
@@ -159,6 +169,9 @@ public class FrmBusc extends javax.swing.JInternalFrame implements View<Habitaci
         });
         jScrollPane1.setViewportView(tblHabitaciones);
         tblHabitaciones.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        if (tblHabitaciones.getColumnModel().getColumnCount() > 0) {
+            tblHabitaciones.getColumnModel().getColumn(2).setHeaderValue("Estado");
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -188,21 +201,39 @@ public class FrmBusc extends javax.swing.JInternalFrame implements View<Habitaci
     }//GEN-LAST:event_txtFiltroKeyReleased
 
     private void tblHabitacionesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblHabitacionesKeyReleased
-//        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-//            int row = tblHabitaciones.getSelectedRow();
-//            if (row > -1) {
-//                Object numeroHabitacion = tblHabitaciones.getValueAt(row, 0);
-//                controller.Eliminar(new Habitacion(numeroHabitacion.toString()));
-//            }
-//        }
+        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+            int row = tblHabitaciones.getSelectedRow();
+            if (row > -1) {
+                Object numeroHabitacionObj = tblHabitaciones.getValueAt(row, 0);
+                // Intenta convertir el número de habitación a entero
+                try {
+                    int numeroHabitacion = Integer.parseInt(numeroHabitacionObj.toString());
+                    // Puedes mostrar un mensaje de confirmación antes de eliminar el registro
+                    int option = JOptionPane.showConfirmDialog(this, "¿Estás seguro de eliminar esta habitación?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                    if (option == JOptionPane.YES_OPTION) {
+                        controller.Eliminar(new Habitacion(numeroHabitacion));
+                    }
+                } catch (NumberFormatException e) {
+                    // Maneja la excepción si el número de habitación no es un valor numérico
+                    JOptionPane.showMessageDialog(this, "El número de habitación no es válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
     }//GEN-LAST:event_tblHabitacionesKeyReleased
 
     private void tblHabitacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHabitacionesMouseClicked
-//        if (evt.getClickCount() == 2) {
-//            int row = tblHabitaciones.getSelectedRow();
-//            Object numeroHabitacion = tblHabitaciones.getValueAt(row, 0);
-//            controller.Buscar(numeroHabitacion.toString());
-//        }
+        if (evt.getClickCount() == 2) {
+           int row = tblHabitaciones.getSelectedRow();
+           Object numeroHabitacionObj = tblHabitaciones.getValueAt(row, 0);
+
+           try {
+               int numeroHabitacion = Integer.parseInt(numeroHabitacionObj.toString());
+               controller.Buscar(new Habitacion(numeroHabitacion));
+           } catch (NumberFormatException e) {
+               // Maneja la excepción si el número de habitación no es un valor numérico
+               JOptionPane.showMessageDialog(this, "El número de habitación no es válido.", "Error", JOptionPane.ERROR_MESSAGE);
+           }
+       }
     }//GEN-LAST:event_tblHabitacionesMouseClicked
 
 

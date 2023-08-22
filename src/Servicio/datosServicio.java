@@ -35,7 +35,7 @@ public class datosServicio extends javax.swing.JInternalFrame implements View<Se
        
         this.frmServicio = frmServicio;
         frmServicio.addObserver(this);
-        // Resto de la inicialización...
+        
     }
     
     public datosServicio() {
@@ -62,11 +62,11 @@ public class datosServicio extends javax.swing.JInternalFrame implements View<Se
 
     @Override
     public void display(Servicio servicio){  // Cambio del nombre de la clase
-        frmServicio.txtCodigo.setText(servicio.getDescripcion());
+        frmServicio.txtCodigo.setText(String.valueOf(servicio.getCodigoServicio()));
         frmServicio.txtnombre.setText(servicio.getNombre());
         frmServicio.txtDescripcion.setText(servicio.getDescripcion());
         frmServicio.txtPrecio.setText(String.valueOf(servicio.getPrecio()));
-        
+        this.dispose();
     }
     
     @Override
