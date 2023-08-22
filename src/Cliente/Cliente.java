@@ -99,6 +99,6 @@ public class Cliente implements Entity {
         // Convertir los datos del cliente a un arreglo de objetos
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String fechaNacimientoStr = dateFormat.format(fechaNacimiento);
-        return new Object[]{identificacion, nombre, fechaNacimientoStr, telefono, correo, getEdad()};
+        return new Object[]{identificacion, nombre, telefono, getEdad(), correo, fechaNacimientoStr};
     }
 }

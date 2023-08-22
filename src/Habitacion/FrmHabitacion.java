@@ -78,6 +78,8 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
         btnActualizar = new javax.swing.JButton();
 
         setClosable(true);
+        setResizable(true);
+        setTitle("Habitacion");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setToolTipText("");

@@ -61,13 +61,15 @@ public class FrmBusc extends javax.swing.JInternalFrame implements View<Habitaci
         txtPrecio.setText("");
     }
 
+    @Override
     public void display(Habitacion habitacion) {  // Cambio del nombre de la clase
         frmHabitacion.spnNumeroHabitacion.setValue(habitacion.getNumeroHabitacion());
         frmHabitacion.txtTipo.setSelectedItem(habitacion.getTipoHabitacion());
-        // frmHabitacion.txtOcupada.setText((habitacion.isOcupada());
+        frmHabitacion.txtOcupada.setText(habitacion.isOcupada());
         frmHabitacion.txtPrecio.setText(String.valueOf(habitacion.getPrecio()));
     }
 
+    @Override
     public void displayAll(Habitacion[] regs) {  // Cambio del nombre de la clase
         DefaultTableModel tableModel = (DefaultTableModel) tblHabitaciones.getModel();
         tableModel.setNumRows(0);
@@ -110,6 +112,7 @@ public class FrmBusc extends javax.swing.JInternalFrame implements View<Habitaci
         tblHabitaciones = new javax.swing.JTable();
 
         setClosable(true);
+        setTitle("Buscar Habitacion");
 
         txtFiltro.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtFiltro.addKeyListener(new java.awt.event.KeyAdapter() {

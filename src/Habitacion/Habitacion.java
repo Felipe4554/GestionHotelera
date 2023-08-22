@@ -36,7 +36,15 @@ public class Habitacion implements Entity {
     }
 
     public boolean isOcupada() {
-        return false;
+        return ocupada;
+    }
+    
+    public String estado(){
+        if(this.ocupada){
+            return "Ocupada";
+        }else{
+            return "Disponible";
+        }
     }
 
     public double getPrecio() {
@@ -78,7 +86,7 @@ public class Habitacion implements Entity {
 
     @Override
     public Object[] toArrayObject() {
-        return new Object[]{this.numeroHabitacion, this.tipoHabitacion.toString(), this.ocupada, this.precio};
+        return new Object[]{this.numeroHabitacion, this.tipoHabitacion.toString(), this.estado(), this.precio};
     }
 }
 

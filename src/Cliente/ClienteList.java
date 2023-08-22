@@ -19,7 +19,7 @@ public class ClienteList implements List<Cliente> {
         return clienteList;
     }
 
-    private ClienteList() {
+    public ClienteList() {
         clientes = new HashSet<>();
     }
 

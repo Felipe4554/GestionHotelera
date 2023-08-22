@@ -21,7 +21,6 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 /**
  *
  * @author jprod
@@ -117,6 +116,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
         btnSearch = new javax.swing.JButton();
 
         setClosable(true);
+        setTitle("Cliente");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
