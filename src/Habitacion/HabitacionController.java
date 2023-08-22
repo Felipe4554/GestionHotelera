@@ -36,22 +36,26 @@ public class HabitacionController implements Controller<Habitacion> {
         }
     }
 
-
     @Override
-    public void Eliminar(Habitacion habitacion)  {
-        // Verifica si la habitación está ocupada
-       // if (habitacion.isOcupada()) {
-        //    view.displayErrorMessaje("No se puede eliminar una habitación ocupada.");
-      //  }
 
-        // Si la habitación no está ocupada, procede con la eliminación
-      //  if (list.Eliminar(habitacion)) {
-      //      view.displayMessaje("Habitación eliminada exitosamente.");
-      //  } else {
-      //      view.displayErrorMessaje("No se pudo eliminar la habitación.");
-      //  }
-}
-
+    public void Eliminar(Habitacion habitacion) {
+        try {
+            Habitacion habitacionAEliminar = list.Buscar(habitacion.getNumeroHabitacion());
+            if (habitacionAEliminar != null && !habitacionAEliminar.isOcupada()) {
+                list.Eliminar(habitacionAEliminar);
+                this.buscarTodo();
+                view.displayMessaje("Habitación eliminada con éxito.");
+            } else if (habitacionAEliminar != null && habitacionAEliminar.isOcupada()) {
+                throw new HabitacionOcupadaException("No se puede eliminar la habitación. Está ocupada.");
+            } else {
+                view.displayErrorMessaje("No se encontró la habitación con el número proporcionado.");
+            }
+        } catch (IllegalArgumentException e) {
+            view.displayErrorMessaje("No se puede eliminar la habitación. No se encontró en la lista.");
+        } catch (HabitacionOcupadaException e) {
+            view.displayErrorMessaje("No se puede eliminar la habitación. Está ocupada.");
+        }
+    }
 
     @Override
     public void Buscar(Object id) {
@@ -77,4 +81,3 @@ public class HabitacionController implements Controller<Habitacion> {
         }
     }
 }
-

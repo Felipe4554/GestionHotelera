@@ -26,9 +26,18 @@ public class Habitacion implements Entity {
         // Establecer un precio predeterminado según el tipo de habitación
         this.precio = calcularPrecioPredeterminado(tipoHabitacion);
     }
-    public Habitacion(int numeroHabitacion){
-       this.numeroHabitacion = numeroHabitacion;
-   }
+
+    Habitacion(int numeroHabitacion, String tipo, int precio, boolean ocupado) {
+        this.numeroHabitacion = numeroHabitacion;
+        this.tipoHabitacion = tipoHabitacion;
+        this.ocupada = ocupada; // Por defecto, una habitación nueva no está ocupada.
+    }
+
+    Habitacion(int numeroHabitacion) {
+        this.numeroHabitacion = numeroHabitacion;
+    }
+
+
     public int getNumeroHabitacion() {
         return numeroHabitacion;
     }
@@ -99,4 +108,3 @@ public class Habitacion implements Entity {
         return new Object[]{this.numeroHabitacion, this.tipoHabitacion.toString(), this.estado(), this.precio};
     }
 }
-

@@ -10,7 +10,6 @@ import Empleado.*;
 import Controller.Controller;
 import static Empleado.FrmEmpleado.txtIdentificacion;
 import static Habitacion.FrmHabitacion.spnNumeroHabitacion;
-import Habitacion.Habitacion;
 import Models.Table;
 import Views.FrmMenu;
 import Views.View;
@@ -348,11 +347,21 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-    String cedulaAEliminar = txtIdentificacion.getText();  // Obtén la cédula directamente de tu campo
-    if (!cedulaAEliminar.isEmpty()) {
-        Empleado empleadoAEliminar = new Empleado(cedulaAEliminar);
-        controller.Eliminar(empleadoAEliminar);
-        clear(); 
+
+    String identificacionAEliminarStr = txtIdentificacion.getText();
+    
+    if (!identificacionAEliminarStr.isEmpty()) {
+        try {
+            int identificacionAEliminar = Integer.parseInt(identificacionAEliminarStr);
+            
+            // Crear un objeto Cliente con la identificación a eliminar
+            Cliente clienteAEliminar = new Cliente(identificacionAEliminar, "", null, 0, "");
+            controller.Eliminar(clienteAEliminar);
+            clear();
+        } catch (NumberFormatException e) {
+            displayErrorMessaje("Error: Ingresa una identificación válida.");
+        }
+
     }
     }//GEN-LAST:event_btnDeleteActionPerformed
 

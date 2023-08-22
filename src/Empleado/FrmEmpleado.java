@@ -323,6 +323,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empl
         controller.Eliminar(empleadoAEliminar);
         clear();
     }
+       
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed

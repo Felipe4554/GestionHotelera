@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package Habitacion;
+package Reserva;
 
 
 import Empleado.*;
@@ -13,36 +13,29 @@ import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Empleado.Empleado; 
-import static Empleado.FrmEmpleado.txtIdentificacion;
-import static Empleado.FrmEmpleado.txtNombre;
-import static Empleado.FrmEmpleado.txtSalario;
-import static Empleado.FrmEmpleado.txtTelefono;
-import static Habitacion.FrmHabitacion.txtPrecio;
-import static Habitacion.FrmHabitacion.txtTipo;
-import static Habitacion.TipoHabitacion.Individual;
-import java.awt.event.MouseEvent;
-import static Habitacion.FrmHabitacion.spnNumeroHabitacion;
+
 
 /**
  *
- * @author jprod
+ * @author rsand
  */
-public class FrmBusc extends javax.swing.JInternalFrame implements View<Habitacion> {  
-
-    static Object getTblEmpleados() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-// Cambio del nombre de la clase
+public class FrmBuscarRes extends javax.swing.JInternalFrame implements View<Empleado> {  
+  
+    private FrmEmpleado frmEmpleado;
     private Controller controller;
-    private Habitacion habitacionSeleccionada;
-    private FrmHabitacion frmHabitacion;
-
-    public FrmBusc() {
+    private Empleado empleado;
+    
+    public FrmBuscarRes(FrmEmpleado frmEmpleado) {
+        this.frmEmpleado = frmEmpleado;
+        frmEmpleado.addObserver(this);
+        // Resto de la inicialización...
+    }
+    
+    public FrmBuscarRes() {
         initComponents();
-        this.habitacionSeleccionada = habitacionSeleccionada;
+        this.empleado = empleado;
         this.loadPuestos();  // Cambio del método
-        this.frmHabitacion = frmHabitacion;
-        this.controller = new HabitacionController(this);  // Cambio del nombre de la clase
+        this.controller = new EmpleadoControler(this); 
         this.controller.buscarTodo(); 
         
     }
@@ -54,31 +47,33 @@ public class FrmBusc extends javax.swing.JInternalFrame implements View<Habitaci
     
     @Override
     public void clear() {
-        spnNumeroHabitacion.setValue(0);
-        txtTipo.setSelectedIndex(0);
-        //frmHabitacion.txtOcupada.setText("No");
-        txtPrecio.setText("0");
-
-    }
-    @Override 
-    public void display(Habitacion habitacion) {  // Cambio del nombre de la clase
-
-        frmHabitacion.spnNumeroHabitacion.setValue(habitacion.getNumeroHabitacion());
-        frmHabitacion.txtTipo.setSelectedItem(habitacion.getTipoHabitacion());
-        //frmHabitacion.txtOcupada.setText(habitacion.estado());
-        frmHabitacion.txtPrecio.setText(String.valueOf(habitacion.getPrecio()));
-
+        txtIdentificacion.setText("");
+        txtNombre.setText("");
+        txtTelefono.setText("");
+        txtPuesto.setText("");
+        txtSalario.setText("");
     }
 
     @Override
-    public void displayAll(Habitacion[] regs) {  // Cambio del nombre de la clase
-        DefaultTableModel tableModel = (DefaultTableModel) FrmBusc.tblHabitaciones.getModel();
-    tableModel.setNumRows(0);
-    for (Habitacion habitacion : regs) {
-        Object[] datos = habitacion.toArrayObject();
-        tableModel.addRow(datos);
+    public void display(Empleado empleado) {  // Cambio del nombre de la clase
+
+    frmEmpleado.txtIdentificacion.setText(empleado.getIdentificacion());
+    frmEmpleado.txtNombre.setText(empleado.getNombre());
+    frmEmpleado.txtTelefono.setText(empleado.getTelefono());
+    frmEmpleado.txtPuesto.setSelectedItem(empleado.getPuesto());
+    frmEmpleado.txtSalario.setText(String.valueOf(empleado.getSalario()));
+    
     }
-    FrmBusc.tblHabitaciones.setModel(tableModel);
+    
+    @Override
+    public void displayAll(Empleado[] regs) {  // Cambio del nombre de la clase
+        DefaultTableModel tableModel = (DefaultTableModel) tblEmpleados.getModel();
+        tableModel.setNumRows(0);
+        for (Empleado empleado : regs) {
+            Object[] datos = empleado.toArrayObject();
+            tableModel.addRow(datos);
+        }
+        tblEmpleados.setModel(tableModel);
     }
 
     @Override
@@ -98,7 +93,6 @@ public class FrmBusc extends javax.swing.JInternalFrame implements View<Habitaci
     }
     
 
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -110,10 +104,10 @@ public class FrmBusc extends javax.swing.JInternalFrame implements View<Habitaci
 
         txtFiltro = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblHabitaciones = new javax.swing.JTable();
+        tblEmpleados = new javax.swing.JTable();
 
         setClosable(true);
-        setTitle("Buscar Habitacion");
+        setTitle("Buscar Empleado");
 
         txtFiltro.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -122,19 +116,19 @@ public class FrmBusc extends javax.swing.JInternalFrame implements View<Habitaci
             }
         });
 
-        tblHabitaciones.setModel(new javax.swing.table.DefaultTableModel(
+        tblEmpleados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Habitacion", "Tipo", "Estado", "Precio"
+                "Cédula", "Nombre", "Teléfono", "Puesto", "Salario"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -145,20 +139,20 @@ public class FrmBusc extends javax.swing.JInternalFrame implements View<Habitaci
                 return canEdit [columnIndex];
             }
         });
-        tblHabitaciones.setColumnSelectionAllowed(true);
-        tblHabitaciones.getTableHeader().setReorderingAllowed(false);
-        tblHabitaciones.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblEmpleados.setColumnSelectionAllowed(true);
+        tblEmpleados.getTableHeader().setReorderingAllowed(false);
+        tblEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblHabitacionesMouseClicked(evt);
+                tblEmpleadosMouseClicked(evt);
             }
         });
-        tblHabitaciones.addKeyListener(new java.awt.event.KeyAdapter() {
+        tblEmpleados.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                tblHabitacionesKeyReleased(evt);
+                tblEmpleadosKeyReleased(evt);
             }
         });
-        jScrollPane1.setViewportView(tblHabitaciones);
-        tblHabitaciones.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        jScrollPane1.setViewportView(tblEmpleados);
+        tblEmpleados.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -184,31 +178,31 @@ public class FrmBusc extends javax.swing.JInternalFrame implements View<Habitaci
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtFiltroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroKeyReleased
-        Views.Table.filter(this.tblHabitaciones, txtFiltro.getText());
+        Table.filter(this.tblEmpleados, txtFiltro.getText());
     }//GEN-LAST:event_txtFiltroKeyReleased
 
-    private void tblHabitacionesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblHabitacionesKeyReleased
-//        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-//            int row = tblHabitaciones.getSelectedRow();
-//            if (row > -1) {
-//                Object numeroHabitacion = tblHabitaciones.getValueAt(row, 0);
-//                controller.Eliminar(new Habitacion(numeroHabitacion.toString()));
-//            }
-//        }
-    }//GEN-LAST:event_tblHabitacionesKeyReleased
+    private void tblEmpleadosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblEmpleadosKeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+            int row = tblEmpleados.getSelectedRow();
+            if (row > -1) {
+                Object identificacion = tblEmpleados.getValueAt(row, 0);
+                controller.Eliminar(new Empleado(identificacion.toString()));  // Cambio del nombre de la clase
+            }
+        }
+    }//GEN-LAST:event_tblEmpleadosKeyReleased
 
-    private void tblHabitacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHabitacionesMouseClicked
-//        if (evt.getClickCount() == 2) {
-//            int row = tblHabitaciones.getSelectedRow();
-//            Object numeroHabitacion = tblHabitaciones.getValueAt(row, 0);
-//            controller.Buscar(numeroHabitacion.toString());
-//        }
-    }//GEN-LAST:event_tblHabitacionesMouseClicked
+    private void tblEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmpleadosMouseClicked
+        if (evt.getClickCount() == 2) {
+            int row = tblEmpleados.getSelectedRow();
+            Object identificacion = tblEmpleados.getValueAt(row, 0);
+            controller.Buscar(identificacion);
+        }
+    }//GEN-LAST:event_tblEmpleadosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    public static javax.swing.JTable tblHabitaciones;
+    private static javax.swing.JTable tblEmpleados;
     private javax.swing.JTextField txtFiltro;
     // End of variables declaration//GEN-END:variables
 
