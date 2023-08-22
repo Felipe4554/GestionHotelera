@@ -106,6 +106,7 @@ public class datos extends javax.swing.JInternalFrame implements View<Empleado> 
         tblEmpleados = new javax.swing.JTable();
 
         setClosable(true);
+        setTitle("Buscar Empleado");
 
         txtFiltro.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtFiltro.addKeyListener(new java.awt.event.KeyAdapter() {

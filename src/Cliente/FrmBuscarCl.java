@@ -106,6 +106,7 @@ public class FrmBuscarCl extends javax.swing.JInternalFrame implements View<Clie
         tblClientes = new javax.swing.JTable();
 
         setClosable(true);
+        setTitle("Buscar Cliente");
 
         txtFiltro.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -119,14 +120,14 @@ public class FrmBuscarCl extends javax.swing.JInternalFrame implements View<Clie
 
             },
             new String [] {
-                "Cedula", "Nombre", "Telefono", "Edad", "Correo"
+                "Cedula", "Nombre", "Telefono", "Edad", "Correo", "Fecha de Nacimiento"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {

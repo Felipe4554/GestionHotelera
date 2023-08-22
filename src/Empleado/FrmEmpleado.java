@@ -113,6 +113,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empl
         btnSearch = new javax.swing.JButton();
 
         setClosable(true);
+        setTitle("Empleado");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
