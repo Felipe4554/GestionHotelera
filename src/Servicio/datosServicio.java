@@ -2,7 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package Empleado;
+package Servicio;
+
 
 
 import Controller.Controller;
@@ -12,29 +13,36 @@ import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Empleado.Empleado; 
+import static Servicio.FrmServicio.txtCodigo;
+import static Servicio.FrmServicio.txtDescripcion;
+import static Servicio.FrmServicio.txtNombre;
+import static Servicio.FrmServicio.txtPrecio;
+
 
 
 /**
  *
  * @author rsand
  */
-public class datos extends javax.swing.JInternalFrame implements View<Empleado> {  
+public class datosServicio extends javax.swing.JInternalFrame implements View<Servicio> {  
   
-    private FrmEmpleado frmEmpleado;
+    private FrmServicio frmServicio;
     private Controller controller;
-    private Empleado empleado;
+    private Servicio servicio;
     
-    public datos(FrmEmpleado frmEmpleado) {
-        this.frmEmpleado = frmEmpleado;
-        frmEmpleado.addObserver(this);
+    
+    public datosServicio(FrmServicio FrmServicio) {
+       
+        this.frmServicio = frmServicio;
+        frmServicio.addObserver(this);
         // Resto de la inicialización...
     }
     
-    public datos() {
+    public datosServicio() {
         initComponents();
-        this.empleado = empleado;
+        this.servicio = servicio;
         this.loadPuestos();  // Cambio del método
-        this.controller = new EmpleadoControler(this); 
+        this.controller = new ServicioControler(this); 
         this.controller.buscarTodo(); 
         
     }
@@ -46,33 +54,30 @@ public class datos extends javax.swing.JInternalFrame implements View<Empleado> 
     
     @Override
     public void clear() {
-        frmEmpleado.txtIdentificacion.setText("");
-        frmEmpleado.txtNombre.setText("");
-        frmEmpleado.txtTelefono.setText("");
-        frmEmpleado.txtPuesto.setSelectedItem("");
-        frmEmpleado.txtSalario.setText("");
+        txtCodigo.setText("");
+        txtNombre.setText("");
+        txtDescripcion.setText("");
+        txtPrecio.setText("");
     }
 
     @Override
-    public void display(Empleado empleado) {  // Cambio del nombre de la clase
-
-    frmEmpleado.txtIdentificacion.setText(empleado.getIdentificacion());
-    frmEmpleado.txtNombre.setText(empleado.getNombre());
-    frmEmpleado.txtTelefono.setText(empleado.getTelefono());
-    frmEmpleado.txtPuesto.setSelectedItem(empleado.getPuesto());
-    frmEmpleado.txtSalario.setText(String.valueOf(empleado.getSalario()));
-    
+    public void display(Servicio servicio){  // Cambio del nombre de la clase
+        frmServicio.txtCodigo.setText(servicio.getDescripcion());
+        frmServicio.txtNombre.setText(servicio.getNombre());
+        frmServicio.txtDescripcion.setText(servicio.getDescripcion());
+        frmServicio.txtPrecio.setText(String.valueOf(servicio.getPrecio()));
+        
     }
     
     @Override
-    public void displayAll(Empleado[] regs) {  // Cambio del nombre de la clase
-        DefaultTableModel tableModel = (DefaultTableModel) tblEmpleados.getModel();
+    public void displayAll(Servicio[] regs) {  // Cambio del nombre de la clase
+        DefaultTableModel tableModel = (DefaultTableModel) tblServicio.getModel();
         tableModel.setNumRows(0);
-        for (Empleado empleado : regs) {
-            Object[] datos = empleado.toArrayObject();
+        for (Servicio servicio : regs){
+            Object[] datos = servicio.toArrayObject();
             tableModel.addRow(datos);
         }
-        tblEmpleados.setModel(tableModel);
+        tblServicio.setModel(tableModel);
     }
 
     @Override
@@ -103,7 +108,7 @@ public class datos extends javax.swing.JInternalFrame implements View<Empleado> 
 
         txtFiltro = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblEmpleados = new javax.swing.JTable();
+        tblServicio = new javax.swing.JTable();
 
         setClosable(true);
 
@@ -114,19 +119,19 @@ public class datos extends javax.swing.JInternalFrame implements View<Empleado> 
             }
         });
 
-        tblEmpleados.setModel(new javax.swing.table.DefaultTableModel(
+        tblServicio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Cédula", "Nombre", "Teléfono", "Puesto", "Salario"
+                "Código", "Nombre", "Descripción", "Precio"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -137,20 +142,20 @@ public class datos extends javax.swing.JInternalFrame implements View<Empleado> 
                 return canEdit [columnIndex];
             }
         });
-        tblEmpleados.setColumnSelectionAllowed(true);
-        tblEmpleados.getTableHeader().setReorderingAllowed(false);
-        tblEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblServicio.setColumnSelectionAllowed(true);
+        tblServicio.getTableHeader().setReorderingAllowed(false);
+        tblServicio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblEmpleadosMouseClicked(evt);
+                tblServicioMouseClicked(evt);
             }
         });
-        tblEmpleados.addKeyListener(new java.awt.event.KeyAdapter() {
+        tblServicio.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                tblEmpleadosKeyReleased(evt);
+                tblServicioKeyReleased(evt);
             }
         });
-        jScrollPane1.setViewportView(tblEmpleados);
-        tblEmpleados.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        jScrollPane1.setViewportView(tblServicio);
+        tblServicio.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -176,31 +181,31 @@ public class datos extends javax.swing.JInternalFrame implements View<Empleado> 
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtFiltroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroKeyReleased
-        Table.filter(this.tblEmpleados, txtFiltro.getText());
+        Table.filter(this.tblServicio, txtFiltro.getText());
     }//GEN-LAST:event_txtFiltroKeyReleased
 
-    private void tblEmpleadosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblEmpleadosKeyReleased
+    private void tblServicioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblServicioKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-            int row = tblEmpleados.getSelectedRow();
+            int row = tblServicio.getSelectedRow();
             if (row > -1) {
-                Object identificacion = tblEmpleados.getValueAt(row, 0);
-                controller.Eliminar(new Empleado(identificacion.toString()));  // Cambio del nombre de la clase
+                Object codigoServicio = tblServicio.getValueAt(row, 0);
+                controller.Eliminar(new Empleado(codigoServicio.toString()));  // Cambio del nombre de la clase
             }
         }
-    }//GEN-LAST:event_tblEmpleadosKeyReleased
+    }//GEN-LAST:event_tblServicioKeyReleased
 
-    private void tblEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmpleadosMouseClicked
+    private void tblServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblServicioMouseClicked
         if (evt.getClickCount() == 2) {
-            int row = tblEmpleados.getSelectedRow();
-            Object identificacion = tblEmpleados.getValueAt(row, 0);
-            controller.Buscar(identificacion);
+            int row = tblServicio.getSelectedRow();
+            Object codigoServicio = tblServicio.getValueAt(row, 0);
+            controller.Buscar(codigoServicio);
         }
-    }//GEN-LAST:event_tblEmpleadosMouseClicked
+    }//GEN-LAST:event_tblServicioMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    public static javax.swing.JTable tblEmpleados;
+    public static javax.swing.JTable tblServicio;
     private javax.swing.JTextField txtFiltro;
     // End of variables declaration//GEN-END:variables
 

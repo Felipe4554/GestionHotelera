@@ -15,8 +15,8 @@ import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
-
+import static Empleado.datos.tblEmpleados; 
+              
 /**
  *
  * @author rsand
@@ -24,9 +24,9 @@ import javax.swing.table.DefaultTableModel;
 public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empleado> {  // Cambio del nombre de la clase
     private Controller controller;
     private FrmMenu desktopMenu;
-    private boolean datosFrameShown = false;
+    //private boolean datosFrameShown = false; 
     
-    
+ 
     public FrmEmpleado() {
         initComponents();
         this.loadPuestos();  // Cambio del método
@@ -59,13 +59,13 @@ public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empl
     
     @Override
     public void displayAll(Empleado[] regs) {  // Cambio del nombre de la clase
-       // DefaultTableModel tableModel = (DefaultTableModel) tblEmpleados.getModel();
-       // tableModel.setNumRows(0);
-        for (Empleado empleado : regs) {
-            Object[] data = empleado.toArrayObject();
-            //tableModel.addRow(data);
-        }
-        
+        DefaultTableModel tableModel = (DefaultTableModel) datos.tblEmpleados.getModel();
+    tableModel.setNumRows(0);
+    for (Empleado servicio : regs) {
+        Object[] datos = servicio.toArrayObject();
+        tableModel.addRow(datos);
+    }
+    datos.tblEmpleados.setModel(tableModel);
     }
 
     @Override
@@ -397,7 +397,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empl
     public static javax.swing.JTextField txtSalario;
     public static javax.swing.JFormattedTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
-
+ 
     void addObserver(datos aThis) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }

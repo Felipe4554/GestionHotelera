@@ -15,7 +15,6 @@ public class Servicio implements Entity {
     private String nombre;
     private String descripcion;
     private double precio;
-
     // Constructores
 
     // Constructor completo
