@@ -126,14 +126,14 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtOcupada, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtOcupada, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(281, 281, 281))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,12 +275,17 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        int numeroHabitacion = (int) spnNumeroHabitacion.getValue();
-        TipoHabitacion tipoHabitacion = TipoHabitacion.valueOf(txtTipo.getSelectedItem().toString());
-        boolean ocupada = Boolean.parseBoolean(txtOcupada.getText());
-        double precio = Double.parseDouble(txtPrecio.getText());
-        Habitacion habitacion = new Habitacion(numeroHabitacion, tipoHabitacion, ocupada, precio);
-        
+        int numero = 0;
+        try {
+            numero = (int) spnNumeroHabitacion.getValue();
+        } catch (NumberFormatException ex) {
+            displayErrorMessaje("El número de habitación debe ser un valor numérico.");
+            return;
+        }
+
+        Habitacion habitacion = new Habitacion(numero); // Crear una instancia de Habitacion solo con el número
+
+        // Llamar al método Eliminar del controlador
         controller.Eliminar(habitacion);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -310,7 +315,7 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     public static javax.swing.JSpinner spnNumeroHabitacion;
-    public static javax.swing.JTextField txtOcupada;
+    private javax.swing.JTextField txtOcupada;
     public static javax.swing.JTextField txtPrecio;
     public static javax.swing.JComboBox<String> txtTipo;
     // End of variables declaration//GEN-END:variables
@@ -320,7 +325,7 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
         // Mostrar los detalles de la habitación en los campos de la vista
         spnNumeroHabitacion.setValue(habitacion.getNumeroHabitacion());
         txtTipo.setSelectedItem(habitacion.getTipoHabitacion().toString());
-        txtOcupada.setText(habitacion.isOcupada() ? "Sí" : "No");
+        txtOcupada.setText(habitacion.estado());
         txtPrecio.setText(String.valueOf(habitacion.getPrecio()));
     }
 

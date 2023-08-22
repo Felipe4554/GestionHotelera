@@ -50,13 +50,16 @@ public class ClienteController implements Controller<Cliente> {
 
     @Override
     public void Eliminar(Cliente cliente) {
-        // Implement the logic to check for pending reservations before deleting
-        // ...
+        System.out.println("Intentando eliminar cliente con identificación: " + cliente.getIdentificacion());
+
+        // Implementa la lógica de eliminación aquí
 
         if (clienteList.Eliminar(cliente)) {
+            System.out.println("Cliente eliminado exitosamente.");
             view.displayMessaje("Cliente eliminado exitosamente.");
             buscarTodo();
         } else {
+            System.out.println("No se puede eliminar el cliente. No se encontró en la lista.");
             view.displayErrorMessaje("No se puede eliminar el cliente. No se encontró en la lista.");
         }
     }

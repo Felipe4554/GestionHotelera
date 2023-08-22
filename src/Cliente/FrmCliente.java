@@ -345,19 +345,16 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-    String identificacionAEliminarStr = JOptionPane.showInputDialog(this, "Ingrese la identificación del cliente a eliminar:", "Eliminar Cliente", JOptionPane.QUESTION_MESSAGE);
+    String identificacionAEliminarStr = txtIdentificacion.getText();
     
-    if (identificacionAEliminarStr != null && !identificacionAEliminarStr.isEmpty()) {
+    if (!identificacionAEliminarStr.isEmpty()) {
         try {
             int identificacionAEliminar = Integer.parseInt(identificacionAEliminarStr);
             
-            int confirmacion = JOptionPane.showConfirmDialog(this, "¿Seguro que deseas eliminar este cliente?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
-            if (confirmacion == JOptionPane.YES_OPTION) {
-                // Crear un objeto Cliente con la identificación a eliminar
-                Cliente clienteAEliminar = new Cliente(identificacionAEliminar, "", null, 0, "");
-                controller.Eliminar(clienteAEliminar);
-                clear();
-            }
+            // Crear un objeto Cliente con la identificación a eliminar
+            Cliente clienteAEliminar = new Cliente(identificacionAEliminar, "", null, 0, "");
+            controller.Eliminar(clienteAEliminar);
+            clear();
         } catch (NumberFormatException e) {
             displayErrorMessaje("Error: Ingresa una identificación válida.");
         }

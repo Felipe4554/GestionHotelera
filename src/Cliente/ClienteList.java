@@ -5,11 +5,12 @@
 package Cliente;
 
 import Models.List;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ClienteList implements List<Cliente> {
     private static ClienteList clienteList;
-    private HashSet<Cliente> clientes;
+    private ArrayList<Cliente> clientes;
 
     // Método estático para obtener la instancia única de la lista de clientes
     public static ClienteList getInstance() {
@@ -20,7 +21,7 @@ public class ClienteList implements List<Cliente> {
     }
 
     public ClienteList() {
-        clientes = new HashSet<>();
+        clientes = new ArrayList<>();
     }
 
     @Override
@@ -41,9 +42,18 @@ public class ClienteList implements List<Cliente> {
 
     @Override
     public boolean Eliminar(Cliente cliente) {
-        return clientes.remove(cliente);
+        System.out.println("Eliminando cliente con identificación: " + cliente.getIdentificacion());
+        Iterator<Cliente> iterator = clientes.iterator();
+        while (iterator.hasNext()) {
+            Cliente c = iterator.next();
+            if (c.getIdentificacion() == cliente.getIdentificacion()) {
+                iterator.remove();
+                return true;
+            }
+        }
+        return false;
     }
-    
+
     @Override
     public Cliente Buscar(Object identificacion) {
         if (identificacion instanceof Integer) {
@@ -61,5 +71,4 @@ public class ClienteList implements List<Cliente> {
     public Cliente[] toArray() {
         return clientes.toArray(new Cliente[0]);
     }
-
 }
