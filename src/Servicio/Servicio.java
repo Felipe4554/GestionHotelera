@@ -32,7 +32,9 @@ public class Servicio implements Entity {
         this.descripcion = "";
         this.precio = 0.0;
     }
-
+    public Servicio(int codigoServicio){
+       this.codigoServicio = codigoServicio;
+   }
     // Métodos de acceso
 
     public int getCodigoServicio() {
@@ -49,6 +51,10 @@ public class Servicio implements Entity {
 
     public double getPrecio() {
         return precio;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     @Override

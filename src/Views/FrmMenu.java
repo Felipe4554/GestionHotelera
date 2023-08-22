@@ -7,6 +7,7 @@ package Views;
 import Cliente.FrmCliente;
 import Habitacion.FrmHabitacion;
 import Empleado.FrmEmpleado;
+import Servicio.FrmServicio;
 /**
  *
  * @author rsand
@@ -37,6 +38,7 @@ public class FrmMenu extends javax.swing.JFrame {
         menuHabitaciones = new javax.swing.JMenuItem();
         menuEmpleados = new javax.swing.JMenuItem();
         menuClientes = new javax.swing.JMenuItem();
+        menuServicio = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,6 +91,17 @@ public class FrmMenu extends javax.swing.JFrame {
         });
         menuManage.add(menuClientes);
 
+        menuServicio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuServicio.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menuServicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/Icons/internet_telephony (3).png"))); // NOI18N
+        menuServicio.setText("Servicio");
+        menuServicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuServicioActionPerformed(evt);
+            }
+        });
+        menuManage.add(menuServicio);
+
         menu.add(menuManage);
 
         setJMenuBar(menu);
@@ -107,20 +120,25 @@ public class FrmMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void menuHabitacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHabitacionesActionPerformed
-        FrmHabitacion frm = new FrmHabitacion();
+    private void menuClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuClientesActionPerformed
+        FrmCliente frm = new FrmCliente();
         View.showInternal(desktopMenu, frm);
-    }//GEN-LAST:event_menuHabitacionesActionPerformed
+    }//GEN-LAST:event_menuClientesActionPerformed
 
     private void menuEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEmpleadosActionPerformed
         FrmEmpleado frm = new FrmEmpleado();
         View.showInternal(desktopMenu, frm);
     }//GEN-LAST:event_menuEmpleadosActionPerformed
 
-    private void menuClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuClientesActionPerformed
-        FrmCliente frm = new FrmCliente();
+    private void menuHabitacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHabitacionesActionPerformed
+        FrmHabitacion frm = new FrmHabitacion();
         View.showInternal(desktopMenu, frm);
-    }//GEN-LAST:event_menuClientesActionPerformed
+    }//GEN-LAST:event_menuHabitacionesActionPerformed
+
+    private void menuServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuServicioActionPerformed
+        FrmServicio frm = new FrmServicio();
+        View.showInternal(desktopMenu, frm);
+    }//GEN-LAST:event_menuServicioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,5 +185,6 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuEmpleados;
     private javax.swing.JMenuItem menuHabitaciones;
     private javax.swing.JMenu menuManage;
+    private javax.swing.JMenuItem menuServicio;
     // End of variables declaration//GEN-END:variables
 }

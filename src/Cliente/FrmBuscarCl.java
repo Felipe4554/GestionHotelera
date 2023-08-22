@@ -120,7 +120,7 @@ public class FrmBuscarCl extends javax.swing.JInternalFrame implements View<Clie
 
             },
             new String [] {
-                "Cedula", "Nombre", "Telefono", "Edad", "Correo", "Fecha de Nacimiento"
+                "Cedula", "Nombre", "Telefono", "Fecha de Nacimento", "Correo", "Edad"
             }
         ) {
             Class[] types = new Class [] {

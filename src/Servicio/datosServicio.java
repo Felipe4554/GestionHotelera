@@ -15,8 +15,8 @@ import javax.swing.table.DefaultTableModel;
 import Empleado.Empleado; 
 import static Servicio.FrmServicio.txtCodigo;
 import static Servicio.FrmServicio.txtDescripcion;
-import static Servicio.FrmServicio.txtNombre;
 import static Servicio.FrmServicio.txtPrecio;
+import static Servicio.FrmServicio.txtnombre;
 
 
 
@@ -55,7 +55,7 @@ public class datosServicio extends javax.swing.JInternalFrame implements View<Se
     @Override
     public void clear() {
         txtCodigo.setText("");
-        txtNombre.setText("");
+        txtnombre.setText("");
         txtDescripcion.setText("");
         txtPrecio.setText("");
     }
@@ -63,7 +63,7 @@ public class datosServicio extends javax.swing.JInternalFrame implements View<Se
     @Override
     public void display(Servicio servicio){  // Cambio del nombre de la clase
         frmServicio.txtCodigo.setText(servicio.getDescripcion());
-        frmServicio.txtNombre.setText(servicio.getNombre());
+        frmServicio.txtnombre.setText(servicio.getNombre());
         frmServicio.txtDescripcion.setText(servicio.getDescripcion());
         frmServicio.txtPrecio.setText(String.valueOf(servicio.getPrecio()));
         

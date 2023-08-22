@@ -6,11 +6,11 @@ package gestionhotelera;
 
 import Habitacion.*;
 import Controller.Controller;
-import static Habitacion.FrmHabitacion.spnNumeroHabitacion;
 import Views.Table;
 import Views.View;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import static Habitacion.FrmHabitacion.spnNumeroHabitacion;
 
 /**
  *

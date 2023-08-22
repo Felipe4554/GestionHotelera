@@ -59,7 +59,9 @@ public class Cliente implements Entity {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-    
+    public Cliente(int identificacion){
+       this.identificacion = identificacion;
+   }
     public int getEdad() {
         // Calcular la edad en base a la fecha de nacimiento
         Date fechaActual = new Date();
@@ -99,6 +101,6 @@ public class Cliente implements Entity {
         // Convertir los datos del cliente a un arreglo de objetos
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String fechaNacimientoStr = dateFormat.format(fechaNacimiento);
-        return new Object[]{identificacion, nombre, telefono, getEdad(), correo, fechaNacimientoStr};
+        return new Object[]{identificacion, nombre, telefono, getEdad(), correo,fechaNacimientoStr };
     }
 }

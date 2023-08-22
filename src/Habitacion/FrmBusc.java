@@ -17,12 +17,12 @@ import static Empleado.FrmEmpleado.txtIdentificacion;
 import static Empleado.FrmEmpleado.txtNombre;
 import static Empleado.FrmEmpleado.txtSalario;
 import static Empleado.FrmEmpleado.txtTelefono;
-import static Habitacion.FrmHabitacion.spnNumeroHabitacion;
 import static Habitacion.FrmHabitacion.txtOcupada;
 import static Habitacion.FrmHabitacion.txtPrecio;
 import static Habitacion.FrmHabitacion.txtTipo;
 import static Habitacion.TipoHabitacion.Individual;
 import java.awt.event.MouseEvent;
+import static Habitacion.FrmHabitacion.spnNumeroHabitacion;
 
 /**
  *
@@ -56,28 +56,27 @@ public class FrmBusc extends javax.swing.JInternalFrame implements View<Habitaci
     @Override
     public void clear() {
         spnNumeroHabitacion.setValue(0);
-        txtTipo.setSelectedItem(Individual);
-        txtOcupada.setText("");
-        txtPrecio.setText("");
+        txtTipo.setSelectedIndex(0);
+        txtOcupada.setText("No");
+        txtPrecio.setText("0");
     }
-
-    @Override
+    @Override 
     public void display(Habitacion habitacion) {  // Cambio del nombre de la clase
-        frmHabitacion.spnNumeroHabitacion.setValue(habitacion.getNumeroHabitacion());
-        frmHabitacion.txtTipo.setSelectedItem(habitacion.getTipoHabitacion());
-        frmHabitacion.txtOcupada.setText(habitacion.isOcupada());
-        frmHabitacion.txtPrecio.setText(String.valueOf(habitacion.getPrecio()));
+        spnNumeroHabitacion.setValue(habitacion.getNumeroHabitacion());
+        txtTipo.setSelectedItem(habitacion.getTipoHabitacion());
+        txtOcupada.setText(habitacion.estado()); 
+        txtPrecio.setText(String.valueOf(habitacion.getPrecio()));
     }
 
     @Override
     public void displayAll(Habitacion[] regs) {  // Cambio del nombre de la clase
-        DefaultTableModel tableModel = (DefaultTableModel) tblHabitaciones.getModel();
-        tableModel.setNumRows(0);
-        for (Habitacion habitacion : regs) {
-            Object[] data = habitacion.toArrayObject();
-            tableModel.addRow(data);
-        }
-        tblHabitaciones.setModel(tableModel);
+        DefaultTableModel tableModel = (DefaultTableModel) FrmBusc.tblHabitaciones.getModel();
+    tableModel.setNumRows(0);
+    for (Habitacion habitacion : regs) {
+        Object[] datos = habitacion.toArrayObject();
+        tableModel.addRow(datos);
+    }
+    FrmBusc.tblHabitaciones.setModel(tableModel);
     }
 
     @Override
@@ -207,7 +206,7 @@ public class FrmBusc extends javax.swing.JInternalFrame implements View<Habitaci
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private static javax.swing.JTable tblHabitaciones;
+    public static javax.swing.JTable tblHabitaciones;
     private javax.swing.JTextField txtFiltro;
     // End of variables declaration//GEN-END:variables
 

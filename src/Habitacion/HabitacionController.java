@@ -40,16 +40,16 @@ public class HabitacionController implements Controller<Habitacion> {
     @Override
     public void Eliminar(Habitacion habitacion)  {
         // Verifica si la habitación está ocupada
-        if (habitacion.isOcupada()) {
-            view.displayErrorMessaje("No se puede eliminar una habitación ocupada.");
-        }
+       // if (habitacion.isOcupada()) {
+        //    view.displayErrorMessaje("No se puede eliminar una habitación ocupada.");
+      //  }
 
         // Si la habitación no está ocupada, procede con la eliminación
-        if (list.Eliminar(habitacion)) {
-            view.displayMessaje("Habitación eliminada exitosamente.");
-        } else {
-            view.displayErrorMessaje("No se pudo eliminar la habitación.");
-        }
+      //  if (list.Eliminar(habitacion)) {
+      //      view.displayMessaje("Habitación eliminada exitosamente.");
+      //  } else {
+      //      view.displayErrorMessaje("No se pudo eliminar la habitación.");
+      //  }
 }
 
 

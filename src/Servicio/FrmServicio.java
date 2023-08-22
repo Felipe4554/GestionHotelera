@@ -7,6 +7,9 @@ package Servicio;
 
 import Empleado.*;
 import Controller.Controller;
+import static Empleado.FrmEmpleado.txtIdentificacion;
+import static Habitacion.FrmHabitacion.spnNumeroHabitacion;
+import Habitacion.Habitacion;
 import Models.Table;
 import Views.FrmMenu;
 import Views.View;
@@ -49,7 +52,7 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
     @Override
     public void clear() {
         txtCodigo.setText("");
-        txtNombre.setText("");
+        txtnombre.setText("");
         txtDescripcion.setText("");
         txtPrecio.setText("");
     }
@@ -57,7 +60,7 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
     @Override
     public void display(Servicio servicio) {  // Cambio del nombre de la clase
         txtCodigo.setText(servicio.getDescripcion());
-        txtNombre.setText(servicio.getNombre());
+        txtnombre.setText(servicio.getNombre());
         txtDescripcion.setText(servicio.getDescripcion());
         txtPrecio.setText(String.valueOf(servicio.getPrecio()));
     }
@@ -114,7 +117,7 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
         txtDescripcion = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         txtPrecio = new javax.swing.JTextField();
-        txtNombre = new javax.swing.JTextField();
+        txtnombre = new javax.swing.JTextField();
 
         setClosable(true);
 
@@ -211,9 +214,10 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
             }
         });
 
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+        txtnombre.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtnombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
+                txtnombreActionPerformed(evt);
             }
         });
 
@@ -229,7 +233,7 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -260,10 +264,10 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
                             .addComponent(txtPrecio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 28, Short.MAX_VALUE)
+                        .addGap(0, 31, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -294,9 +298,9 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
     int codigoServicio = Integer.parseInt(txtCodigo.getText());
-    String nombre = txtNombre.getText();
+    String nombre = txtnombre.getText();
     String descripcion = txtDescripcion.getText();
-    double precio = Double.parseDouble(FrmServicio.txtNombre.getText());
+    double precio = Double.parseDouble(txtnombre.getText());
     
     Servicio nuevoServicio = new Servicio(codigoServicio, nombre, descripcion, precio);  // Cambio del nombre de la clase
     controller.Agregar(nuevoServicio);
@@ -304,15 +308,12 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-     //String cedulaAEliminar = JOptionPane.showInputDialog(this, "Ingrese la cédula del empleado a eliminar:", "Eliminar Empleado", JOptionPane.QUESTION_MESSAGE);
-    //if (cedulaAEliminar != null && !cedulaAEliminar.isEmpty()) {
-    //    int confirmacion = JOptionPane.showConfirmDialog(this, "¿Seguro que deseas eliminar este empleado?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
-    //    if (confirmacion == JOptionPane.YES_OPTION) {
-   //         Empleado empleadoAEliminar = new Empleado(cedulaAEliminar);
-   //         controller.Eliminar(empleadoAEliminar);
-   //         clear(); 
-   //     }
-  //  }
+    int codigoServicio = Integer.parseInt(txtCodigo.getText());
+    if (codigoServicio != 0) { 
+        Servicio ServicioAEliminar = new Servicio(codigoServicio);
+        controller.Eliminar(ServicioAEliminar);
+        clear(); 
+    }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -327,12 +328,12 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
     }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
-        // TODO add your handling code here:
+        clear();
     }//GEN-LAST:event_txtPrecioActionPerformed
 
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
+    private void txtnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombreActionPerformed
+        clear();
+    }//GEN-LAST:event_txtnombreActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -349,8 +350,8 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JFormattedTextField txtCodigo;
     public static javax.swing.JTextArea txtDescripcion;
-    public static javax.swing.JTextField txtNombre;
     public static javax.swing.JTextField txtPrecio;
+    public static javax.swing.JTextField txtnombre;
     // End of variables declaration//GEN-END:variables
 
     void addObserver(datosServicio aThis) {

@@ -8,6 +8,9 @@ package Cliente;
 import static Cliente.FrmBuscarCl.tblClientes;
 import Empleado.*;
 import Controller.Controller;
+import static Empleado.FrmEmpleado.txtIdentificacion;
+import static Habitacion.FrmHabitacion.spnNumeroHabitacion;
+import Habitacion.Habitacion;
 import Models.Table;
 import Views.FrmMenu;
 import Views.View;
@@ -345,22 +348,11 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-    String identificacionAEliminarStr = JOptionPane.showInputDialog(this, "Ingrese la identificación del cliente a eliminar:", "Eliminar Cliente", JOptionPane.QUESTION_MESSAGE);
-    
-    if (identificacionAEliminarStr != null && !identificacionAEliminarStr.isEmpty()) {
-        try {
-            int identificacionAEliminar = Integer.parseInt(identificacionAEliminarStr);
-            
-            int confirmacion = JOptionPane.showConfirmDialog(this, "¿Seguro que deseas eliminar este cliente?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
-            if (confirmacion == JOptionPane.YES_OPTION) {
-                // Crear un objeto Cliente con la identificación a eliminar
-                Cliente clienteAEliminar = new Cliente(identificacionAEliminar, "", null, 0, "");
-                controller.Eliminar(clienteAEliminar);
-                clear();
-            }
-        } catch (NumberFormatException e) {
-            displayErrorMessaje("Error: Ingresa una identificación válida.");
-        }
+    String cedulaAEliminar = txtIdentificacion.getText();  // Obtén la cédula directamente de tu campo
+    if (!cedulaAEliminar.isEmpty()) {
+        Empleado empleadoAEliminar = new Empleado(cedulaAEliminar);
+        controller.Eliminar(empleadoAEliminar);
+        clear(); 
     }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
@@ -405,7 +397,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     public static javax.swing.JTextField txtCorreo;
-    javax.swing.JFormattedTextField txtFechaNacimiento;
+    public static javax.swing.JFormattedTextField txtFechaNacimiento;
     public static javax.swing.JFormattedTextField txtIdentificacion;
     public static javax.swing.JTextField txtNombre;
     public static javax.swing.JFormattedTextField txtTelefono;

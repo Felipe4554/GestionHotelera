@@ -23,7 +23,7 @@ import static Empleado.datos.tblEmpleados;
  */
 public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empleado> {  // Cambio del nombre de la clase
     private Controller controller;
-    private FrmMenu desktopMenu;
+    //private FrmMenu desktopMenu;
     //private boolean datosFrameShown = false; 
     
  
@@ -317,14 +317,11 @@ public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empl
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-     String cedulaAEliminar = JOptionPane.showInputDialog(this, "Ingrese la cédula del empleado a eliminar:", "Eliminar Empleado", JOptionPane.QUESTION_MESSAGE);
-    if (cedulaAEliminar != null && !cedulaAEliminar.isEmpty()) {
-        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Seguro que deseas eliminar este empleado?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
-        if (confirmacion == JOptionPane.YES_OPTION) {
-            Empleado empleadoAEliminar = new Empleado(cedulaAEliminar);
-            controller.Eliminar(empleadoAEliminar);
-            clear(); 
-        }
+    String cedulaAEliminar = txtIdentificacion.getText();  // Obtén la cédula directamente de tu campo
+    if (!cedulaAEliminar.isEmpty()) {
+        Empleado empleadoAEliminar = new Empleado(cedulaAEliminar);
+        controller.Eliminar(empleadoAEliminar);
+        clear();
     }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
