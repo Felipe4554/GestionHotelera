@@ -4,9 +4,9 @@
  */
 package Views;
     
+import Cliente.FrmCliente;
 import Habitacion.FrmHabitacion;
 import Empleado.FrmEmpleado;
-import Servicio.FrmServicio;
 /**
  *
  * @author rsand
@@ -35,8 +35,8 @@ public class FrmMenu extends javax.swing.JFrame {
         menu = new javax.swing.JMenuBar();
         menuManage = new javax.swing.JMenu();
         menuHabitaciones = new javax.swing.JMenuItem();
-        menuMembers = new javax.swing.JMenuItem();
-        menuServicio = new javax.swing.JMenuItem();
+        menuEmpleados = new javax.swing.JMenuItem();
+        menuClientes = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,27 +67,27 @@ public class FrmMenu extends javax.swing.JFrame {
         });
         menuManage.add(menuHabitaciones);
 
-        menuMembers.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menuMembers.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        menuMembers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/users (4).png"))); // NOI18N
-        menuMembers.setText("Empleados");
-        menuMembers.addActionListener(new java.awt.event.ActionListener() {
+        menuEmpleados.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuEmpleados.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menuEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/users (4).png"))); // NOI18N
+        menuEmpleados.setText("Empleados");
+        menuEmpleados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuMembersActionPerformed(evt);
+                menuEmpleadosActionPerformed(evt);
             }
         });
-        menuManage.add(menuMembers);
+        menuManage.add(menuEmpleados);
 
-        menuServicio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menuServicio.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        menuServicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/internet_telephony (3).png"))); // NOI18N
-        menuServicio.setText("Servicio");
-        menuServicio.addActionListener(new java.awt.event.ActionListener() {
+        menuClientes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuClientes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menuClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/Icons/emblem-people.png"))); // NOI18N
+        menuClientes.setText("Clientes");
+        menuClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuServicioActionPerformed(evt);
+                menuClientesActionPerformed(evt);
             }
         });
-        menuManage.add(menuServicio);
+        menuManage.add(menuClientes);
 
         menu.add(menuManage);
 
@@ -112,15 +112,15 @@ public class FrmMenu extends javax.swing.JFrame {
         View.showInternal(desktopMenu, frm);
     }//GEN-LAST:event_menuHabitacionesActionPerformed
 
-    private void menuMembersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMembersActionPerformed
+    private void menuEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEmpleadosActionPerformed
         FrmEmpleado frm = new FrmEmpleado();
         View.showInternal(desktopMenu, frm);
-    }//GEN-LAST:event_menuMembersActionPerformed
+    }//GEN-LAST:event_menuEmpleadosActionPerformed
 
-    private void menuServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuServicioActionPerformed
-        FrmServicio frm = new FrmServicio();
-        View.showInternal(desktopMenu, frm);    
-    }//GEN-LAST:event_menuServicioActionPerformed
+    private void menuClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuClientesActionPerformed
+        FrmCliente frm = new FrmCliente();
+        View.showInternal(desktopMenu, frm);
+    }//GEN-LAST:event_menuClientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,6 +149,8 @@ public class FrmMenu extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -161,9 +163,9 @@ public class FrmMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JDesktopPane desktopMenu;
     private javax.swing.JMenuBar menu;
+    private javax.swing.JMenuItem menuClientes;
+    private javax.swing.JMenuItem menuEmpleados;
     private javax.swing.JMenuItem menuHabitaciones;
     private javax.swing.JMenu menuManage;
-    private javax.swing.JMenuItem menuMembers;
-    private javax.swing.JMenuItem menuServicio;
     // End of variables declaration//GEN-END:variables
 }

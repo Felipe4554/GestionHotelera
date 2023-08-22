@@ -7,7 +7,6 @@ package Habitacion;
 import Empleado.datos;
 
 
-import static Habitacion.FrmHab.txtIdentificacion;
 import Models.HabitacionOcupadaException;
 import Views.FrmMenu;
 import Views.View;
@@ -25,7 +24,7 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
 
     private HabitacionController controller; // Agregar una referencia al controlador
     FrmMenu desktTopMenu;
-    private FrmBuscar frmBuscar;
+    private FrmBusc frmBuscar;
     /**
      * Creates new form FrmHabitacion
      */
@@ -33,7 +32,7 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
         initComponents();
         TipoHabitacion();
         controller = new HabitacionController(this);
-        frmBuscar = new FrmBuscar();
+        frmBuscar = new FrmBusc();
     }
     
     private void loadHabitaciones() {  // Cambio del nombre del método
@@ -261,15 +260,16 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
     }//GEN-LAST:event_txtTipoActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+
+        // Obtener los datos de los campos de la vista y crear una instancia de Habitacion
+
         int numeroHabitacion = (int) spnNumeroHabitacion.getValue();
         TipoHabitacion tipoHabitacion = TipoHabitacion.valueOf(txtTipo.getSelectedItem().toString());
         boolean ocupada = Boolean.parseBoolean(txtOcupada.getText());
         double precio = Double.parseDouble(txtPrecio.getText());
-        
+
         Habitacion nuevaHabitacion = new Habitacion(numeroHabitacion, tipoHabitacion, ocupada, precio);
         controller.Agregar(nuevaHabitacion);
-     
-    
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
