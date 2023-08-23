@@ -5,6 +5,7 @@
 package Habitacion;
 
 import Empleado.datos;
+import static Habitacion.FrmBusc.tblHabitaciones;
 
 
 import Models.HabitacionOcupadaException;
@@ -144,10 +145,11 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtOcupada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtNumeroHabitacion, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtNumeroHabitacion, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtOcupada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
@@ -320,21 +322,21 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
     @Override
     public void display(Habitacion habitacion) {
         // Mostrar los detalles de la habitación en los campos de la vista
-        txtNumeroHabitacion.setText(String.valueOf(habitacion.getNumeroHabitacion())); // Cambia el valor del campo
+        txtNumeroHabitacion.setText(String.valueOf(habitacion.getNumeroHabitacion()));
         txtTipo.setSelectedItem(habitacion.getTipoHabitacion().toString());
         txtOcupada.setText(habitacion.estado());
         txtPrecio.setText(String.valueOf(habitacion.getPrecio()));
     }
 
     @Override
-    public void displayAll(Habitacion[] regs) {
-        // Implementar la actualización de una tabla si es necesario
-               // DefaultTableModel tableModel = (DefaultTableModel) tblEmpleados.getModel();
-       // tableModel.setNumRows(0);
-        for (Habitacion habitacion : regs) {
-            Object[] frmBuscar = habitacion.toArrayObject();
-            //tableModel.addRow(data);
-        }
+    public void displayAll(Habitacion[] regs) {  // Cambio del nombre de la clase
+        DefaultTableModel tableModel = (DefaultTableModel) tblHabitaciones.getModel();
+    tableModel.setNumRows(0);
+    for (Habitacion habitacion : regs) {
+        Object[] hab = habitacion.toArrayObject();
+        tableModel.addRow(hab);
+    }
+    tblHabitaciones.setModel(tableModel);
     }
 
     @Override
@@ -351,5 +353,9 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
     public boolean displayConfirmMessaje(String msj) {
         int option = JOptionPane.showConfirmDialog(this, msj, "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         return option == JOptionPane.YES_OPTION;
+    }
+
+    void addObserver(FrmBusc aThis) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

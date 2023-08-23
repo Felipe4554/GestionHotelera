@@ -3,10 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Views;
-    
-import Cliente.FrmCliente;
+    import Cliente.FrmCliente;
+    import Empleado.FrmEmpleado;
 import Habitacion.FrmHabitacion;
-import Empleado.FrmEmpleado;
 import Servicio.FrmServicio;
 /**
  *
@@ -165,6 +164,10 @@ public class FrmMenu extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrmMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

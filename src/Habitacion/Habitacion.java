@@ -27,7 +27,7 @@ public class Habitacion implements Entity {
         this.precio = calcularPrecioPredeterminado(tipoHabitacion);
     }
 
-    Habitacion(int numeroHabitacion, String tipo, int precio, boolean ocupado) {
+    Habitacion(int numeroHabitacion, String tipo, int precio, boolean ocupada) {
         this.numeroHabitacion = numeroHabitacion;
         this.tipoHabitacion = tipoHabitacion;
         this.ocupada = ocupada; // Por defecto, una habitación nueva no está ocupada.

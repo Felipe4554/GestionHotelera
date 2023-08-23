@@ -61,7 +61,7 @@ public class datos extends javax.swing.JInternalFrame implements View<Empleado> 
     frmEmpleado.txtTelefono.setText(empleado.getTelefono());
     frmEmpleado.txtPuesto.setSelectedItem(empleado.getPuesto());
     frmEmpleado.txtSalario.setText(String.valueOf(empleado.getSalario()));
-    
+    this.dispose();
     }
     
     @Override
