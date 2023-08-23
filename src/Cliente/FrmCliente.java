@@ -9,7 +9,7 @@ import static Cliente.FrmBuscarCl.tblClientes;
 import Empleado.*;
 import Controller.Controller;
 import static Empleado.FrmEmpleado.txtIdentificacion;
-import static Habitacion.FrmHabitacion.spnNumeroHabitacion;
+import static Habitacion.FrmHabitacion.txtNumeroHabitacion;
 import Models.Table;
 import Views.FrmMenu;
 import Views.View;

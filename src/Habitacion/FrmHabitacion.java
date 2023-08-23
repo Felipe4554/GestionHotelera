@@ -42,7 +42,7 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
     }
     @Override
     public void clear() {
-        spnNumeroHabitacion.setValue(0);
+        txtNumeroHabitacion.setText("");
         txtTipo.setSelectedIndex(0);
         txtOcupada.setText("No");
         txtPrecio.setText("0");
@@ -64,13 +64,13 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        spnNumeroHabitacion = new javax.swing.JSpinner();
         jLabel5 = new javax.swing.JLabel();
         txtTipo = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         txtOcupada = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtPrecio = new javax.swing.JTextField();
+        txtNumeroHabitacion = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         btnAgregar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
@@ -86,8 +86,6 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Habitacion");
-
-        spnNumeroHabitacion.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("Tipo");
@@ -116,7 +114,7 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(spnNumeroHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNumeroHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -126,7 +124,7 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtOcupada, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))
+                    .addComponent(txtOcupada, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -145,14 +143,13 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtOcupada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(spnNumeroHabitacion, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtOcupada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNumeroHabitacion, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
                     .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -265,7 +262,7 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
 
         // Obtener los datos de los campos de la vista y crear una instancia de Habitacion
 
-        int numeroHabitacion = (int) spnNumeroHabitacion.getValue();
+        int numeroHabitacion = Integer.parseInt(txtNumeroHabitacion.getText());
         TipoHabitacion tipoHabitacion = TipoHabitacion.valueOf(txtTipo.getSelectedItem().toString());
         boolean ocupada = Boolean.parseBoolean(txtOcupada.getText());
         double precio = Double.parseDouble(txtPrecio.getText());
@@ -277,7 +274,7 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int numero = 0;
         try {
-            numero = (int) spnNumeroHabitacion.getValue();
+            numero = Integer.parseInt(txtNumeroHabitacion.getText());
         } catch (NumberFormatException ex) {
             displayErrorMessaje("El número de habitación debe ser un valor numérico.");
             return;
@@ -297,7 +294,7 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        int numeroHabitacion = (int) spnNumeroHabitacion.getValue();
+        int numeroHabitacion = Integer.parseInt(txtNumeroHabitacion.getText());
         TipoHabitacion tipoHabitacion = TipoHabitacion.valueOf(txtTipo.getSelectedItem().toString());
         Habitacion habitacion = new Habitacion(numeroHabitacion, tipoHabitacion);
         controller.Actualizar(habitacion);
@@ -314,8 +311,8 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    public static javax.swing.JSpinner spnNumeroHabitacion;
-    private javax.swing.JTextField txtOcupada;
+    public static javax.swing.JTextField txtNumeroHabitacion;
+    public static javax.swing.JTextField txtOcupada;
     public static javax.swing.JTextField txtPrecio;
     public static javax.swing.JComboBox<String> txtTipo;
     // End of variables declaration//GEN-END:variables
@@ -323,7 +320,7 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
     @Override
     public void display(Habitacion habitacion) {
         // Mostrar los detalles de la habitación en los campos de la vista
-        spnNumeroHabitacion.setValue(habitacion.getNumeroHabitacion());
+        txtNumeroHabitacion.setText(String.valueOf(habitacion.getNumeroHabitacion())); // Cambia el valor del campo
         txtTipo.setSelectedItem(habitacion.getTipoHabitacion().toString());
         txtOcupada.setText(habitacion.estado());
         txtPrecio.setText(String.valueOf(habitacion.getPrecio()));

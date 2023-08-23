@@ -8,7 +8,7 @@ package Servicio;
 import Empleado.*;
 import Controller.Controller;
 import static Empleado.FrmEmpleado.txtIdentificacion;
-import static Habitacion.FrmHabitacion.spnNumeroHabitacion;
+import static Habitacion.FrmHabitacion.txtNumeroHabitacion;
 import Habitacion.Habitacion;
 import Models.Table;
 import Views.FrmMenu;
