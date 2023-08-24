@@ -29,6 +29,16 @@ public class ReservaList {
     private HabitacionList habitacionList;
     private ClienteList clienteList;
     private int numeroReservaActual;
+    
+    public int getNextCodigoReserva() {
+        int maxCodigo = 0;
+        for (Reserva reserva : reservas.values()) {
+            if (reserva.getNumeroReserva() > maxCodigo) {
+                maxCodigo = reserva.getNumeroReserva();
+            }
+        }
+        return maxCodigo + 1;
+    }
 
     private ReservaList() {
         this.reservas = new HashMap<>();
@@ -172,8 +182,13 @@ public class ReservaList {
         return habitacionList.obtenerHabitacionDisponiblePorTipo(tipoHabitacion);
     }
 
-    Reserva[] toArray() {
+    public Reserva[] toArray() {
         return reservas.values().toArray(new Reserva[0]);
     }
-
+    
+     public void showAll(){
+         for (Reserva reserva : reservas.values()){
+             System.out.println(reservas);
+         }
+     }
 }

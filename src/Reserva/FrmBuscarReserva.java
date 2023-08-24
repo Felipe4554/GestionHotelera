@@ -19,28 +19,34 @@ import static Empleado.FrmEmpleado.txtIdentificacion;
 import static Empleado.FrmEmpleado.txtNombre;
 import static Empleado.FrmEmpleado.txtSalario;
 import static Empleado.FrmEmpleado.txtTelefono;
+import static Reserva.FrmReserva.txtFechaEntrada;
+import static Reserva.FrmReserva.txtFechaSalida;
+import static Reserva.FrmReserva.txtIdCliente;
+import static Reserva.FrmReserva.txtPrecioTotal;
+import static Reserva.FrmReserva.txtTipo;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 
 /**
  *
  * @author jprod
  */
-public class FrmBuscarReserva extends javax.swing.JInternalFrame implements View<Cliente> {  
+public class FrmBuscarReserva extends javax.swing.JInternalFrame implements View<Reserva> {  
 
     static Object getTblEmpleados() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 // Cambio del nombre de la clase
-    private Controller controller;
-    private Cliente cliente;
-    private FrmCliente frmCliente;
+    private ReservaController controller;
+    private Reserva reserva;
+    private FrmReserva frmReserva;
 
     public FrmBuscarReserva() {
         initComponents();
-        this.cliente = cliente;
-        this.frmCliente = frmCliente;
+        this.reserva = reserva;
+        this.frmReserva = frmReserva;
         this.loadPuestos();  // Cambio del método
-        this.controller = new ClienteController(this);  // Cambio del nombre de la clase
+        this.controller = new ReservaController(this);  // Cambio del nombre de la clase
         this.controller.buscarTodo(); 
     }
      
@@ -55,43 +61,6 @@ public class FrmBuscarReserva extends javax.swing.JInternalFrame implements View
         txtTelefono.setText("");
 //        txtPuesto.setText("");
         txtSalario.setText("");
-    }
-
-    @Override
-    public void display(Cliente cliente) {  // Cambio del nombre de la clase
-        frmCliente.txtIdentificacion.setText(String.valueOf(cliente.getIdentificacion()));
-        frmCliente.txtNombre.setText(cliente.getNombre());
-        frmCliente.txtTelefono.setText(String.valueOf(cliente.getTelefono()));
-        frmCliente.txtCorreo.setText(cliente.getCorreo());
-        frmCliente.txtFechaNacimiento.setValue(cliente.getFechaNacimiento());
-        this.dispose();
-    }
-    
-    @Override
-    public void displayAll(Cliente[] regs) {  // Cambio del nombre de la clase
-        DefaultTableModel tableModel = (DefaultTableModel) tblReservas.getModel();
-        tableModel.setNumRows(0);
-        for (Cliente cliente : regs) {
-            Object[] data = cliente.toArrayObject();
-            tableModel.addRow(data);
-        }
-        tblReservas.setModel(tableModel);
-    }
-
-    @Override
-    public void displayMessaje(String msj) {
-        JOptionPane.showMessageDialog(this, msj, "Información Importante", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    @Override
-    public void displayErrorMessaje(String msj) {
-        JOptionPane.showMessageDialog(this, msj, "Error", JOptionPane.ERROR_MESSAGE);
-    }
-
-    @Override
-    public boolean displayConfirmMessaje(String msj) {
-        int option = JOptionPane.showConfirmDialog(this, msj, "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        return option == JOptionPane.YES_OPTION;
     }
 
     /**
@@ -227,5 +196,43 @@ public class FrmBuscarReserva extends javax.swing.JInternalFrame implements View
     public static javax.swing.JTable tblReservas;
     private javax.swing.JTextField txtFiltro;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void display(Reserva reserva) {
+        frmReserva.lblReserva.setText(String.valueOf(reserva.getNumeroReserva()));
+        frmReserva.txtIdCliente.setText(String.valueOf(reserva.getIdCliente()));
+        frmReserva.txtTipo.setSelectedItem(reserva.getTipoHabitacion());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        frmReserva.txtFechaEntrada.setText(dateFormat.format(reserva.getFechaEntrada()));
+        frmReserva.txtFechaSalida.setText(dateFormat.format(reserva.getFechaSalida()));
+        frmReserva.txtEstado.setSelectedItem(reserva.getEstado());
+        frmReserva.txtPrecioTotal.setText(String.valueOf(reserva.getPrecioTotal()));
+    }
+
+    @Override
+    public void displayAll(Reserva[] regs) {
+        DefaultTableModel tableModel = (DefaultTableModel) tblReservas.getModel();
+        tableModel.setNumRows(0);
+        for (Reserva reserva : regs) {
+            Object[] data = reserva.toArrayObject();
+            tableModel.addRow(data);
+        }
+        FrmBuscarReserva.tblReservas.setModel(tableModel);
+    }
+
+    @Override
+    public void displayMessaje(String msj) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean displayConfirmMessaje(String msj) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void displayErrorMessaje(String msj) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
 }

@@ -432,6 +432,11 @@ public class FrmReserva extends javax.swing.JInternalFrame implements View<Reser
 
     private void btnActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivarActionPerformed
     //cambia el estado de la reserva a “En ejecución” siempre que el estado anterior sea “PENDIENTE” (Validar) y pone la habitación como no disponible.
+    int proximoCodigo = ReservaList.getInstance().getNextCodigoReserva();
+
+    // Incrementar el próximo código
+    proximoCodigo++;
+
     // Get the reservation number from lblNumReserva
         // Get the reservation number from lblNumReserva
     String reservaIdStr = lblNumReserva.getText();
@@ -554,10 +559,10 @@ public class FrmReserva extends javax.swing.JInternalFrame implements View<Reser
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblNumReserva;
+    public static javax.swing.JLabel lblNumReserva;
     private javax.swing.JLabel lblReserva;
     public static javax.swing.JTable tblHabitacionesDisponibles;
-    private javax.swing.JComboBox<String> txtEstado;
+    public static javax.swing.JComboBox<String> txtEstado;
     public static javax.swing.JFormattedTextField txtFechaEntrada;
     public static javax.swing.JFormattedTextField txtFechaSalida;
     public static javax.swing.JFormattedTextField txtIdCliente;

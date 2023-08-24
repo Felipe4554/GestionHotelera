@@ -50,6 +50,7 @@ public class ReservaController {
 
         if (activacionExitosa) {
             view.displayMessaje("Reserva activada con éxito.");
+            gestorReservas.showAll();
         } else {
             view.displayErrorMessaje("No se pudo activar la reserva.");
         }
