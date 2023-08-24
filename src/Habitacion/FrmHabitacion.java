@@ -9,6 +9,7 @@ import static Habitacion.FrmBusc.tblHabitaciones;
 
 
 import Models.HabitacionOcupadaException;
+import Servicio.datosServicio;
 import Views.FrmMenu;
 import Views.View;
 import java.awt.event.ActionEvent;
@@ -32,8 +33,9 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
     public FrmHabitacion() {
         initComponents();
         TipoHabitacion();
-        controller = new HabitacionController(this);
+        this.controller = new HabitacionController(this);
         frmBuscar = new FrmBusc();
+        this.controller.buscarTodo();
     }
     
     private void loadHabitaciones() {  // Cambio del nombre del método
@@ -47,6 +49,43 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
         txtTipo.setSelectedIndex(0);
         txtOcupada.setText("No");
         txtPrecio.setText("0");
+    }
+    
+    @Override
+    public void display(Habitacion habitacion) {
+        // Mostrar los detalles de la habitación en los campos de la vista
+        txtNumeroHabitacion.setText(String.valueOf(habitacion.getNumeroHabitacion())); // Cambia el valor del campo
+        txtTipo.setSelectedItem(habitacion.getTipoHabitacion().toString());
+        txtOcupada.setText(habitacion.isOcupada() ? "Ocupada" : "Libre");
+        txtPrecio.setText(String.valueOf(habitacion.getPrecio()));
+    }
+
+    @Override
+    public void displayAll(Habitacion[] regs) {
+         DefaultTableModel tableModel = (DefaultTableModel) FrmBusc.tblHabitaciones.getModel();
+          tableModel.setNumRows(0);
+        for (Habitacion servicio : regs) {
+            Object[] habitaciones = servicio.toArrayObject();
+            tableModel.addRow(habitaciones);
+        }
+    FrmBusc.tblHabitaciones.setModel(tableModel);
+
+    }
+
+    @Override
+    public void displayMessaje(String msj) {
+        JOptionPane.showMessageDialog(this, msj, "Información Importante", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    @Override
+    public void displayErrorMessaje(String msj) {
+        JOptionPane.showMessageDialog(this, msj, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    @Override
+    public boolean displayConfirmMessaje(String msj) {
+        int option = JOptionPane.showConfirmDialog(this, msj, "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        return option == JOptionPane.YES_OPTION;
     }
     
     private void TipoHabitacion() {
@@ -101,7 +140,6 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Precio");
 
-        txtOcupada.setEditable(false);
         txtOcupada.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -261,16 +299,21 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
     }//GEN-LAST:event_txtTipoActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-
-        // Obtener los datos de los campos de la vista y crear una instancia de Habitacion
+<<<<<<< HEAD
+ // Obtener los datos de los campos de la vista y crear una instancia de Habitacion
 
         int numeroHabitacion = Integer.parseInt(txtNumeroHabitacion.getText());
         TipoHabitacion tipoHabitacion = TipoHabitacion.valueOf(txtTipo.getSelectedItem().toString());
+=======
+        int numeroHabitacion = Integer.parseInt(txtNumeroHabitacion.getText());
+        TipoHabitacion tipoHabitacion = TipoHabitacion.valueOf(txtTipo.getItemAt(WIDTH));
+>>>>>>> aeb8be893e4c412b0893a31620145f10191de95b
         boolean ocupada = Boolean.parseBoolean(txtOcupada.getText());
         double precio = Double.parseDouble(txtPrecio.getText());
 
         Habitacion nuevaHabitacion = new Habitacion(numeroHabitacion, tipoHabitacion, ocupada, precio);
         controller.Agregar(nuevaHabitacion);
+        clear();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -286,6 +329,7 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
 
         // Llamar al método Eliminar del controlador
         controller.Eliminar(habitacion);
+        clear();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -300,6 +344,7 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
         TipoHabitacion tipoHabitacion = TipoHabitacion.valueOf(txtTipo.getSelectedItem().toString());
         Habitacion habitacion = new Habitacion(numeroHabitacion, tipoHabitacion);
         controller.Actualizar(habitacion);
+        clear();
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -319,43 +364,16 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
     public static javax.swing.JComboBox<String> txtTipo;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void display(Habitacion habitacion) {
-        // Mostrar los detalles de la habitación en los campos de la vista
-        txtNumeroHabitacion.setText((habitacion.getNumeroHabitacion()));
-        txtTipo.setSelectedItem(habitacion.getTipoHabitacion());
-        txtOcupada.setText(habitacion.estado());
-        txtPrecio.setText(String.valueOf(habitacion.getPrecio()));
-    }
-
-    @Override
-    public void displayAll(Habitacion[] regs) {  // Cambio del nombre de la clase
-        DefaultTableModel tableModel = (DefaultTableModel) tblHabitaciones.getModel();
-    tableModel.setNumRows(0);
-    for (Habitacion habitacion : regs) {
-        Object[] hab = habitacion.toArrayObject();
-        tableModel.addRow(hab);
-    }
-    tblHabitaciones.setModel(tableModel);
-    }
-
-    @Override
-    public void displayMessaje(String msj) {
-        JOptionPane.showMessageDialog(this, msj, "Información Importante", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    @Override
-    public void displayErrorMessaje(String msj) {
-        JOptionPane.showMessageDialog(this, msj, "Error", JOptionPane.ERROR_MESSAGE);
-    }
-
-    @Override
-    public boolean displayConfirmMessaje(String msj) {
-        int option = JOptionPane.showConfirmDialog(this, msj, "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        return option == JOptionPane.YES_OPTION;
-    }
-
+<<<<<<< HEAD
     void addObserver(FrmBusc aThis) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
+
+=======
+
+void addObserver(FrmBusc aThis) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+}
+>>>>>>> aeb8be893e4c412b0893a31620145f10191de95b

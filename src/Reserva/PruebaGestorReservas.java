@@ -45,7 +45,7 @@ public class PruebaGestorReservas {
             clienteList.Agregar(cliente2);
 
             // Crear una instancia de GestorReservas
-            GestorReservas gestorReservas = new GestorReservas(habitacionList, clienteList);
+            ReservaList gestorReservas = new ReservaList(habitacionList, clienteList);
 
             // Agregar una reserva
             Date fechaEntrada = sdf.parse("2023-08-20");

@@ -6,6 +6,7 @@ package Views;
     import Cliente.FrmCliente;
     import Empleado.FrmEmpleado;
 import Habitacion.FrmHabitacion;
+import Reserva.FrmReserva;
 import Servicio.FrmServicio;
 /**
  *
@@ -38,6 +39,7 @@ public class FrmMenu extends javax.swing.JFrame {
         menuEmpleados = new javax.swing.JMenuItem();
         menuClientes = new javax.swing.JMenuItem();
         menuServicio = new javax.swing.JMenuItem();
+        menuReservas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -101,6 +103,17 @@ public class FrmMenu extends javax.swing.JFrame {
         });
         menuManage.add(menuServicio);
 
+        menuReservas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuReservas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menuReservas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/Icons/book (7).png"))); // NOI18N
+        menuReservas.setText("Reservas");
+        menuReservas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuReservasActionPerformed(evt);
+            }
+        });
+        menuManage.add(menuReservas);
+
         menu.add(menuManage);
 
         setJMenuBar(menu);
@@ -138,6 +151,11 @@ public class FrmMenu extends javax.swing.JFrame {
         FrmServicio frm = new FrmServicio();
         View.showInternal(desktopMenu, frm);
     }//GEN-LAST:event_menuServicioActionPerformed
+
+    private void menuReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuReservasActionPerformed
+        FrmReserva frm = new FrmReserva();
+        View.showInternal(desktopMenu, frm);
+    }//GEN-LAST:event_menuReservasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -188,6 +206,7 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuEmpleados;
     private javax.swing.JMenuItem menuHabitaciones;
     private javax.swing.JMenu menuManage;
+    private javax.swing.JMenuItem menuReservas;
     private javax.swing.JMenuItem menuServicio;
     // End of variables declaration//GEN-END:variables
 }

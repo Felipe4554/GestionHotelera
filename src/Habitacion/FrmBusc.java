@@ -64,19 +64,25 @@ public class FrmBusc extends javax.swing.JInternalFrame implements View<Habitaci
     
     @Override
     public void clear() {
-
         frmHabitacion.txtNumeroHabitacion.setText("");
         frmHabitacion.txtTipo.setSelectedIndex(0);
         frmHabitacion.txtOcupada.setText("No");
         frmHabitacion.txtPrecio.setText("0");
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> aeb8be893e4c412b0893a31620145f10191de95b
     }
     @Override 
     public void display(Habitacion habitacion) {  // Cambio del nombre de la clase
 
         frmHabitacion.txtNumeroHabitacion.setText(String.valueOf(habitacion.getNumeroHabitacion()));
         frmHabitacion.txtTipo.setSelectedItem(habitacion.getTipoHabitacion());
+<<<<<<< HEAD
         frmHabitacion.txtOcupada.setText(habitacion.estado());
+=======
+>>>>>>> aeb8be893e4c412b0893a31620145f10191de95b
         //frmHabitacion.txtOcupada.setText(habitacion.getOcupada());
         frmHabitacion.txtPrecio.setText(String.valueOf(habitacion.getPrecio()));
         this.dispose();
@@ -225,10 +231,24 @@ public class FrmBusc extends javax.swing.JInternalFrame implements View<Habitaci
 
     private void tblHabitacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHabitacionesMouseClicked
         if (evt.getClickCount() == 2) {
+<<<<<<< HEAD
             int row = tblHabitaciones.getSelectedRow();
             Object identificacion = tblHabitaciones.getValueAt(row, 0);
             controller.Buscar(identificacion);
         }
+=======
+           int row = tblHabitaciones.getSelectedRow();
+           Object numeroHabitacionObj = tblHabitaciones.getValueAt(row, 0);
+
+           try {
+               int numeroHabitacion = Integer.parseInt(numeroHabitacionObj.toString());
+               controller.Buscar(new Habitacion(numeroHabitacion));
+           } catch (NumberFormatException e) {
+               // Maneja la excepción si el número de habitación no es un valor numérico
+               JOptionPane.showMessageDialog(this, "El número de habitación no es válido.", "Error", JOptionPane.ERROR_MESSAGE);
+           }
+       }
+>>>>>>> aeb8be893e4c412b0893a31620145f10191de95b
     }//GEN-LAST:event_tblHabitacionesMouseClicked
 
 

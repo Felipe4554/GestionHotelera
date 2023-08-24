@@ -69,13 +69,13 @@ public class FrmBuscarReserva extends javax.swing.JInternalFrame implements View
     
     @Override
     public void displayAll(Cliente[] regs) {  // Cambio del nombre de la clase
-        DefaultTableModel tableModel = (DefaultTableModel) tblClientes.getModel();
+        DefaultTableModel tableModel = (DefaultTableModel) tblReservas.getModel();
         tableModel.setNumRows(0);
         for (Cliente cliente : regs) {
             Object[] data = cliente.toArrayObject();
             tableModel.addRow(data);
         }
-        tblClientes.setModel(tableModel);
+        tblReservas.setModel(tableModel);
     }
 
     @Override
@@ -105,10 +105,11 @@ public class FrmBuscarReserva extends javax.swing.JInternalFrame implements View
 
         txtFiltro = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblClientes = new javax.swing.JTable();
+        tblReservas = new javax.swing.JTable();
+        btnConfirmar = new javax.swing.JButton();
 
         setClosable(true);
-        setTitle("Buscar Cliente");
+        setTitle("Buscar Reserva");
 
         txtFiltro.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -117,12 +118,12 @@ public class FrmBuscarReserva extends javax.swing.JInternalFrame implements View
             }
         });
 
-        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tblReservas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Cedula", "Nombre", "Telefono", "Fecha de Nacimento", "Correo", "Edad"
+                "Reserva", "Cliente", "Entrada", "Salida", "Estado", "Salida"
             }
         ) {
             Class[] types = new Class [] {
@@ -140,20 +141,27 @@ public class FrmBuscarReserva extends javax.swing.JInternalFrame implements View
                 return canEdit [columnIndex];
             }
         });
-        tblClientes.setColumnSelectionAllowed(true);
-        tblClientes.getTableHeader().setReorderingAllowed(false);
-        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblReservas.setColumnSelectionAllowed(true);
+        tblReservas.getTableHeader().setReorderingAllowed(false);
+        tblReservas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblClientesMouseClicked(evt);
+                tblReservasMouseClicked(evt);
             }
         });
-        tblClientes.addKeyListener(new java.awt.event.KeyAdapter() {
+        tblReservas.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                tblClientesKeyReleased(evt);
+                tblReservasKeyReleased(evt);
             }
         });
-        jScrollPane1.setViewportView(tblClientes);
-        tblClientes.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        jScrollPane1.setViewportView(tblReservas);
+        tblReservas.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+
+        btnConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/Icons/checkmark_korganizer (3).png"))); // NOI18N
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -165,6 +173,10 @@ public class FrmBuscarReserva extends javax.swing.JInternalFrame implements View
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1072, Short.MAX_VALUE)
                     .addComponent(txtFiltro, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(483, 483, 483)
+                .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,38 +184,47 @@ public class FrmBuscarReserva extends javax.swing.JInternalFrame implements View
                 .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtFiltroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroKeyReleased
-        Table.filter(this.tblClientes, txtFiltro.getText());
+        Table.filter(this.tblReservas, txtFiltro.getText());
     }//GEN-LAST:event_txtFiltroKeyReleased
 
-    private void tblClientesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblClientesKeyReleased
+    private void tblReservasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblReservasKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-            int row = tblClientes.getSelectedRow();
+            int row = tblReservas.getSelectedRow();
             if (row > -1) {
-                Object identificacion = tblClientes.getValueAt(row, 0);
+                Object identificacion = tblReservas.getValueAt(row, 0);
                 controller.Eliminar(new Empleado(identificacion.toString()));  // Cambio del nombre de la clase
             }
         }
-    }//GEN-LAST:event_tblClientesKeyReleased
+    }//GEN-LAST:event_tblReservasKeyReleased
 
-    private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
+    private void tblReservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblReservasMouseClicked
         if (evt.getClickCount() == 2) {
-            int row = tblClientes.getSelectedRow();
-            Object identificacion = tblClientes.getValueAt(row, 0);
+            int row = tblReservas.getSelectedRow();
+            Object identificacion = tblReservas.getValueAt(row, 0);
             controller.Buscar(identificacion);
         }
-    }//GEN-LAST:event_tblClientesMouseClicked
+    }//GEN-LAST:event_tblReservasMouseClicked
+
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+            int row = tblReservas.getSelectedRow();
+            Object identificacion = tblReservas.getValueAt(row, 0);
+            controller.Buscar(identificacion);
+    }//GEN-LAST:event_btnConfirmarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConfirmar;
     private javax.swing.JScrollPane jScrollPane1;
-    public static javax.swing.JTable tblClientes;
+    public static javax.swing.JTable tblReservas;
     private javax.swing.JTextField txtFiltro;
     // End of variables declaration//GEN-END:variables
 

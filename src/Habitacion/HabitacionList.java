@@ -5,7 +5,7 @@
 package Habitacion;
 
 import Models.List;
-import Reserva.GestorReservas;
+import Reserva.ReservaList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Date;
@@ -15,7 +15,7 @@ public class HabitacionList implements List<Habitacion> {
 
     private static HabitacionList habitacionList;
     private Map<Integer, Habitacion> habitaciones;
-    private static GestorReservas reservas;
+    private static ReservaList reservas;
 
     public static HabitacionList getInstance() {
         if (habitacionList == null) {
@@ -82,7 +82,7 @@ public class HabitacionList implements List<Habitacion> {
         return habitaciones.values().toArray(new Habitacion[0]);
     }
 
-    // Método para buscar una habitación disponible del tipo especificado para un rango de fechas
+     // Método para buscar una habitación disponible del tipo especificado para un rango de fechas
     public Habitacion obtenerHabitacionDisponiblePorTipo(String tipoHabitacion, Date fechaEntrada, Date fechaSalida) {
         for (Habitacion habitacion : habitaciones.values()) {
             if (habitacion.getTipoHabitacion().toString().equals(tipoHabitacion) && !habitacion.isOcupada()) {
@@ -90,6 +90,35 @@ public class HabitacionList implements List<Habitacion> {
                 if (reservas.verificarDisponibilidadFechas(habitacion, fechaEntrada, fechaSalida)) {
                     return habitacion; // Devuelve la primera habitación disponible que cumple con los criterios
                 }
+            }
+        }
+        return null; // Devuelve null si no se encontró una habitación disponible que cumpla con los criterios
+    }
+
+    // Método para marcar una habitación como ocupada
+    public boolean marcarHabitacionComoOcupada(int numeroHabitacion) {
+        Habitacion habitacion = habitaciones.get(numeroHabitacion);
+        if (habitacion != null && !habitacion.isOcupada()) {
+            habitacion.setOcupada(true); // Marcar la habitación como ocupada
+            return true;
+        }
+        return false; // Indica que no se pudo marcar la habitación como ocupada
+    }
+
+    // Método para marcar una habitación como disponible
+    public boolean marcarHabitacionComoDisponible(int numeroHabitacion) {
+        Habitacion habitacion = habitaciones.get(numeroHabitacion);
+        if (habitacion != null && habitacion.isOcupada()) {
+            habitacion.setOcupada(false); // Marcar la habitación como disponible
+            return true;
+        }
+        return false; // Indica que no se pudo marcar la habitación como disponible
+    }
+
+    public Habitacion obtenerHabitacionDisponiblePorTipo(String tipoHabitacion) {
+        for (Habitacion habitacion : habitaciones.values()) {
+            if (habitacion.getTipoHabitacion().toString().equals(tipoHabitacion) && !habitacion.isOcupada()) {
+                return habitacion; // Devuelve la primera habitación disponible que cumple con los criterios
             }
         }
         return null; // Devuelve null si no se encontró una habitación disponible que cumpla con los criterios

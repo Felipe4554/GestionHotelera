@@ -11,7 +11,11 @@ import Empleado.*;
 import Controller.Controller;
 import static Empleado.FrmEmpleado.txtIdentificacion;
 import static Habitacion.FrmHabitacion.txtNumeroHabitacion;
+import static Habitacion.FrmHabitacion.txtTipo;
+import Habitacion.Habitacion;
+import Habitacion.TipoHabitacion;
 import Models.Table;
+import static Reserva.FrmBuscarReserva.tblReservas;
 import Views.FrmMenu;
 import Views.View;
 import java.awt.event.ActionEvent;
@@ -23,20 +27,23 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import Reserva.Reserva;
+import Reserva.ReservaController;
 
 /**
  *
  * @author jprod
  */
-public class FrmReserva extends javax.swing.JInternalFrame implements View<Cliente> {  // Cambio del nombre de la clase
-    private Controller controller;
+public class FrmReserva extends javax.swing.JInternalFrame implements View<Reserva> {  // Cambio del nombre de la clase
+    private ReservaController controller;
     private FrmMenu desktopMenu;
-    private boolean datosFrameShown = false;
+    private boolean FrmBuscarReservaFrameShown = false;
     
     public FrmReserva() {
         initComponents();
-        this.loadPuestos();  // Cambio del método
-        this.controller = new ClienteController(this);  // Cambio del nombre de la clase
+        TipoHabitacion();  
+        EstadoReserva();// Cambio del método
+        this.controller = new ReservaController(this);  // Cambio del nombre de la clase
         this.controller.buscarTodo();
     }
     
@@ -46,34 +53,50 @@ public class FrmReserva extends javax.swing.JInternalFrame implements View<Clien
         // en el ComboBox según tu implementación
     }
     
+    private void TipoHabitacion() {
+        for (TipoHabitacion tipo : TipoHabitacion.values()) {
+            txtTipo.addItem(tipo.toString());
+        }
+    }
+    
+    private void EstadoReserva() {
+        for (EstadoReserva estado : EstadoReserva.values()) {
+            txtEstado.addItem(estado.toString());
+        }
+    }
+    
     @Override
     public void clear() {
+        lblReserva.setText("");
         txtIdCliente.setText("");
-        txtNombre.setText("");
-        txtTelefono.setText("");
-        txtCorreo.setText("");
-        txtFechaNacimiento.setValue(null);
+        txtTipo.setSelectedIndex(0);
+        txtFechaEntrada.setText("");
+        txtFechaSalida.setText("");
+        txtEstado.setSelectedIndex(0);
+        txtPrecioTotal.setText("");
     }
 
     @Override
-    public void display(Cliente cliente) {
-        txtIdCliente.setText(String.valueOf(cliente.getIdentificacion()));
-        txtNombre.setText(cliente.getNombre());
-        txtTelefono.setText(String.valueOf(cliente.getTelefono()));
-        txtCorreo.setText(cliente.getCorreo());
-        txtFechaNacimiento.setValue(cliente.getFechaNacimiento());
+    public void display(Reserva reserva) {
+        lblReserva.setText(String.valueOf(reserva.getNumeroReserva()));
+        txtIdCliente.setText(String.valueOf(reserva.getIdCliente()));
+        txtTipo.setSelectedItem(reserva.getTipoHabitacion());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        txtFechaEntrada.setText(dateFormat.format(reserva.getFechaEntrada()));
+        txtFechaSalida.setText(dateFormat.format(reserva.getFechaSalida()));
+        txtEstado.setSelectedItem(reserva.getEstado());
+        txtPrecioTotal.setText(String.valueOf(reserva.getPrecioTotal()));
     }
 
     @Override
-    public void displayAll(Cliente[] regs) {
-        DefaultTableModel tableModel = (DefaultTableModel) tblClientes.getModel();
+    public void displayAll(Reserva[] regs) {
+        DefaultTableModel tableModel = (DefaultTableModel) tblReservas.getModel();
         tableModel.setNumRows(0);
-        for (Cliente cliente : regs) {
-            Object[] data = cliente.toArrayObject();
+        for (Reserva reserva : regs) {
+            Object[] data = reserva.toArrayObject();
             tableModel.addRow(data);
         }
-    FrmBuscarCl.tblClientes.setModel(tableModel);
-
+        FrmBuscarReserva.tblReservas.setModel(tableModel);
     }
 
     @Override
@@ -109,18 +132,22 @@ public class FrmReserva extends javax.swing.JInternalFrame implements View<Clien
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtIdCliente = new javax.swing.JFormattedTextField();
-        txtNombre = new javax.swing.JTextField();
-        txtTelefono = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtCorreo = new javax.swing.JTextField();
-        txtFechaNacimiento = new javax.swing.JFormattedTextField();
+        txtFechaSalida = new javax.swing.JFormattedTextField();
+        txtTipo = new javax.swing.JComboBox<>();
+        txtFechaEntrada = new javax.swing.JFormattedTextField();
+        txtPrecioTotal = new javax.swing.JFormattedTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtEstado = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
-        btnClear = new javax.swing.JButton();
-        btnSave = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
-        btnSearch = new javax.swing.JButton();
+        btnFinalizar = new javax.swing.JButton();
+        btnActivar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         lblReserva = new javax.swing.JLabel();
         lblNumReserva = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblHabitacionesDisponibles = new javax.swing.JTable();
 
         setClosable(true);
         setTitle("Reserva");
@@ -131,13 +158,13 @@ public class FrmReserva extends javax.swing.JInternalFrame implements View<Clien
         jLabel1.setText("Cliente");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Nombre");
+        jLabel2.setText("Tipo Habitacion");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel3.setText("Telefono");
+        jLabel3.setText("Fecha Entrada");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel5.setText("Fecha Nacimiento");
+        jLabel5.setText("Fecha Salida");
 
         txtIdCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#########"))));
         txtIdCliente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -147,35 +174,44 @@ public class FrmReserva extends javax.swing.JInternalFrame implements View<Clien
             }
         });
 
-        txtNombre.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
-            }
-        });
-
-        txtTelefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("########"))));
-        txtTelefono.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTelefonoActionPerformed(evt);
-            }
-        });
-
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel4.setText("Correo");
+        jLabel4.setText("Estado");
 
-        txtCorreo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtCorreo.addActionListener(new java.awt.event.ActionListener() {
+        txtFechaSalida.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
+        txtFechaSalida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCorreoActionPerformed(evt);
+                txtFechaSalidaActionPerformed(evt);
             }
         });
 
-        txtFechaNacimiento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
-        txtFechaNacimiento.addActionListener(new java.awt.event.ActionListener() {
+        txtTipo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFechaNacimientoActionPerformed(evt);
+                txtTipoActionPerformed(evt);
+            }
+        });
+
+        txtFechaEntrada.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
+        txtFechaEntrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFechaEntradaActionPerformed(evt);
+            }
+        });
+
+        txtPrecioTotal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#########"))));
+        txtPrecioTotal.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtPrecioTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPrecioTotalActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel6.setText("Precio total");
+
+        txtEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEstadoActionPerformed(evt);
             }
         });
 
@@ -191,22 +227,27 @@ public class FrmReserva extends javax.swing.JInternalFrame implements View<Clien
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(txtFechaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtFechaNacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(txtFechaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(99, 99, 99)
-                        .addComponent(jLabel5)))
-                .addGap(12, 12, 12)
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel5)
+                        .addGap(54, 54, 54)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPrecioTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,49 +258,51 @@ public class FrmReserva extends javax.swing.JInternalFrame implements View<Clien
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtFechaSalida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFechaEntrada, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                        .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPrecioTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTipo)
+                    .addComponent(txtIdCliente))
+                .addGap(12, 12, 12))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/clear_left (3).png"))); // NOI18N
-        btnClear.setToolTipText("");
-        btnClear.addActionListener(new java.awt.event.ActionListener() {
+        btnFinalizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/clear_left (3).png"))); // NOI18N
+        btnFinalizar.setToolTipText("");
+        btnFinalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClearActionPerformed(evt);
+                btnFinalizarActionPerformed(evt);
             }
         });
 
-        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/save_all (3).png"))); // NOI18N
-        btnSave.setToolTipText("");
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
+        btnActivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/save_all (3).png"))); // NOI18N
+        btnActivar.setToolTipText("");
+        btnActivar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveActionPerformed(evt);
+                btnActivarActionPerformed(evt);
             }
         });
 
-        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/dialog-cancel.png"))); // NOI18N
-        btnDelete.setToolTipText("");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/dialog-cancel.png"))); // NOI18N
+        btnCancelar.setToolTipText("");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
-        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/search.png"))); // NOI18N
-        btnSearch.setToolTipText("");
-        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/search.png"))); // NOI18N
+        btnBuscar.setToolTipText("");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearchActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -269,13 +312,13 @@ public class FrmReserva extends javax.swing.JInternalFrame implements View<Clien
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnActivar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
-                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(364, 364, 364))
         );
         jPanel2Layout.setVerticalGroup(
@@ -283,10 +326,10 @@ public class FrmReserva extends javax.swing.JInternalFrame implements View<Clien
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnActivar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -297,24 +340,63 @@ public class FrmReserva extends javax.swing.JInternalFrame implements View<Clien
         lblNumReserva.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNumReserva.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        tblHabitacionesDisponibles.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Habitacion", "Tipo", "Estado", "Precio"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblHabitacionesDisponibles.setColumnSelectionAllowed(true);
+        tblHabitacionesDisponibles.getTableHeader().setReorderingAllowed(false);
+        tblHabitacionesDisponibles.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblHabitacionesDisponiblesMouseClicked(evt);
+            }
+        });
+        tblHabitacionesDisponibles.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tblHabitacionesDisponiblesKeyReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblHabitacionesDisponibles);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(355, 355, 355)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lblReserva))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblNumReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblReserva)
+                                    .addComponent(lblNumReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(318, 318, 318)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -326,122 +408,202 @@ public class FrmReserva extends javax.swing.JInternalFrame implements View<Clien
                 .addComponent(lblNumReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addGap(12, 12, 12))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-    clear();
-    }//GEN-LAST:event_btnClearActionPerformed
+    private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
+    // cambia el estado de la reserva a “Finalizada” siempre que el estado anterior sea “EJECUCION” (Validar) y pone la habitación como disponible.
+    // Get the reservation number from lblNumReserva
+    String reservaIdStr = lblNumReserva.getText();
 
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-    String identificacionStr = txtIdCliente.getText();
-    String nombre = txtNombre.getText();
-    String telefonoStr = txtTelefono.getText();
-    String correo = txtCorreo.getText();
-    String fechaNacimientoStr = txtFechaNacimiento.getText(); // Obtener la cadena de fecha
-
-    try {
-        int identificacion = Integer.parseInt(identificacionStr);
-        int telefono = Integer.parseInt(telefonoStr);
-        
-        // Crear un formato de fecha para analizar la cadena de fecha
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date fechaNacimiento = dateFormat.parse(fechaNacimientoStr); // Convertir la cadena en Date
-        
-        // Crear un nuevo objeto Cliente con los datos
-        Cliente nuevoCliente = new Cliente(identificacion, nombre, fechaNacimiento, telefono, correo);
-        
-        // Llamar al controlador para agregar el cliente
-        controller.Agregar(nuevoCliente);
-        
-        // Limpiar los campos después de agregar
-        clear();
-        
-        // Mostrar mensaje de éxito
-        displayMessaje("Cliente agregado exitosamente.");
-    } catch (NumberFormatException e) {
-        displayErrorMessaje("Error: Ingresa un número válido para la identificación o el teléfono.");
-    } catch (ParseException e) {
-        displayErrorMessaje("Error: Ingresa una fecha válida en el formato yyyy-MM-dd.");
-        clear();
+    if (!reservaIdStr.isEmpty()) {
+            int reservaId = Integer.parseInt(reservaIdStr);
+            // Call the finalizarReserva method from the controller
+            controller.finalizarReserva(reservaId);
     }
-    }//GEN-LAST:event_btnSaveActionPerformed
+    }//GEN-LAST:event_btnFinalizarActionPerformed
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+    private void btnActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivarActionPerformed
+    //cambia el estado de la reserva a “En ejecución” siempre que el estado anterior sea “PENDIENTE” (Validar) y pone la habitación como no disponible.
+    // Get the reservation number from lblNumReserva
+        // Get the reservation number from lblNumReserva
+    String reservaIdStr = lblNumReserva.getText();
 
-    String identificacionAEliminarStr = txtIdCliente.getText();
-    
-    if (!identificacionAEliminarStr.isEmpty()) {
-        try {
-            int identificacionAEliminar = Integer.parseInt(identificacionAEliminarStr);
-            
-            // Crear un objeto Cliente con la identificación a eliminar
-            Cliente clienteAEliminar = new Cliente(identificacionAEliminar, "", null, 0, "");
-            controller.Eliminar(clienteAEliminar);
-            clear();
-        } catch (NumberFormatException e) {
-            displayErrorMessaje("Error: Ingresa una identificación válida.");
-        }
-
+    if (!reservaIdStr.isEmpty()) {
+            int reservaId = Integer.parseInt(reservaIdStr);
+            // Call the activarReserva method from the controller
+            controller.activarReserva(reservaId);
     }
-    }//GEN-LAST:event_btnDeleteActionPerformed
+    }//GEN-LAST:event_btnActivarActionPerformed
 
-    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-       FrmBuscarCl gente = new FrmBuscarCl();
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+    // cambia el estado de la reserva a “Cancelada” siempre que el estado anterior sea “PENDIENTE” (Validar).
+        // Get the reservation number from lblNumReserva
+    String reservaIdStr = lblNumReserva.getText();
+
+    if (!reservaIdStr.isEmpty()) {
+            int reservaId = Integer.parseInt(reservaIdStr);
+            // Call the cancelarReserva method from the controller
+            controller.cancelarReserva(reservaId);
+    }
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+       FrmBuscarReserva gente = new FrmBuscarReserva();
        FrmMenu.desktopMenu.add(gente);
        gente.toFront();
        gente.setVisible(true);
-    }//GEN-LAST:event_btnSearchActionPerformed
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void txtTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTipoActionPerformed
+        //Aqui se debería cargar la informacion de las habitaciones filtradas por su tipo 
+    // Obtain the selected room type
+    String tipoHabitacion = (String) txtTipo.getSelectedItem();
+
+    // Call the controller method to get the available rooms by type
+//    Habitacion[] habitacionesDisponibles = controller.obtenerHabitacionDisponiblePorTipo(tipoHabitacion);
+
+    // Display the available rooms in the table tblHabitaciones
+   // displayHabitacionesCompatibles(habitacionesDisponibles);
+    }//GEN-LAST:event_txtTipoActionPerformed
+
+    private void txtFechaSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaSalidaActionPerformed
+    // Get the selected room type
+    String tipoHabitacion = (String) txtTipo.getSelectedItem();
+
+    // Parse the input dates (with validation)
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    Date fechaEntrada = null;
+    Date fechaSalida = null;
+    try {
+        fechaEntrada = dateFormat.parse(txtFechaEntrada.getText());
+        fechaSalida = dateFormat.parse(txtFechaSalida.getText());
+    } catch (ParseException ex) {
+        // Handle the exception if the dates are not valid
+        JOptionPane.showMessageDialog(this, "Fechas no válidas.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Call the controller method to get the available rooms by type and dates
+        Habitacion habitacionesDisponibles = controller.obtenerHabitacionDisponiblePorTipoYFechas(tipoHabitacion, fechaEntrada, fechaSalida);
+
+    // Display the available rooms in the table tblHabitaciones
+    displayHabitacionesCompatibles(habitacionesDisponibles);
+    }//GEN-LAST:event_txtFechaSalidaActionPerformed
 
     private void txtIdClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdClienteActionPerformed
-        clear();
+        //Aquí se debe cargar la identificacion del cliente
     }//GEN-LAST:event_txtIdClienteActionPerformed
 
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        clear();
-    }//GEN-LAST:event_txtNombreActionPerformed
-
-    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
-        clear();
-    }//GEN-LAST:event_txtTelefonoActionPerformed
-
-    private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
+    private void txtFechaEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaEntradaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCorreoActionPerformed
+    }//GEN-LAST:event_txtFechaEntradaActionPerformed
 
-    private void txtFechaNacimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaNacimientoActionPerformed
+    private void tblHabitacionesDisponiblesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHabitacionesDisponiblesMouseClicked
+
+    }//GEN-LAST:event_tblHabitacionesDisponiblesMouseClicked
+
+    private void tblHabitacionesDisponiblesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblHabitacionesDisponiblesKeyReleased
+//        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+//            int row = tblHabitaciones.getSelectedRow();
+//            if (row > -1) {
+//                Object numeroHabitacionObj = tblHabitaciones.getValueAt(row, 0);
+//                // Intenta convertir el número de habitación a entero
+//                try {
+//                    int numeroHabitacion = Integer.parseInt(numeroHabitacionObj.toString());
+//                    // Puedes mostrar un mensaje de confirmación antes de eliminar el registro
+//                    int option = JOptionPane.showConfirmDialog(this, "¿Estás seguro de eliminar esta habitación?", "Confirmación", JOptionPane.YES_NO_OPTION);
+//                    if (option == JOptionPane.YES_OPTION) {
+//                        controller.Eliminar(new Reserva(numeroHabitacion));
+//                    }
+//                } catch (NumberFormatException e) {
+//                    // Maneja la excepción si el número de habitación no es un valor numérico
+//                    JOptionPane.showMessageDialog(this, "El número de habitación no es válido.", "Error", JOptionPane.ERROR_MESSAGE);
+//                }
+//            }
+//        }
+    }//GEN-LAST:event_tblHabitacionesDisponiblesKeyReleased
+
+    private void txtPrecioTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioTotalActionPerformed
+        //En este espacio se debe cargar el precio calculado de la reserva
+    }//GEN-LAST:event_txtPrecioTotalActionPerformed
+
+    private void txtEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEstadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaNacimientoActionPerformed
+    }//GEN-LAST:event_txtEstadoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnClear;
-    private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnSave;
-    private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnActivar;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnFinalizar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblNumReserva;
     private javax.swing.JLabel lblReserva;
-    public static javax.swing.JTextField txtCorreo;
-    public static javax.swing.JFormattedTextField txtFechaNacimiento;
+    public static javax.swing.JTable tblHabitacionesDisponibles;
+    private javax.swing.JComboBox<String> txtEstado;
+    public static javax.swing.JFormattedTextField txtFechaEntrada;
+    public static javax.swing.JFormattedTextField txtFechaSalida;
     public static javax.swing.JFormattedTextField txtIdCliente;
-    public static javax.swing.JTextField txtNombre;
-    public static javax.swing.JFormattedTextField txtTelefono;
+    public static javax.swing.JFormattedTextField txtPrecioTotal;
+    public static javax.swing.JComboBox<String> txtTipo;
     // End of variables declaration//GEN-END:variables
 
     void addObserver(FrmBuscarCl aThis) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+// Agrega este método para mostrar las habitaciones compatibles en la tabla
+    private void displayHabitacionesCompatibles(Habitacion habitacion) {
+        DefaultTableModel tableModel = (DefaultTableModel) tblHabitacionesDisponibles.getModel();
+        tableModel.setNumRows(0); // Clear the table
+
+        if (habitacion != null) {
+            // Obtain the information of the compatible room
+            String numeroHabitacion = String.valueOf(habitacion.getNumeroHabitacion());
+            String tipo = habitacion.getTipoHabitacion().toString();
+            String estado = habitacion.estado();
+            String precio = String.valueOf(habitacion.getPrecio());
+
+            // Add the row to the table
+            tableModel.addRow(new Object[] {numeroHabitacion, tipo, estado, precio});
+        }
+
+        tblHabitacionesDisponibles.setModel(tableModel);
+    }
+
+    private void displayHabitacionesCompatibles(Habitacion[] habitaciones) {
+        DefaultTableModel tableModel = (DefaultTableModel) tblHabitacionesDisponibles.getModel();
+        tableModel.setNumRows(0); // Limpia la tabla
+
+        for (Habitacion habitacion : habitaciones) {
+            // Supongo que los datos de la habitación se obtienen con estos métodos ficticios
+            String numeroHabitacion = String.valueOf(habitacion.getNumeroHabitacion());
+            String tipo = habitacion.getTipoHabitacion().toString();
+            String estado = habitacion.estado();
+            String precio = String.valueOf(habitacion.getPrecio());
+
+            // Agrega la fila a la tabla
+            tableModel.addRow(new Object[] {numeroHabitacion, tipo, estado, precio});
+        }
+
+        tblHabitacionesDisponibles.setModel(tableModel);
     }
 
 }

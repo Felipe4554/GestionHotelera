@@ -136,6 +136,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("Fecha Nacimiento");
 
+        txtIdentificacion.setEditable(false);
         txtIdentificacion.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#########"))));
         txtIdentificacion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtIdentificacion.addActionListener(new java.awt.event.ActionListener() {
@@ -184,8 +185,18 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+<<<<<<< HEAD
+<<<<<<< HEAD
                     .addComponent(txtIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+=======
+                    .addComponent(txtIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(74, 74, 74)
+>>>>>>> aeb8be893e4c412b0893a31620145f10191de95b
+=======
+                    .addComponent(txtIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(74, 74, 74)
+>>>>>>> aeb8be893e4c412b0893a31620145f10191de95b
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))

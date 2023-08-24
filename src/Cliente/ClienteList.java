@@ -71,4 +71,21 @@ public class ClienteList implements List<Cliente> {
     public Cliente[] toArray() {
         return clientes.toArray(new Cliente[0]);
     }
+
+    public Cliente BuscarPorCedula(String cedula) {
+        int cedulaInt;
+        try {
+            cedulaInt = Integer.parseInt(cedula);
+        } catch (NumberFormatException e) {
+            // Manejar la excepción si la cédula no es un número válido
+            return null;
+        }
+
+        for (Cliente cliente : clientes) {
+            if (cliente.getIdentificacion() == cedulaInt) {
+                return cliente;
+            }
+        }
+        return null;
+    }
 }
