@@ -299,15 +299,10 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
     }//GEN-LAST:event_txtTipoActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-<<<<<<< HEAD
- // Obtener los datos de los campos de la vista y crear una instancia de Habitacion
+// Obtener los datos de los campos de la vista y crear una instancia de Habitacion
 
         int numeroHabitacion = Integer.parseInt(txtNumeroHabitacion.getText());
         TipoHabitacion tipoHabitacion = TipoHabitacion.valueOf(txtTipo.getSelectedItem().toString());
-=======
-        int numeroHabitacion = Integer.parseInt(txtNumeroHabitacion.getText());
-        TipoHabitacion tipoHabitacion = TipoHabitacion.valueOf(txtTipo.getItemAt(WIDTH));
->>>>>>> aeb8be893e4c412b0893a31620145f10191de95b
         boolean ocupada = Boolean.parseBoolean(txtOcupada.getText());
         double precio = Double.parseDouble(txtPrecio.getText());
 
@@ -364,16 +359,9 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
     public static javax.swing.JComboBox<String> txtTipo;
     // End of variables declaration//GEN-END:variables
 
-<<<<<<< HEAD
     void addObserver(FrmBusc aThis) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
 
-=======
 
-void addObserver(FrmBusc aThis) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-}
->>>>>>> aeb8be893e4c412b0893a31620145f10191de95b
