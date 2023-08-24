@@ -12,5 +12,6 @@ public interface List<Type> {
 public boolean Agregar(Type obj);
 public boolean Actualizar(Type obj);
 public boolean Eliminar(Type obj);
-public boolean Buscar(Object id);
+public Type Buscar(Object id);
+public Type[] toArray();
 }
