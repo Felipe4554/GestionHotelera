@@ -22,15 +22,14 @@ public class Habitacion implements Entity {
     public Habitacion(int numeroHabitacion, TipoHabitacion tipoHabitacion) {
         this.numeroHabitacion = numeroHabitacion;
         this.tipoHabitacion = tipoHabitacion;
-        this.ocupada = false; // Por defecto, una habitación nueva no está ocupada.
-        // Establecer un precio predeterminado según el tipo de habitación
+        this.ocupada = false; 
         this.precio = calcularPrecioPredeterminado(tipoHabitacion);
     }
 
     Habitacion(int numeroHabitacion, String tipo, int precio, boolean ocupada) {
         this.numeroHabitacion = numeroHabitacion;
         this.tipoHabitacion = tipoHabitacion;
-        this.ocupada = ocupada; // Por defecto, una habitación nueva no está ocupada.
+        this.ocupada = ocupada; 
     }
 
     Habitacion(int numeroHabitacion) {
@@ -72,7 +71,6 @@ public class Habitacion implements Entity {
 
     public void setTipoHabitacion(TipoHabitacion tipoHabitacion) {
         this.tipoHabitacion = tipoHabitacion;
-        // Cuando se cambia el tipo de habitación, se recalcula el precio
         this.precio = calcularPrecioPredeterminado(tipoHabitacion);
     }
 
@@ -81,9 +79,6 @@ public class Habitacion implements Entity {
     }
 
     public double calcularPrecioPredeterminado(TipoHabitacion tipoHabitacion) {
-        // Lógica para calcular el precio predeterminado según el tipo de habitación
-        // Puedes definir esta lógica según tus requerimientos.
-        // Aquí, solo se proporciona un ejemplo básico:
         switch (tipoHabitacion) {
             case Individual:
                 return 45000.0;
@@ -92,14 +87,12 @@ public class Habitacion implements Entity {
             case Suite:
                 return 140000.0;
             default:
-                return 0.0; // Tipo de habitación desconocido
+                return 0.0; 
         }
     }
 
     @Override
     public boolean isComplete() {
-        // Verifica si el número de habitación es mayor que cero
-        // y si el tipo de habitación no es null ni una cadena vacía
         return this.numeroHabitacion > 0 && this.tipoHabitacion != null && !this.tipoHabitacion.toString().isEmpty();
     }
 

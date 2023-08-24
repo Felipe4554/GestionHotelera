@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import Empleado.Empleado; 
 import static Empleado.FrmEmpleado.txtIdentificacion;
 import static Empleado.FrmEmpleado.txtNombre;
+import static Empleado.FrmEmpleado.txtPuesto;
 import static Empleado.FrmEmpleado.txtSalario;
 import static Empleado.FrmEmpleado.txtTelefono;
 import java.awt.event.MouseEvent;
@@ -38,7 +39,7 @@ public class FrmBuscarCl extends javax.swing.JInternalFrame implements View<Clie
         initComponents();
         this.cliente = cliente;
         this.frmCliente = frmCliente;
-        this.loadPuestos();  // Cambio del método
+        this.loadPuestos();  
         this.controller = new ClienteController(this);  // Cambio del nombre de la clase
         this.controller.buscarTodo(); 
     }
@@ -52,12 +53,12 @@ public class FrmBuscarCl extends javax.swing.JInternalFrame implements View<Clie
         txtIdentificacion.setText("");
         txtNombre.setText("");
         txtTelefono.setText("");
-//        txtPuesto.setText("");
+        //txtPuesto.setText("");
         txtSalario.setText("");
     }
 
     @Override
-    public void display(Cliente cliente) {  // Cambio del nombre de la clase
+    public void display(Cliente cliente) {  
         frmCliente.txtIdentificacion.setText(String.valueOf(cliente.getIdentificacion()));
         frmCliente.txtNombre.setText(cliente.getNombre());
         frmCliente.txtTelefono.setText(String.valueOf(cliente.getTelefono()));
@@ -67,7 +68,7 @@ public class FrmBuscarCl extends javax.swing.JInternalFrame implements View<Clie
     }
     
     @Override
-    public void displayAll(Cliente[] regs) {  // Cambio del nombre de la clase
+    public void displayAll(Cliente[] regs) {  
         DefaultTableModel tableModel = (DefaultTableModel) tblClientes.getModel();
         tableModel.setNumRows(0);
         for (Cliente cliente : regs) {

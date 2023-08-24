@@ -13,14 +13,12 @@ import Controller.Controller;
 
 
 public class EmpleadoControler implements Controller<Empleado> {
-    // Atributos de la clase
-    private EmpleadoList list; // Atributo EmpleadoList
-    private View view; // Atributo View
+    private EmpleadoList list; 
+    private View view; 
 
-    // Constructor que recibe una instancia de la vista para interactuar con ella
     public EmpleadoControler(View view) {
-        list = EmpleadoList.getInstance(); // Crear una nueva instancia de EmpleadoList
-        this.view = view; // Asignar la vista proporcionada al atributo view
+        list = EmpleadoList.getInstance();
+        this.view = view; 
     }
 
     @Override

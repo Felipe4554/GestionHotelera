@@ -34,8 +34,6 @@ public class ClienteList implements List<Cliente> {
 
     @Override
     public boolean Actualizar(Cliente cliente) {
-        // Para actualizar, primero eliminamos el cliente existente (si existe)
-        // y luego agregamos el cliente actualizado
         Eliminar(cliente);
         return Agregar(cliente);
     }
@@ -77,7 +75,6 @@ public class ClienteList implements List<Cliente> {
         try {
             cedulaInt = Integer.parseInt(cedula);
         } catch (NumberFormatException e) {
-            // Manejar la excepción si la cédula no es un número válido
             return null;
         }
 

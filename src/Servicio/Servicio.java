@@ -15,9 +15,7 @@ public class Servicio implements Entity {
     private String nombre;
     private String descripcion;
     private double precio;
-    // Constructores
 
-    // Constructor completo
     public Servicio(int codigoServicio, String nombre, String descripcion, double precio) {
         this.codigoServicio = codigoServicio;
         this.nombre = nombre;
@@ -25,7 +23,6 @@ public class Servicio implements Entity {
         this.precio = precio;
     }
 
-    // Constructor con valores por defecto
     public Servicio(int codigoServicio, String nombre) {
         this.codigoServicio = codigoServicio;
         this.nombre = nombre;
@@ -35,9 +32,12 @@ public class Servicio implements Entity {
     public Servicio(int codigoServicio){
        this.codigoServicio = codigoServicio;
    }
-    // Métodos de acceso
 
-    
+    public Servicio(String nombre, String descripcion, double precio) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+    }
 
     public int getCodigoServicio() {
         return codigoServicio;
@@ -75,4 +75,5 @@ public class Servicio implements Entity {
     public String toString() {
         return "Código de Servicio=" + codigoServicio + ", Nombre=" + nombre + ", Descripción=" + descripcion + ", Precio=" + precio;
     }
+
 }

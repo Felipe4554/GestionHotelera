@@ -28,7 +28,6 @@ public class HabitacionController implements Controller<Habitacion> {
 
     @Override
     public void Actualizar(Habitacion habitacion) {
-        // Lógica para actualizar el tipo de habitación
         if (list.actualizarTipoHabitacion(habitacion.getNumeroHabitacion(), habitacion.getTipoHabitacion())) {
             view.displayMessaje("Tipo de habitación actualizado exitosamente.");
         } else {

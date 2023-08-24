@@ -20,7 +20,6 @@ public class FrmMenu extends javax.swing.JFrame {
     public FrmMenu() {
         initComponents();
         View.maximize(this);
-        //Cargar datos utilizando clase Data.
     }
 
     /**

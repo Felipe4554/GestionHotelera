@@ -30,7 +30,7 @@ import static Servicio.datosServicio.tblServicio;
  *
  * @author rsand
  */
-public class FrmServicio extends javax.swing.JInternalFrame implements View<Servicio> {  // Cambio del nombre de la clase
+public class FrmServicio extends javax.swing.JInternalFrame implements View<Servicio> {  
     private Controller controller;
     private Servicio servicio;
     private datosServicio datosServicio;
@@ -39,11 +39,11 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
     public FrmServicio() {
         initComponents();
        // this.loadRoles();
-        this.controller = new ServicioControler(this);  // Cambio del nombre de la clase
+        this.controller = new ServicioControler(this); 
         this.controller.buscarTodo();
         
-        int proximoCodigo = ServicioList.getInstance().getNextCodigoServicio();
-        txtCodigo.setText(String.valueOf(proximoCodigo));
+       int proximoCodigo = ServicioList.getInstance().getNextCodigoServicio();
+       txtCodigo.setText(String.valueOf(proximoCodigo));
     }
   
     @Override
@@ -55,7 +55,7 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
     }
 
     @Override
-    public void display(Servicio servicio) {  // Cambio del nombre de la clase
+    public void display(Servicio servicio) { 
         txtCodigo.setText(String.valueOf(servicio.getCodigoServicio()));
         txtnombre.setText(servicio.getNombre());
         txtDescripcion.setText(servicio.getDescripcion());
@@ -63,7 +63,7 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
     }
     
     @Override
-    public void displayAll(Servicio[] regs) {  // Cambio del nombre de la clase
+    public void displayAll(Servicio[] regs) {  
         DefaultTableModel tableModel = (DefaultTableModel) datosServicio.tblServicio.getModel();
     tableModel.setNumRows(0);
     for (Servicio servicio : regs) {
@@ -119,8 +119,6 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
 
         setClosable(true);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Código");
 
@@ -130,7 +128,6 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("Precio");
 
-        txtCodigo.setEditable(false);
         txtCodigo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#########"))));
         txtCodigo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtCodigo.addActionListener(new java.awt.event.ActionListener() {
@@ -138,8 +135,6 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
                 txtCodigoActionPerformed(evt);
             }
         });
-
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/save_all (3).png"))); // NOI18N
         btnSave.setToolTipText("Guardar");
@@ -224,27 +219,28 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(54, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(329, 329, 329))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(314, 314, 314)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,30 +288,19 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
     int proximoCodigo = ServicioList.getInstance().getNextCodigoServicio();
-
-    // Incrementar el próximo código
     proximoCodigo++;
-
-    // Obtener los valores de los campos
     String nombre = txtnombre.getText();
     String descripcion = txtDescripcion.getText();
     double precio = Double.parseDouble(txtPrecio.getText());
-
-    // Crear un nuevo objeto Servicio con el código incrementado
     Servicio nuevoServicio = new Servicio(proximoCodigo, nombre, descripcion, precio);
-
-    // Agregar el servicio al controlador
     controller.Agregar(nuevoServicio);
-
-    // Limpiar los campos
     clear();
 
-    // Actualizar el campo de código con el próximo número
     txtCodigo.setText(String.valueOf(proximoCodigo));
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-     int codigoServicio = Integer.parseInt(txtCodigo.getText());  // Obtén la cédula directamente de tu campo
+     int codigoServicio = Integer.parseInt(txtCodigo.getText());
     if (codigoServicio != 0) {
         Servicio servicioAEliminar = new Servicio(codigoServicio);
         controller.Eliminar(servicioAEliminar);
@@ -347,9 +332,10 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
     String nombre = txtnombre.getText();
     String descripcion = txtDescripcion.getText();
     double precio = Double.parseDouble(txtPrecio.getText());
-        Servicio actServ = new Servicio(codigoServicio, nombre,descripcion,precio);
-        controller.Actualizar(actServ);
-        clear();
+    Servicio servicioActualizado = new Servicio(codigoServicio,nombre, descripcion, precio);
+    controller.Actualizar(servicioActualizado); 
+   
+    clear();
     }//GEN-LAST:event_btnActualizarActionPerformed
 
 

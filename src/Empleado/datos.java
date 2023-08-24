@@ -54,7 +54,7 @@ public class datos extends javax.swing.JInternalFrame implements View<Empleado> 
     }
 
     @Override
-    public void display(Empleado empleado) {  // Cambio del nombre de la clase
+    public void display(Empleado empleado) {  
 
     frmEmpleado.txtIdentificacion.setText(empleado.getIdentificacion());
     frmEmpleado.txtNombre.setText(empleado.getNombre());
@@ -65,7 +65,7 @@ public class datos extends javax.swing.JInternalFrame implements View<Empleado> 
     }
     
     @Override
-    public void displayAll(Empleado[] regs) {  // Cambio del nombre de la clase
+    public void displayAll(Empleado[] regs) {  
         DefaultTableModel tableModel = (DefaultTableModel) tblEmpleados.getModel();
         tableModel.setNumRows(0);
         for (Empleado empleado : regs) {

@@ -20,10 +20,10 @@ public class ClienteController implements Controller<Cliente> {
     private ClienteList clienteList;
     private View view;
 
-    // Constructor that receives an instance of the view to interact with it
+    
     public ClienteController(View view) {
-        clienteList = ClienteList.getInstance(); // Create a new instance of ClienteList
-        this.view = view; // Assign the provided view to the view attribute
+        clienteList = ClienteList.getInstance(); 
+        this.view = view; 
     }
 
     @Override
@@ -52,7 +52,6 @@ public class ClienteController implements Controller<Cliente> {
     public void Eliminar(Cliente cliente) {
         System.out.println("Intentando eliminar cliente con identificación: " + cliente.getIdentificacion());
 
-        // Implementa la lógica de eliminación aquí
 
         if (clienteList.Eliminar(cliente)) {
             System.out.println("Cliente eliminado exitosamente.");

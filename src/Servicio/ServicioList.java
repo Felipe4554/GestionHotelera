@@ -8,6 +8,8 @@ package Servicio;
  *
  * @author rsand
  */
+import Cliente.Cliente;
+import Habitacion.Habitacion;
 import Models.List;
 import java.util.HashMap;
 
@@ -15,15 +17,10 @@ import java.util.HashMap;
  * Clase que representa una lista de servicios utilizando el patrón de diseño singleton.
  */
 public class ServicioList implements List<Servicio> {
-
-    // Patrón de diseño singleton
     private static ServicioList servicioList;
     private static int nextCodigoServicio = 1;
-
-    // HashMap para almacenar los servicios
     private HashMap<Integer, Servicio> servicios;
 
-    // Método estático para obtener la instancia única de la lista de servicios
     public static ServicioList getInstance() {
         if (servicioList == null) {
             servicioList = new ServicioList();
@@ -56,7 +53,10 @@ public boolean Agregar(Servicio obj) {
 
     @Override
     public boolean Actualizar(Servicio obj) {
-        return Agregar(obj);
+        if (obj != null && servicios.containsKey(obj.getCodigoServicio())) {
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -69,13 +69,17 @@ public boolean Agregar(Servicio obj) {
     }
 
     @Override
-    public Servicio Buscar(Object id) {
-        if (id instanceof Integer) {
-            return servicios.get(id);
+public Servicio Buscar(Object codigoServicio) {
+    if (codigoServicio instanceof Integer) {
+        int id = (int) codigoServicio;
+        for (Servicio servicio : servicios.values()) {
+            if (servicio.getCodigoServicio() == id) {
+                return servicio;
+            }
         }
-        return null;
     }
-
+    return null;
+}
     @Override
     public Servicio[] toArray() {
         return servicios.values().toArray(new Servicio[0]);

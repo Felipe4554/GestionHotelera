@@ -13,13 +13,10 @@ import java.util.HashMap;
  */
 public class EmpleadoList implements List<Empleado> {
 
-    // Patrón de diseño singleton
     private static EmpleadoList empleadoList;
 
-    // HashMap para almacenar los empleados
     private HashMap<String, Empleado> empleados;
 
-    // Método estático para obtener la instancia única de la lista de empleados
     public static EmpleadoList getInstance() {
         if (empleadoList == null) {
             empleadoList = new EmpleadoList();

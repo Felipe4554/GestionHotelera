@@ -13,14 +13,12 @@ import Controller.Controller;
  * @author rsand
  */
 public class ServicioControler implements Controller<Servicio> {
-    // Atributos de la clase
-    private ServicioList list; // Atributo ServicioList
-    private View view; // Atributo View
+    private ServicioList list; 
+    private View view; 
 
-    // Constructor que recibe una instancia de la vista para interactuar con ella
     public ServicioControler(View view) {
-        list = ServicioList.getInstance(); // Crear una nueva instancia de ServicioList
-        this.view = view; // Asignar la vista proporcionada al atributo view
+        list = ServicioList.getInstance(); 
+        this.view = view; 
     }
 
     @Override
