@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package Cliente;
+package Reserva;
 
 
+import Cliente.*;
 import static Cliente.FrmBuscarCl.tblClientes;
 import Empleado.*;
 import Controller.Controller;
@@ -27,12 +28,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author jprod
  */
-public class FrmCliente extends javax.swing.JInternalFrame implements View<Cliente> {  // Cambio del nombre de la clase
+public class FrmReserva extends javax.swing.JInternalFrame implements View<Cliente> {  // Cambio del nombre de la clase
     private Controller controller;
     private FrmMenu desktopMenu;
     private boolean datosFrameShown = false;
     
-    public FrmCliente() {
+    public FrmReserva() {
         initComponents();
         this.loadPuestos();  // Cambio del método
         this.controller = new ClienteController(this);  // Cambio del nombre de la clase
@@ -47,7 +48,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
     
     @Override
     public void clear() {
-        txtIdentificacion.setText("");
+        txtIdCliente.setText("");
         txtNombre.setText("");
         txtTelefono.setText("");
         txtCorreo.setText("");
@@ -56,7 +57,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
 
     @Override
     public void display(Cliente cliente) {
-        txtIdentificacion.setText(String.valueOf(cliente.getIdentificacion()));
+        txtIdCliente.setText(String.valueOf(cliente.getIdentificacion()));
         txtNombre.setText(cliente.getNombre());
         txtTelefono.setText(String.valueOf(cliente.getTelefono()));
         txtCorreo.setText(cliente.getCorreo());
@@ -107,7 +108,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtIdentificacion = new javax.swing.JFormattedTextField();
+        txtIdCliente = new javax.swing.JFormattedTextField();
         txtNombre = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -118,14 +119,16 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
         btnSave = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
+        lblReserva = new javax.swing.JLabel();
+        lblNumReserva = new javax.swing.JLabel();
 
         setClosable(true);
-        setTitle("Cliente");
+        setTitle("Reserva");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Cedula");
+        jLabel1.setText("Cliente");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Nombre");
@@ -136,11 +139,11 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("Fecha Nacimiento");
 
-        txtIdentificacion.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#########"))));
-        txtIdentificacion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtIdentificacion.addActionListener(new java.awt.event.ActionListener() {
+        txtIdCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#########"))));
+        txtIdCliente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtIdCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdentificacionActionPerformed(evt);
+                txtIdClienteActionPerformed(evt);
             }
         });
 
@@ -184,7 +187,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
@@ -218,7 +221,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -287,6 +290,13 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        lblReserva.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblReserva.setText("Reserva");
+
+        lblNumReserva.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblNumReserva.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNumReserva.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -294,19 +304,29 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(355, 355, 355)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblReserva))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblNumReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(lblReserva)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblNumReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
@@ -319,7 +339,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-    String identificacionStr = txtIdentificacion.getText();
+    String identificacionStr = txtIdCliente.getText();
     String nombre = txtNombre.getText();
     String telefonoStr = txtTelefono.getText();
     String correo = txtCorreo.getText();
@@ -354,7 +374,7 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
 
-    String identificacionAEliminarStr = txtIdentificacion.getText();
+    String identificacionAEliminarStr = txtIdCliente.getText();
     
     if (!identificacionAEliminarStr.isEmpty()) {
         try {
@@ -378,9 +398,9 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
        gente.setVisible(true);
     }//GEN-LAST:event_btnSearchActionPerformed
 
-    private void txtIdentificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdentificacionActionPerformed
+    private void txtIdClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdClienteActionPerformed
         clear();
-    }//GEN-LAST:event_txtIdentificacionActionPerformed
+    }//GEN-LAST:event_txtIdClienteActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         clear();
@@ -411,9 +431,11 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblNumReserva;
+    private javax.swing.JLabel lblReserva;
     public static javax.swing.JTextField txtCorreo;
     public static javax.swing.JFormattedTextField txtFechaNacimiento;
-    public static javax.swing.JFormattedTextField txtIdentificacion;
+    public static javax.swing.JFormattedTextField txtIdCliente;
     public static javax.swing.JTextField txtNombre;
     public static javax.swing.JFormattedTextField txtTelefono;
     // End of variables declaration//GEN-END:variables

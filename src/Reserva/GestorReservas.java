@@ -23,15 +23,15 @@ public class GestorReservas {
         this.clienteList = clienteList;
     }
 
-// Método para agregar una reserva
-public boolean agregarReserva(int numeroReserva, String identificacion, String tipoHabitacion, Date fechaEntrada, Date fechaSalida) {
-    // Buscar el cliente por cédula
-    Cliente cliente = clienteList.Buscar(identificacion);
+    // Método para agregar una reserva
+    public boolean agregarReserva(int numeroReserva, String identificacion, String tipoHabitacion, Date fechaEntrada, Date fechaSalida) {
+        // Buscar el cliente por cédula
+        Cliente cliente = clienteList.Buscar(identificacion);
 
-    // Validar que el cliente existe
-    if (cliente == null) {
-        return false; // El cliente no está registrado
-    }
+        // Validar que el cliente existe
+        if (cliente == null) {
+            return false; // El cliente no está registrado
+        }
 
         // Obtener la habitación disponible del tipo especificado
         Habitacion habitacionDisponible = habitacionList.obtenerHabitacionDisponiblePorTipo(tipoHabitacion, fechaEntrada, fechaSalida);
@@ -65,7 +65,7 @@ public boolean agregarReserva(int numeroReserva, String identificacion, String t
 
         return true;
     }
-    
+
     public boolean verificarDisponibilidadFechas(Habitacion habitacion, Date fechaEntrada, Date fechaSalida) {
         for (Reserva reserva : reservas) {
             if (reserva.getHabitacion().equals(habitacion)) {
@@ -79,7 +79,7 @@ public boolean agregarReserva(int numeroReserva, String identificacion, String t
         // Si no se encontraron conflictos, la habitación está disponible
         return true;
     }
-    
+
     // Método para buscar una reserva por número de reserva
     public Reserva buscarReserva(int numeroReserva) {
         for (Reserva reserva : reservas) {

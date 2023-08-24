@@ -322,8 +322,8 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
     @Override
     public void display(Habitacion habitacion) {
         // Mostrar los detalles de la habitación en los campos de la vista
-        txtNumeroHabitacion.setText(String.valueOf(habitacion.getNumeroHabitacion()));
-        txtTipo.setSelectedItem(habitacion.getTipoHabitacion().toString());
+        txtNumeroHabitacion.setText((habitacion.getNumeroHabitacion()));
+        txtTipo.setSelectedItem(habitacion.getTipoHabitacion());
         txtOcupada.setText(habitacion.estado());
         txtPrecio.setText(String.valueOf(habitacion.getPrecio()));
     }

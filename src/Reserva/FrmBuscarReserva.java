@@ -5,6 +5,8 @@
 package Reserva;
 
 
+import Cliente.*;
+import static Cliente.FrmCliente.txtCorreo;
 import Empleado.*;
 import Controller.Controller;
 import Models.Table;
@@ -13,33 +15,34 @@ import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Empleado.Empleado; 
-
+import static Empleado.FrmEmpleado.txtIdentificacion;
+import static Empleado.FrmEmpleado.txtNombre;
+import static Empleado.FrmEmpleado.txtSalario;
+import static Empleado.FrmEmpleado.txtTelefono;
+import java.awt.event.MouseEvent;
 
 /**
  *
- * @author rsand
+ * @author jprod
  */
-public class FrmBuscarRes extends javax.swing.JInternalFrame implements View<Empleado> {  
-  
-    private FrmEmpleado frmEmpleado;
+public class FrmBuscarReserva extends javax.swing.JInternalFrame implements View<Cliente> {  
+
+    static Object getTblEmpleados() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+// Cambio del nombre de la clase
     private Controller controller;
-    private Empleado empleado;
-    
-    public FrmBuscarRes(FrmEmpleado frmEmpleado) {
-        this.frmEmpleado = frmEmpleado;
-        frmEmpleado.addObserver(this);
-        // Resto de la inicialización...
-    }
-    
-    public FrmBuscarRes() {
+    private Cliente cliente;
+    private FrmCliente frmCliente;
+
+    public FrmBuscarReserva() {
         initComponents();
-        this.empleado = empleado;
+        this.cliente = cliente;
+        this.frmCliente = frmCliente;
         this.loadPuestos();  // Cambio del método
-        this.controller = new EmpleadoControler(this); 
+        this.controller = new ClienteController(this);  // Cambio del nombre de la clase
         this.controller.buscarTodo(); 
-        
     }
-         
      
     private void loadPuestos() {
    
@@ -50,30 +53,29 @@ public class FrmBuscarRes extends javax.swing.JInternalFrame implements View<Emp
         txtIdentificacion.setText("");
         txtNombre.setText("");
         txtTelefono.setText("");
-        txtPuesto.setText("");
+//        txtPuesto.setText("");
         txtSalario.setText("");
     }
 
     @Override
-    public void display(Empleado empleado) {  // Cambio del nombre de la clase
-
-    frmEmpleado.txtIdentificacion.setText(empleado.getIdentificacion());
-    frmEmpleado.txtNombre.setText(empleado.getNombre());
-    frmEmpleado.txtTelefono.setText(empleado.getTelefono());
-    frmEmpleado.txtPuesto.setSelectedItem(empleado.getPuesto());
-    frmEmpleado.txtSalario.setText(String.valueOf(empleado.getSalario()));
-    
+    public void display(Cliente cliente) {  // Cambio del nombre de la clase
+        frmCliente.txtIdentificacion.setText(String.valueOf(cliente.getIdentificacion()));
+        frmCliente.txtNombre.setText(cliente.getNombre());
+        frmCliente.txtTelefono.setText(String.valueOf(cliente.getTelefono()));
+        frmCliente.txtCorreo.setText(cliente.getCorreo());
+        frmCliente.txtFechaNacimiento.setValue(cliente.getFechaNacimiento());
+        this.dispose();
     }
     
     @Override
-    public void displayAll(Empleado[] regs) {  // Cambio del nombre de la clase
-        DefaultTableModel tableModel = (DefaultTableModel) tblEmpleados.getModel();
+    public void displayAll(Cliente[] regs) {  // Cambio del nombre de la clase
+        DefaultTableModel tableModel = (DefaultTableModel) tblClientes.getModel();
         tableModel.setNumRows(0);
-        for (Empleado empleado : regs) {
-            Object[] datos = empleado.toArrayObject();
-            tableModel.addRow(datos);
+        for (Cliente cliente : regs) {
+            Object[] data = cliente.toArrayObject();
+            tableModel.addRow(data);
         }
-        tblEmpleados.setModel(tableModel);
+        tblClientes.setModel(tableModel);
     }
 
     @Override
@@ -91,7 +93,6 @@ public class FrmBuscarRes extends javax.swing.JInternalFrame implements View<Emp
         int option = JOptionPane.showConfirmDialog(this, msj, "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         return option == JOptionPane.YES_OPTION;
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -104,10 +105,10 @@ public class FrmBuscarRes extends javax.swing.JInternalFrame implements View<Emp
 
         txtFiltro = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblEmpleados = new javax.swing.JTable();
+        tblClientes = new javax.swing.JTable();
 
         setClosable(true);
-        setTitle("Buscar Empleado");
+        setTitle("Buscar Cliente");
 
         txtFiltro.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -116,19 +117,19 @@ public class FrmBuscarRes extends javax.swing.JInternalFrame implements View<Emp
             }
         });
 
-        tblEmpleados.setModel(new javax.swing.table.DefaultTableModel(
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Cédula", "Nombre", "Teléfono", "Puesto", "Salario"
+                "Cedula", "Nombre", "Telefono", "Fecha de Nacimento", "Correo", "Edad"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -139,20 +140,20 @@ public class FrmBuscarRes extends javax.swing.JInternalFrame implements View<Emp
                 return canEdit [columnIndex];
             }
         });
-        tblEmpleados.setColumnSelectionAllowed(true);
-        tblEmpleados.getTableHeader().setReorderingAllowed(false);
-        tblEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblClientes.setColumnSelectionAllowed(true);
+        tblClientes.getTableHeader().setReorderingAllowed(false);
+        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblEmpleadosMouseClicked(evt);
+                tblClientesMouseClicked(evt);
             }
         });
-        tblEmpleados.addKeyListener(new java.awt.event.KeyAdapter() {
+        tblClientes.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                tblEmpleadosKeyReleased(evt);
+                tblClientesKeyReleased(evt);
             }
         });
-        jScrollPane1.setViewportView(tblEmpleados);
-        tblEmpleados.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        jScrollPane1.setViewportView(tblClientes);
+        tblClientes.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -178,31 +179,31 @@ public class FrmBuscarRes extends javax.swing.JInternalFrame implements View<Emp
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtFiltroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroKeyReleased
-        Table.filter(this.tblEmpleados, txtFiltro.getText());
+        Table.filter(this.tblClientes, txtFiltro.getText());
     }//GEN-LAST:event_txtFiltroKeyReleased
 
-    private void tblEmpleadosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblEmpleadosKeyReleased
+    private void tblClientesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblClientesKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-            int row = tblEmpleados.getSelectedRow();
+            int row = tblClientes.getSelectedRow();
             if (row > -1) {
-                Object identificacion = tblEmpleados.getValueAt(row, 0);
+                Object identificacion = tblClientes.getValueAt(row, 0);
                 controller.Eliminar(new Empleado(identificacion.toString()));  // Cambio del nombre de la clase
             }
         }
-    }//GEN-LAST:event_tblEmpleadosKeyReleased
+    }//GEN-LAST:event_tblClientesKeyReleased
 
-    private void tblEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmpleadosMouseClicked
+    private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
         if (evt.getClickCount() == 2) {
-            int row = tblEmpleados.getSelectedRow();
-            Object identificacion = tblEmpleados.getValueAt(row, 0);
+            int row = tblClientes.getSelectedRow();
+            Object identificacion = tblClientes.getValueAt(row, 0);
             controller.Buscar(identificacion);
         }
-    }//GEN-LAST:event_tblEmpleadosMouseClicked
+    }//GEN-LAST:event_tblClientesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private static javax.swing.JTable tblEmpleados;
+    public static javax.swing.JTable tblClientes;
     private javax.swing.JTextField txtFiltro;
     // End of variables declaration//GEN-END:variables
 
