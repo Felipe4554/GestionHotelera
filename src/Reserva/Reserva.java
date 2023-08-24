@@ -8,6 +8,7 @@ import Cliente.Cliente;
 import Habitacion.Habitacion;
 import Habitacion.TipoHabitacion;
 import Models.Entity;
+import static Reserva.EstadoReserva.PENDIENTE;
 import java.util.Date;
 
 public class Reserva implements Entity {
@@ -109,6 +110,19 @@ public class Reserva implements Entity {
         this.impuestos = impuestos;
         this.precioTotal = precioTotal;
         this.estado = estado;
+    }
+    
+    public Reserva(int numeroReserva) {
+        this.numeroReserva = numeroReserva;
+        this.cliente = null;
+        this.habitacion = null;
+        this.fechaEntrada = null;
+        this.fechaSalida = null;
+        this.duracionEstadia = 0;
+        this.precioSubtotal = 0;
+        this.impuestos = 0;
+        this.precioTotal = 0;
+        this.estado = PENDIENTE;
     }
     
     @Override

@@ -6,6 +6,7 @@ package Reserva;
 
 import Cliente.Cliente;
 import Cliente.ClienteList;
+import Controller.Controller;
 import Habitacion.Habitacion;
 import Habitacion.HabitacionList;
 import Views.View;
@@ -14,7 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ReservaController {
+public class ReservaController implements Controller<Reserva> {
     private ReservaList gestorReservas;
     private ClienteList clienteList;
     private HabitacionList habitacionList;
@@ -135,6 +136,32 @@ public class ReservaController {
     }
 
     void tblReservas(Object identificacion) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void Agregar(Reserva obj) {
+        // You can call the corresponding method from ReservaList
+        boolean resultado = gestorReservas.Agregar(obj);
+        if (resultado) {
+            view.displayMessaje("Reserva agregada con éxito.");
+        } else {
+            view.displayMessaje("No se pudo agregar la reserva. Verifique los datos.");
+        }
+    }
+
+    @Override
+    public void Actualizar(Reserva obj) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void Eliminar(Reserva obj) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void Buscar(Object id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

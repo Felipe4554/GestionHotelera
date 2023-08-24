@@ -9,12 +9,13 @@ import Habitacion.Habitacion;
 import Habitacion.TipoHabitacion;
 import Cliente.ClienteList;
 import Habitacion.HabitacionList;
+import Models.List;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ReservaList {
+public class ReservaList implements List<Reserva> {
 
     private static ReservaList instancia;
     private static int idReservaGenerado = 1;
@@ -147,4 +148,41 @@ public class ReservaList {
         return maxCodigo + 1;
     }
 
+    @Override
+    public boolean Agregar(Reserva obj) {
+        if (obj != null && !reservas.containsKey(obj.getNumeroReserva())) {
+            reservas.put(obj.getNumeroReserva(), obj);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean Actualizar(Reserva obj) {
+        if (obj != null && reservas.containsKey(obj.getNumeroReserva())) {
+            // Update the reservation
+            reservas.put(obj.getNumeroReserva(), obj);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean Eliminar(Reserva obj) {
+        if (obj != null && reservas.containsKey(obj.getNumeroReserva())) {
+            // Remove the reservation
+            reservas.remove(obj.getNumeroReserva());
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Reserva Buscar(Object id) {
+        if (id instanceof Integer) {
+            int numeroReservaBuscado = (int) id;
+            return reservas.getOrDefault(numeroReservaBuscado, null);
+        }
+        return null;
+    }
 }

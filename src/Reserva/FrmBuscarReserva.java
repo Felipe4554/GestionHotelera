@@ -22,11 +22,11 @@ import static Empleado.FrmEmpleado.txtTelefono;
 import static Reserva.FrmReserva.txtEstado;
 import static Reserva.FrmReserva.txtFechaEntrada;
 import static Reserva.FrmReserva.txtFechaSalida;
-import static Reserva.FrmReserva.txtIdCliente;
 import static Reserva.FrmReserva.txtPrecioTotal;
 import static Reserva.FrmReserva.txtTipo;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
+import static Reserva.FrmReserva.txtHabitacionesDisponibles;
 
 /**
  *
@@ -195,7 +195,7 @@ public class FrmBuscarReserva extends javax.swing.JInternalFrame implements View
     @Override
     public void display(Reserva reserva) {
         //frmReserva.lblReserva.setText(String.valueOf(reserva.getNumeroReserva()));
-        frmReserva.txtIdCliente.setText(String.valueOf(reserva.getIdCliente()));
+        frmReserva.txtHabitacionesDisponibles.setText(String.valueOf(reserva.getIdCliente()));
         frmReserva.txtTipo.setSelectedItem(reserva.getTipoHabitacion());
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         frmReserva.txtFechaEntrada.setText(dateFormat.format(reserva.getFechaEntrada()));
