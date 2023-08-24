@@ -85,4 +85,13 @@ public class ClienteList implements List<Cliente> {
         }
         return null;
     }
+
+    public Cliente obtenerClientePorCedula(int numeroCedulaCliente) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getIdentificacion() == numeroCedulaCliente) {
+                return cliente;
+            }
+        }
+        return null; // Devuelve null si no se encuentra ningún cliente con esa cédula
+    }
 }

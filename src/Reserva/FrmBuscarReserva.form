@@ -32,8 +32,8 @@
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="483" max="-2" attributes="0"/>
-              <Component id="btnConfirmar" min="-2" pref="101" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="457" max="-2" attributes="0"/>
+              <Component id="btnConfirmar" min="-2" pref="162" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -75,10 +75,10 @@
               <Table columnCount="6" rowCount="0">
                 <Column editable="false" title="Reserva" type="java.lang.String"/>
                 <Column editable="false" title="Cliente" type="java.lang.String"/>
+                <Column editable="false" title="Habitacion" type="java.lang.String"/>
                 <Column editable="false" title="Entrada" type="java.lang.String"/>
                 <Column editable="false" title="Salida" type="java.lang.String"/>
-                <Column editable="false" title="Estado" type="java.lang.String"/>
-                <Column editable="true" title="Salida" type="java.lang.String"/>
+                <Column editable="true" title="Estado" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

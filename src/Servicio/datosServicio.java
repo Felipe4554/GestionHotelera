@@ -109,6 +109,7 @@ public class datosServicio extends javax.swing.JInternalFrame implements View<Se
         txtFiltro = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblServicio = new javax.swing.JTable();
+        btnConfirmar = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -157,6 +158,13 @@ public class datosServicio extends javax.swing.JInternalFrame implements View<Se
         jScrollPane1.setViewportView(tblServicio);
         tblServicio.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
+        btnConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/Icons/checkmark_korganizer (3).png"))); // NOI18N
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -167,6 +175,11 @@ public class datosServicio extends javax.swing.JInternalFrame implements View<Se
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1072, Short.MAX_VALUE)
                     .addComponent(txtFiltro, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(435, 435, 435)
+                    .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(436, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,6 +188,11 @@ public class datosServicio extends javax.swing.JInternalFrame implements View<Se
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(108, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(320, 320, 320)
+                    .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(15, Short.MAX_VALUE)))
         );
 
         pack();
@@ -202,8 +220,15 @@ public class datosServicio extends javax.swing.JInternalFrame implements View<Se
         }
     }//GEN-LAST:event_tblServicioMouseClicked
 
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+            int row = tblServicio.getSelectedRow();
+            Object codigoServicio = tblServicio.getValueAt(row, 0);
+            controller.Buscar(codigoServicio);
+    }//GEN-LAST:event_btnConfirmarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConfirmar;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable tblServicio;
     private javax.swing.JTextField txtFiltro;

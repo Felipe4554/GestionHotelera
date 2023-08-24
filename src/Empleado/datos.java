@@ -104,6 +104,7 @@ public class datos extends javax.swing.JInternalFrame implements View<Empleado> 
         txtFiltro = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEmpleados = new javax.swing.JTable();
+        btnConfirmar4 = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Buscar Empleado");
@@ -153,24 +154,36 @@ public class datos extends javax.swing.JInternalFrame implements View<Empleado> 
         jScrollPane1.setViewportView(tblEmpleados);
         tblEmpleados.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
+        btnConfirmar4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/Icons/checkmark_korganizer (3).png"))); // NOI18N
+        btnConfirmar4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmar4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(411, 411, 411)
+                .addComponent(btnConfirmar4, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(460, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1072, Short.MAX_VALUE)
-                    .addComponent(txtFiltro, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(txtFiltro)
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnConfirmar4, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
         );
 
         pack();
@@ -198,8 +211,19 @@ public class datos extends javax.swing.JInternalFrame implements View<Empleado> 
         }
     }//GEN-LAST:event_tblEmpleadosMouseClicked
 
+    private void btnConfirmar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmar4ActionPerformed
+        int row = tblEmpleados.getSelectedRow();
+            Object identificacion = tblEmpleados.getValueAt(row, 0);
+            controller.Buscar(identificacion);
+    }//GEN-LAST:event_btnConfirmar4ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConfirmar;
+    private javax.swing.JButton btnConfirmar1;
+    private javax.swing.JButton btnConfirmar2;
+    private javax.swing.JButton btnConfirmar3;
+    private javax.swing.JButton btnConfirmar4;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable tblEmpleados;
     private javax.swing.JTextField txtFiltro;

@@ -5,17 +5,16 @@
 package Empleado;
 
 import Models.List;
-import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
- *
- * @author rsand
+ * Clase que representa una lista de empleados utilizando un TreeMap.
  */
 public class EmpleadoList implements List<Empleado> {
 
     private static EmpleadoList empleadoList;
-
-    private HashMap<String, Empleado> empleados;
+    private Map<String, Empleado> empleados;
 
     public static EmpleadoList getInstance() {
         if (empleadoList == null) {
@@ -25,7 +24,7 @@ public class EmpleadoList implements List<Empleado> {
     }
 
     private EmpleadoList() {
-        empleados = new HashMap<>();
+        empleados = new TreeMap<>();
     }
 
     @Override

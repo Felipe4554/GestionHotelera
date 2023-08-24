@@ -80,16 +80,7 @@ public class HabitacionList implements List<Habitacion> {
     public Habitacion[] toArray() {
         return habitaciones.values().toArray(new Habitacion[0]);
     }
-    public Habitacion obtenerHabitacionDisponiblePorTipo(String tipoHabitacion, Date fechaEntrada, Date fechaSalida) {
-        for (Habitacion habitacion : habitaciones.values()) {
-            if (habitacion.getTipoHabitacion().toString().equals(tipoHabitacion) && !habitacion.isOcupada()) {
-                if (reservas.verificarDisponibilidadFechas(habitacion, fechaEntrada, fechaSalida)) {
-                    return habitacion; 
-                }
-            }
-        }
-        return null; 
-    }
+
     public boolean marcarHabitacionComoOcupada(int numeroHabitacion) {
         Habitacion habitacion = habitaciones.get(numeroHabitacion);
         if (habitacion != null && !habitacion.isOcupada()) {
@@ -107,12 +98,16 @@ public class HabitacionList implements List<Habitacion> {
         return false; 
     }
 
-    public Habitacion obtenerHabitacionDisponiblePorTipo(String tipoHabitacion) {
+    public Habitacion obtenerHabitacionDisponiblePorTipo(TipoHabitacion tipoHabitacion, Date fechaEntrada, Date fechaSalida) {
         for (Habitacion habitacion : habitaciones.values()) {
-            if (habitacion.getTipoHabitacion().toString().equals(tipoHabitacion) && !habitacion.isOcupada()) {
-                return habitacion;
+            if (habitacion.getTipoHabitacion() == tipoHabitacion && !habitacion.isOcupada()) {
+                // Verificar si la habitación está disponible para las fechas dadas
+                if (reservas.verificarDisponibilidadFechas(habitacion, fechaEntrada, fechaSalida)) {
+                    return habitacion; // Habitación encontrada y disponible
+                }
             }
         }
-        return null; 
+        return null; // No se encontró ninguna habitación disponible del tipo especificado
     }
+
 }

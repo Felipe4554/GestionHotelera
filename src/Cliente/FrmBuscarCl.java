@@ -106,6 +106,7 @@ public class FrmBuscarCl extends javax.swing.JInternalFrame implements View<Clie
         txtFiltro = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
+        btnConfirmar = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Buscar Cliente");
@@ -155,6 +156,13 @@ public class FrmBuscarCl extends javax.swing.JInternalFrame implements View<Clie
         jScrollPane1.setViewportView(tblClientes);
         tblClientes.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
+        btnConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/Icons/checkmark_korganizer (3).png"))); // NOI18N
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -165,6 +173,10 @@ public class FrmBuscarCl extends javax.swing.JInternalFrame implements View<Clie
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1072, Short.MAX_VALUE)
                     .addComponent(txtFiltro, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(434, 434, 434))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,7 +184,9 @@ public class FrmBuscarCl extends javax.swing.JInternalFrame implements View<Clie
                 .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
 
         pack();
@@ -200,8 +214,15 @@ public class FrmBuscarCl extends javax.swing.JInternalFrame implements View<Clie
         }
     }//GEN-LAST:event_tblClientesMouseClicked
 
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        int row = tblClientes.getSelectedRow();
+            Object identificacion = tblClientes.getValueAt(row, 0);
+            controller.Buscar(identificacion);
+    }//GEN-LAST:event_btnConfirmarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConfirmar;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable tblClientes;
     private javax.swing.JTextField txtFiltro;

@@ -4,31 +4,18 @@
  */
 package Reserva;
 
-
 import Cliente.*;
-import static Cliente.FrmBuscarCl.tblClientes;
-import Empleado.*;
-import Controller.Controller;
-import static Empleado.FrmEmpleado.txtIdentificacion;
-import static Habitacion.FrmHabitacion.txtNumeroHabitacion;
-import static Habitacion.FrmHabitacion.txtTipo;
 import Habitacion.Habitacion;
 import Habitacion.TipoHabitacion;
-import Models.Table;
 import static Reserva.FrmBuscarReserva.tblReservas;
 import Views.FrmMenu;
 import Views.View;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import Reserva.Reserva;
-import Reserva.ReservaController;
+
 
 /**
  *
@@ -274,7 +261,7 @@ public class FrmReserva extends javax.swing.JInternalFrame implements View<Reser
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        btnFinalizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/clear_left (3).png"))); // NOI18N
+        btnFinalizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/Icons/checkmark_korganizer (3).png"))); // NOI18N
         btnFinalizar.setToolTipText("");
         btnFinalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -376,6 +363,7 @@ public class FrmReserva extends javax.swing.JInternalFrame implements View<Reser
             }
         });
         jScrollPane1.setViewportView(tblHabitacionesDisponibles);
+        tblHabitacionesDisponibles.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -419,45 +407,27 @@ public class FrmReserva extends javax.swing.JInternalFrame implements View<Reser
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
-    // cambia el estado de la reserva a “Finalizada” siempre que el estado anterior sea “EJECUCION” (Validar) y pone la habitación como disponible.
-    // Get the reservation number from lblNumReserva
-    String reservaIdStr = lblNumReserva.getText();
 
-    if (!reservaIdStr.isEmpty()) {
-            int reservaId = Integer.parseInt(reservaIdStr);
-            // Call the finalizarReserva method from the controller
-            controller.finalizarReserva(reservaId);
-    }
     }//GEN-LAST:event_btnFinalizarActionPerformed
 
     private void btnActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivarActionPerformed
-    //cambia el estado de la reserva a “En ejecución” siempre que el estado anterior sea “PENDIENTE” (Validar) y pone la habitación como no disponible.
-    int proximoCodigo = ReservaList.getInstance().getNextCodigoReserva();
+    try {
+        int numeroReserva = Integer.parseInt(lblReserva.getText()); // Obtener el número de reserva desde la etiqueta
 
-    // Incrementar el próximo código
-    proximoCodigo++;
+        // Activar la reserva
+        controller.activarReserva(numeroReserva);
 
-    // Get the reservation number from lblNumReserva
-        // Get the reservation number from lblNumReserva
-    String reservaIdStr = lblNumReserva.getText();
-
-    if (!reservaIdStr.isEmpty()) {
-            int reservaId = Integer.parseInt(reservaIdStr);
-            // Call the activarReserva method from the controller
-            controller.activarReserva(reservaId);
+        displayMessaje("Reserva activada con éxito.");
+        // Optionally, update your view to reflect the change in reservation status
+        // For example, update the status label or table row in your UI.
+        
+    } catch (NumberFormatException e) {
+        displayErrorMessaje("Ingrese un número de reserva válido.");
     }
     }//GEN-LAST:event_btnActivarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-    // cambia el estado de la reserva a “Cancelada” siempre que el estado anterior sea “PENDIENTE” (Validar).
-        // Get the reservation number from lblNumReserva
-    String reservaIdStr = lblNumReserva.getText();
 
-    if (!reservaIdStr.isEmpty()) {
-            int reservaId = Integer.parseInt(reservaIdStr);
-            // Call the cancelarReserva method from the controller
-            controller.cancelarReserva(reservaId);
-    }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -468,43 +438,15 @@ public class FrmReserva extends javax.swing.JInternalFrame implements View<Reser
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void txtTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTipoActionPerformed
-        //Aqui se debería cargar la informacion de las habitaciones filtradas por su tipo 
-    // Obtain the selected room type
-    String tipoHabitacion = (String) txtTipo.getSelectedItem();
 
-    // Call the controller method to get the available rooms by type
-//    Habitacion[] habitacionesDisponibles = controller.obtenerHabitacionDisponiblePorTipo(tipoHabitacion);
-
-    // Display the available rooms in the table tblHabitaciones
-   // displayHabitacionesCompatibles(habitacionesDisponibles);
     }//GEN-LAST:event_txtTipoActionPerformed
 
     private void txtFechaSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaSalidaActionPerformed
-    // Get the selected room type
-    String tipoHabitacion = (String) txtTipo.getSelectedItem();
-
-    // Parse the input dates (with validation)
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    Date fechaEntrada = null;
-    Date fechaSalida = null;
-    try {
-        fechaEntrada = dateFormat.parse(txtFechaEntrada.getText());
-        fechaSalida = dateFormat.parse(txtFechaSalida.getText());
-    } catch (ParseException ex) {
-        // Handle the exception if the dates are not valid
-        JOptionPane.showMessageDialog(this, "Fechas no válidas.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    // Call the controller method to get the available rooms by type and dates
-        Habitacion habitacionesDisponibles = controller.obtenerHabitacionDisponiblePorTipoYFechas(tipoHabitacion, fechaEntrada, fechaSalida);
-
-    // Display the available rooms in the table tblHabitaciones
-    displayHabitacionesCompatibles(habitacionesDisponibles);
+        
     }//GEN-LAST:event_txtFechaSalidaActionPerformed
 
     private void txtIdClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdClienteActionPerformed
-        //Aquí se debe cargar la identificacion del cliente
+        
     }//GEN-LAST:event_txtIdClienteActionPerformed
 
     private void txtFechaEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaEntradaActionPerformed
@@ -516,24 +458,7 @@ public class FrmReserva extends javax.swing.JInternalFrame implements View<Reser
     }//GEN-LAST:event_tblHabitacionesDisponiblesMouseClicked
 
     private void tblHabitacionesDisponiblesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblHabitacionesDisponiblesKeyReleased
-//        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-//            int row = tblHabitaciones.getSelectedRow();
-//            if (row > -1) {
-//                Object numeroHabitacionObj = tblHabitaciones.getValueAt(row, 0);
-//                // Intenta convertir el número de habitación a entero
-//                try {
-//                    int numeroHabitacion = Integer.parseInt(numeroHabitacionObj.toString());
-//                    // Puedes mostrar un mensaje de confirmación antes de eliminar el registro
-//                    int option = JOptionPane.showConfirmDialog(this, "¿Estás seguro de eliminar esta habitación?", "Confirmación", JOptionPane.YES_NO_OPTION);
-//                    if (option == JOptionPane.YES_OPTION) {
-//                        controller.Eliminar(new Reserva(numeroHabitacion));
-//                    }
-//                } catch (NumberFormatException e) {
-//                    // Maneja la excepción si el número de habitación no es un valor numérico
-//                    JOptionPane.showMessageDialog(this, "El número de habitación no es válido.", "Error", JOptionPane.ERROR_MESSAGE);
-//                }
-//            }
-//        }
+        
     }//GEN-LAST:event_tblHabitacionesDisponiblesKeyReleased
 
     private void txtPrecioTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioTotalActionPerformed
@@ -569,29 +494,6 @@ public class FrmReserva extends javax.swing.JInternalFrame implements View<Reser
     public static javax.swing.JFormattedTextField txtPrecioTotal;
     public static javax.swing.JComboBox<String> txtTipo;
     // End of variables declaration//GEN-END:variables
-
-    void addObserver(FrmBuscarCl aThis) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
-// Agrega este método para mostrar las habitaciones compatibles en la tabla
-    private void displayHabitacionesCompatibles(Habitacion habitacion) {
-        DefaultTableModel tableModel = (DefaultTableModel) tblHabitacionesDisponibles.getModel();
-        tableModel.setNumRows(0); // Clear the table
-
-        if (habitacion != null) {
-            // Obtain the information of the compatible room
-            String numeroHabitacion = String.valueOf(habitacion.getNumeroHabitacion());
-            String tipo = habitacion.getTipoHabitacion().toString();
-            String estado = habitacion.estado();
-            String precio = String.valueOf(habitacion.getPrecio());
-
-            // Add the row to the table
-            tableModel.addRow(new Object[] {numeroHabitacion, tipo, estado, precio});
-        }
-
-        tblHabitacionesDisponibles.setModel(tableModel);
-    }
 
     private void displayHabitacionesCompatibles(Habitacion[] habitaciones) {
         DefaultTableModel tableModel = (DefaultTableModel) tblHabitacionesDisponibles.getModel();

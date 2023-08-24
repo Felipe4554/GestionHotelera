@@ -19,6 +19,7 @@ import static Empleado.FrmEmpleado.txtIdentificacion;
 import static Empleado.FrmEmpleado.txtNombre;
 import static Empleado.FrmEmpleado.txtSalario;
 import static Empleado.FrmEmpleado.txtTelefono;
+import static Reserva.FrmReserva.txtEstado;
 import static Reserva.FrmReserva.txtFechaEntrada;
 import static Reserva.FrmReserva.txtFechaSalida;
 import static Reserva.FrmReserva.txtIdCliente;
@@ -92,7 +93,7 @@ public class FrmBuscarReserva extends javax.swing.JInternalFrame implements View
 
             },
             new String [] {
-                "Reserva", "Cliente", "Entrada", "Salida", "Estado", "Salida"
+                "Reserva", "Cliente", "Habitacion", "Entrada", "Salida", "Estado"
             }
         ) {
             Class[] types = new Class [] {
@@ -143,8 +144,8 @@ public class FrmBuscarReserva extends javax.swing.JInternalFrame implements View
                     .addComponent(txtFiltro, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(483, 483, 483)
-                .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(457, 457, 457)
+                .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -166,27 +167,21 @@ public class FrmBuscarReserva extends javax.swing.JInternalFrame implements View
     }//GEN-LAST:event_txtFiltroKeyReleased
 
     private void tblReservasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblReservasKeyReleased
-        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-            int row = tblReservas.getSelectedRow();
-            if (row > -1) {
-                Object identificacion = tblReservas.getValueAt(row, 0);
-                controller.Eliminar(new Empleado(identificacion.toString()));  // Cambio del nombre de la clase
-            }
-        }
+
     }//GEN-LAST:event_tblReservasKeyReleased
 
     private void tblReservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblReservasMouseClicked
         if (evt.getClickCount() == 2) {
             int row = tblReservas.getSelectedRow();
             Object identificacion = tblReservas.getValueAt(row, 0);
-            controller.Buscar(identificacion);
+            controller.tblReservas(identificacion);
         }
     }//GEN-LAST:event_tblReservasMouseClicked
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
             int row = tblReservas.getSelectedRow();
             Object identificacion = tblReservas.getValueAt(row, 0);
-            controller.Buscar(identificacion);
+            controller.tblReservas(identificacion);
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
 
@@ -199,7 +194,7 @@ public class FrmBuscarReserva extends javax.swing.JInternalFrame implements View
 
     @Override
     public void display(Reserva reserva) {
-        frmReserva.lblReserva.setText(String.valueOf(reserva.getNumeroReserva()));
+        //frmReserva.lblReserva.setText(String.valueOf(reserva.getNumeroReserva()));
         frmReserva.txtIdCliente.setText(String.valueOf(reserva.getIdCliente()));
         frmReserva.txtTipo.setSelectedItem(reserva.getTipoHabitacion());
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
