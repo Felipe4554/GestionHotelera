@@ -41,7 +41,7 @@ public class datosServicio extends javax.swing.JInternalFrame implements View<Se
     public datosServicio() {
         initComponents();
         this.servicio = servicio;
-        this.loadPuestos();  // Cambio del método
+        this.loadPuestos();  
         this.controller = new ServicioControler(this); 
         this.controller.buscarTodo(); 
         
@@ -61,7 +61,7 @@ public class datosServicio extends javax.swing.JInternalFrame implements View<Se
     }
 
     @Override
-    public void display(Servicio servicio){  // Cambio del nombre de la clase
+    public void display(Servicio servicio){  
         frmServicio.txtCodigo.setText(String.valueOf(servicio.getCodigoServicio()));
         frmServicio.txtnombre.setText(servicio.getNombre());
         frmServicio.txtDescripcion.setText(servicio.getDescripcion());
@@ -70,7 +70,7 @@ public class datosServicio extends javax.swing.JInternalFrame implements View<Se
     }
     
     @Override
-    public void displayAll(Servicio[] regs) {  // Cambio del nombre de la clase
+    public void displayAll(Servicio[] regs) { 
         DefaultTableModel tableModel = (DefaultTableModel) tblServicio.getModel();
         tableModel.setNumRows(0);
         for (Servicio servicio : regs){
@@ -189,7 +189,7 @@ public class datosServicio extends javax.swing.JInternalFrame implements View<Se
             int row = tblServicio.getSelectedRow();
             if (row > -1) {
                 Object codigoServicio = tblServicio.getValueAt(row, 0);
-                controller.Eliminar(new Empleado(codigoServicio.toString()));  // Cambio del nombre de la clase
+                controller.Eliminar(new Empleado(codigoServicio.toString()));
             }
         }
     }//GEN-LAST:event_tblServicioKeyReleased

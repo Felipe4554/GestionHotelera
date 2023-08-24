@@ -6,6 +6,7 @@ package Reserva;
 
 import Cliente.Cliente;
 import Habitacion.Habitacion;
+import Habitacion.TipoHabitacion;
 import Models.Entity;
 import java.util.Date;
 
@@ -20,6 +21,53 @@ public class Reserva implements Entity {
     private double impuestos;
     private double precioTotal;
     private EstadoReserva estado;
+
+    Reserva(String clienteCedula, String tipoHabitacion, Date fechaEntrada, Date fechaSalida, String estado, String precio) {
+        // Aquí debes implementar la lógica para obtener el cliente y la habitación a partir de los parámetros
+        // Supongamos que cliente y habitación se obtienen correctamente.
+        this.cliente = ReservaList.getInstance().obtenerClientePorCedula(clienteCedula);
+        this.habitacion = ReservaList.getInstance().obtenerHabitacionDisponiblePorTipo(tipoHabitacion, fechaEntrada, fechaSalida);
+        this.fechaEntrada = fechaEntrada;
+        this.fechaSalida = fechaSalida;
+        this.estado = EstadoReserva.valueOf(estado);
+
+        // Calcula la duración de la estadía en días
+        long diferenciaEnMilisegundos = fechaSalida.getTime() - fechaEntrada.getTime();
+        this.duracionEstadia = (int) (diferenciaEnMilisegundos / (1000 * 60 * 60 * 24));
+
+        // Calcula el precio a partir del precio en formato String y considerando el impuesto del 13%
+        this.precioTotal = ReservaList.getInstance().calcularPrecio(precio);
+    }
+
+    Reserva(String clienteCedula, String tipoHabitacion, Date fechaEntrada, Date fechaSalida, String estado, double precio) {
+       
+    }
+
+    Reserva(int reservaId) {
+        
+    }
+    
+    public Reserva(Cliente cliente, Habitacion habitacion, Date fechaEntrada, Date fechaSalida, EstadoReserva estado, double precio) {
+        this.cliente = cliente;
+        this.habitacion = habitacion;
+        this.fechaEntrada = fechaEntrada;
+        this.fechaSalida = fechaSalida;
+        this.estado = estado;
+
+        // Calcula la duración de la estadía en días
+        long diferenciaEnMilisegundos = fechaSalida.getTime() - fechaEntrada.getTime();
+        this.duracionEstadia = (int) (diferenciaEnMilisegundos / (1000 * 60 * 60 * 24));
+
+        // Calcula el precio subtotal (supongo que el precio por noche ya incluye los impuestos)
+        this.precioSubtotal = precio * duracionEstadia;
+
+        // Calcula los impuestos (supongo que ya están incluidos en el precio)
+        this.impuestos = 0.0;
+
+        // Calcula el precio total
+        this.precioTotal = precioSubtotal + impuestos;
+    }
+
 
     // Constructor, getters y setters
 
@@ -140,5 +188,13 @@ public class Reserva implements Entity {
             precioTotal,
             estado.toString() // Representar el estado como una cadena de texto
         };
+    }
+
+    public TipoHabitacion getTipoHabitacion() {
+        return habitacion.getTipoHabitacion();
+    }
+
+    public int getIdCliente() {
+        return cliente.getIdentificacion();
     }
 }

@@ -4,23 +4,29 @@
  */
 package Reserva;
 
+import Cliente.Cliente;
 import Cliente.ClienteList;
+import Habitacion.Habitacion;
 import Habitacion.HabitacionList;
 import Views.View;
 import java.util.Date;
 
 public class ReservaController {
-    private GestorReservas gestorReservas;
+    private ReservaList gestorReservas;
     private View view;
 
     public ReservaController(View view, HabitacionList habitacionList, ClienteList clienteList) {
         this.view = view;
-        gestorReservas = new GestorReservas(habitacionList, clienteList);
+        this.gestorReservas = ReservaList.getInstance();
     }
 
-    public void reservar(int numeroReserva, String identificacion, String tipoHabitacion, Date fechaEntrada, Date fechaSalida) {
-        // Implementa aquí la lógica para realizar una reserva
-        boolean reservaExitosa = gestorReservas.agregarReserva(numeroReserva, identificacion, tipoHabitacion, fechaEntrada, fechaSalida);
+    ReservaController(View view) {
+        gestorReservas = ReservaList.getInstance();
+        this.view = view;
+    }
+
+    public void realizarReserva(int numeroCedulaCliente, String tipoHabitacion, Date fechaEntrada, Date fechaSalida, String estado, String precio) {
+        boolean reservaExitosa = gestorReservas.reservar(numeroCedulaCliente, tipoHabitacion, fechaEntrada, fechaSalida, estado, precio);
 
         if (reservaExitosa) {
             view.displayMessaje("Reserva realizada con éxito.");
@@ -33,7 +39,7 @@ public class ReservaController {
         Reserva reserva = gestorReservas.buscarReserva(numeroReserva);
 
         if (reserva != null) {
-            view.display(reserva);
+            view.displayMessaje("");
         } else {
             view.displayErrorMessaje("No se encontró la reserva con el número proporcionado.");
         }
@@ -67,5 +73,36 @@ public class ReservaController {
         } else {
             view.displayErrorMessaje("No se pudo cancelar la reserva.");
         }
+    }
+
+    public void verificarDisponibilidadFechas(Habitacion habitacion, Date fechaEntrada, Date fechaSalida) {
+        boolean disponibilidad = gestorReservas.verificarDisponibilidadFechas(habitacion, fechaEntrada, fechaSalida);
+
+        if (disponibilidad) {
+            view.displayMessaje("La habitación está disponible en esas fechas.");
+        } else {
+            view.displayErrorMessaje("La habitación no está disponible en esas fechas.");
+        }
+    }
+
+    public Cliente obtenerClientePorCedula(String cedula) {
+        return gestorReservas.obtenerClientePorCedula(cedula);
+    }
+
+    public Habitacion obtenerHabitacionDisponiblePorTipoYFechas(String tipoHabitacion, Date fechaEntrada, Date fechaSalida) {
+        return gestorReservas.obtenerHabitacionDisponiblePorTipo(tipoHabitacion, fechaEntrada, fechaSalida);
+    }
+
+    void buscarTodo() {
+        Reserva[] reservas = gestorReservas.toArray();
+        if (reservas.length > 0) {
+            view.displayAll(reservas);
+        } else {
+            view.displayMessaje("No hay reservas registradas.");
+        }
+    }
+
+    Habitacion[] obtenerHabitacionDisponiblePorTipo(String tipoHabitacion) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

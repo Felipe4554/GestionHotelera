@@ -5,6 +5,7 @@
 package Habitacion;
 
 import Empleado.datos;
+import static Habitacion.FrmBusc.tblHabitaciones;
 
 
 import Models.HabitacionOcupadaException;
@@ -23,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Habitacion> {
 
-    private HabitacionController controller; // Agregar una referencia al controlador
+    private HabitacionController controller; 
     FrmMenu desktTopMenu;
     private FrmBusc frmBuscar;
     /**
@@ -39,10 +40,7 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
         
     }
     
-    private void loadHabitaciones() {  // Cambio del nombre del método
-        // Cargar las habitaciones disponibles en el ComboBox de puestos
-        // Debes reemplazar esta parte con la lógica para cargar los puestos
-        // en el ComboBox según tu implementación
+    private void loadHabitaciones() { 
     }
     @Override
     public void clear() {
@@ -54,7 +52,6 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
     
     @Override
     public void display(Habitacion habitacion) {
-        // Mostrar los detalles de la habitación en los campos de la vista
         txtNumeroHabitacion.setText(String.valueOf(habitacion.getNumeroHabitacion())); // Cambia el valor del campo
         TipoHabitacion tipoSeleccionado = habitacion.getTipoHabitacion();
         txtTipo.setSelectedItem(tipoSeleccionado);
@@ -298,7 +295,7 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         int numeroHabitacion = Integer.parseInt(txtNumeroHabitacion.getText());
-        TipoHabitacion tipoHabitacion = TipoHabitacion.valueOf(txtTipo.getItemAt(WIDTH));
+        TipoHabitacion tipoHabitacion = TipoHabitacion.valueOf(txtTipo.getSelectedItem().toString());
         boolean ocupada = Boolean.parseBoolean(txtOcupada.getText());
         double precio = Double.parseDouble(txtPrecio.getText());
 
@@ -318,7 +315,6 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
 
         Habitacion habitacion = new Habitacion(numero); // Crear una instancia de Habitacion solo con el número
 
-        // Llamar al método Eliminar del controlador
         controller.Eliminar(habitacion);
         clear();
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -355,8 +351,9 @@ public class FrmHabitacion extends javax.swing.JInternalFrame implements View<Ha
     public static javax.swing.JComboBox<String> txtTipo;
     // End of variables declaration//GEN-END:variables
 
-
-void addObserver(FrmBusc aThis) {
+    void addObserver(FrmBusc aThis) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
+
+

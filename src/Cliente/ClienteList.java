@@ -34,8 +34,6 @@ public class ClienteList implements List<Cliente> {
 
     @Override
     public boolean Actualizar(Cliente cliente) {
-        // Para actualizar, primero eliminamos el cliente existente (si existe)
-        // y luego agregamos el cliente actualizado
         Eliminar(cliente);
         return Agregar(cliente);
     }
@@ -70,5 +68,21 @@ public class ClienteList implements List<Cliente> {
     @Override
     public Cliente[] toArray() {
         return clientes.toArray(new Cliente[0]);
+    }
+
+    public Cliente BuscarPorCedula(String cedula) {
+        int cedulaInt;
+        try {
+            cedulaInt = Integer.parseInt(cedula);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+
+        for (Cliente cliente : clientes) {
+            if (cliente.getIdentificacion() == cedulaInt) {
+                return cliente;
+            }
+        }
+        return null;
     }
 }

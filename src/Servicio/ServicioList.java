@@ -17,15 +17,10 @@ import java.util.HashMap;
  * Clase que representa una lista de servicios utilizando el patrón de diseño singleton.
  */
 public class ServicioList implements List<Servicio> {
-
-    // Patrón de diseño singleton
     private static ServicioList servicioList;
     private static int nextCodigoServicio = 1;
-
-    // HashMap para almacenar los servicios
     private HashMap<Integer, Servicio> servicios;
 
-    // Método estático para obtener la instancia única de la lista de servicios
     public static ServicioList getInstance() {
         if (servicioList == null) {
             servicioList = new ServicioList();
@@ -59,7 +54,6 @@ public boolean Agregar(Servicio obj) {
     @Override
     public boolean Actualizar(Servicio obj) {
         if (obj != null && servicios.containsKey(obj.getCodigoServicio())) {
-            // Actualizar lógica aquí (solo permitir modificar el tipo)
             return true;
         }
         return false;
@@ -86,7 +80,6 @@ public Servicio Buscar(Object codigoServicio) {
     }
     return null;
 }
-
     @Override
     public Servicio[] toArray() {
         return servicios.values().toArray(new Servicio[0]);

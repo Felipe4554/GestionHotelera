@@ -34,15 +34,13 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
     
     public FrmCliente() {
         initComponents();
-        this.loadPuestos();  // Cambio del método
-        this.controller = new ClienteController(this);  // Cambio del nombre de la clase
+        this.loadPuestos();  
+        this.controller = new ClienteController(this); 
         this.controller.buscarTodo();
     }
     
-    private void loadPuestos() {  // Cambio del nombre del método
-        // Cargar los puestos disponibles en el ComboBox de puestos
-        // Debes reemplazar esta parte con la lógica para cargar los puestos
-        // en el ComboBox según tu implementación
+    private void loadPuestos() {  
+        
     }
     
     @Override
@@ -214,11 +212,12 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtIdentificacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCorreo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(txtFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
@@ -309,20 +308,15 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
         int identificacion = Integer.parseInt(identificacionStr);
         int telefono = Integer.parseInt(telefonoStr);
         
-        // Crear un formato de fecha para analizar la cadena de fecha
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date fechaNacimiento = dateFormat.parse(fechaNacimientoStr); // Convertir la cadena en Date
         
-        // Crear un nuevo objeto Cliente con los datos
         Cliente nuevoCliente = new Cliente(identificacion, nombre, fechaNacimiento, telefono, correo);
         
-        // Llamar al controlador para agregar el cliente
         controller.Agregar(nuevoCliente);
         
-        // Limpiar los campos después de agregar
         clear();
         
-        // Mostrar mensaje de éxito
         displayMessaje("Cliente agregado exitosamente.");
     } catch (NumberFormatException e) {
         displayErrorMessaje("Error: Ingresa un número válido para la identificación o el teléfono.");
@@ -340,7 +334,6 @@ public class FrmCliente extends javax.swing.JInternalFrame implements View<Clien
         try {
             int identificacionAEliminar = Integer.parseInt(identificacionAEliminarStr);
             
-            // Crear un objeto Cliente con la identificación a eliminar
             Cliente clienteAEliminar = new Cliente(identificacionAEliminar, "", null, 0, "");
             controller.Eliminar(clienteAEliminar);
             clear();

@@ -30,7 +30,7 @@ import static Servicio.datosServicio.tblServicio;
  *
  * @author rsand
  */
-public class FrmServicio extends javax.swing.JInternalFrame implements View<Servicio> {  // Cambio del nombre de la clase
+public class FrmServicio extends javax.swing.JInternalFrame implements View<Servicio> {  
     private Controller controller;
     private Servicio servicio;
     private datosServicio datosServicio;
@@ -39,7 +39,7 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
     public FrmServicio() {
         initComponents();
        // this.loadRoles();
-        this.controller = new ServicioControler(this);  // Cambio del nombre de la clase
+        this.controller = new ServicioControler(this); 
         this.controller.buscarTodo();
         
        int proximoCodigo = ServicioList.getInstance().getNextCodigoServicio();
@@ -55,7 +55,7 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
     }
 
     @Override
-    public void display(Servicio servicio) {  // Cambio del nombre de la clase
+    public void display(Servicio servicio) { 
         txtCodigo.setText(String.valueOf(servicio.getCodigoServicio()));
         txtnombre.setText(servicio.getNombre());
         txtDescripcion.setText(servicio.getDescripcion());
@@ -63,7 +63,7 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
     }
     
     @Override
-    public void displayAll(Servicio[] regs) {  // Cambio del nombre de la clase
+    public void displayAll(Servicio[] regs) {  
         DefaultTableModel tableModel = (DefaultTableModel) datosServicio.tblServicio.getModel();
     tableModel.setNumRows(0);
     for (Servicio servicio : regs) {
@@ -288,25 +288,14 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
     int proximoCodigo = ServicioList.getInstance().getNextCodigoServicio();
-
-    // Incrementar el próximo código
     proximoCodigo++;
-
-    // Obtener los valores de los campos
     String nombre = txtnombre.getText();
     String descripcion = txtDescripcion.getText();
     double precio = Double.parseDouble(txtPrecio.getText());
-
-    // Crear un nuevo objeto Servicio con el código incrementado
     Servicio nuevoServicio = new Servicio(proximoCodigo, nombre, descripcion, precio);
-
-    // Agregar el servicio al controlador
     controller.Agregar(nuevoServicio);
-
-    // Limpiar los campos
     clear();
 
-    // Actualizar el campo de código con el próximo número
     txtCodigo.setText(String.valueOf(proximoCodigo));
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -343,14 +332,9 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
     String nombre = txtnombre.getText();
     String descripcion = txtDescripcion.getText();
     double precio = Double.parseDouble(txtPrecio.getText());
-
-    // Crear un nuevo servicio con los datos actualizados
     Servicio servicioActualizado = new Servicio(codigoServicio,nombre, descripcion, precio);
-
-    // Llamar al método Buscar en el controlador para obtener el servicio existente
-    controller.Actualizar(servicioActualizado); // Esto llamará al método que ya tienes en tu controlador
-
-    // Limpiar los campos
+    controller.Actualizar(servicioActualizado); 
+   
     clear();
     }//GEN-LAST:event_btnActualizarActionPerformed
 

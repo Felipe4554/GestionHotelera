@@ -17,9 +17,7 @@ public class Empleado implements Entity {
     private String puesto;
     private double salario;
 
-    // Constructores
 
-    // Constructor completo
     public Empleado(String identificacion, String nombre, String telefono, String puesto, double salario) {
         this.identificacion = identificacion;
         this.nombre = nombre;
@@ -28,7 +26,6 @@ public class Empleado implements Entity {
         this.salario = salario;
     }
 
-    // Constructor con valores por defecto
     public Empleado(String identificacion, String nombre, String puesto) {
         this.identificacion = identificacion;
         this.nombre = nombre;
@@ -40,9 +37,6 @@ public class Empleado implements Entity {
        this.identificacion = identificacion;
    }
   
-
-    // Métodos de acceso
-
     public String getIdentificacion() {
         return identificacion;
     }

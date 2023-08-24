@@ -29,15 +29,12 @@ public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empl
  
     public FrmEmpleado() {
         initComponents();
-        this.loadPuestos();  // Cambio del método
-        this.controller = new EmpleadoControler(this);  // Cambio del nombre de la clase
+        this.loadPuestos(); 
+        this.controller = new EmpleadoControler(this);  
         this.controller.buscarTodo();
     }
     
-    private void loadPuestos() {  // Cambio del nombre del método
-        // Cargar los puestos disponibles en el ComboBox de puestos
-        // Debes reemplazar esta parte con la lógica para cargar los puestos
-        // en el ComboBox según tu implementación
+    private void loadPuestos() {  
     }
     
     @Override
@@ -49,7 +46,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empl
     }
 
     @Override
-    public void display(Empleado empleado) {  // Cambio del nombre de la clase
+    public void display(Empleado empleado) {  
         txtIdentificacion.setText(empleado.getIdentificacion());
         txtNombre.setText(empleado.getNombre());
         txtTelefono.setText(empleado.getTelefono());
@@ -58,7 +55,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empl
     }
     
     @Override
-    public void displayAll(Empleado[] regs) {  // Cambio del nombre de la clase
+    public void displayAll(Empleado[] regs) {  
         DefaultTableModel tableModel = (DefaultTableModel) datos.tblEmpleados.getModel();
     tableModel.setNumRows(0);
     for (Empleado servicio : regs) {
@@ -293,14 +290,14 @@ public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empl
         String identificacion = txtIdentificacion.getText();
         String nombre = txtNombre.getText();
         String telefono = txtTelefono.getText();
-        String puesto = (String) txtPuesto.getSelectedItem(); // Asegurarse de que txtPuesto sea un JComboBox
-        double salario = 0.0; // Valor inicial por defecto
+        String puesto = (String) txtPuesto.getSelectedItem(); 
+        double salario = 0.0; 
         
         try {
             salario = Double.parseDouble(txtSalario.getText());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese un número válido para el salario.", "Error de formato", JOptionPane.ERROR_MESSAGE);
-            return; // Salir del método si no se puede convertir el salario
+            return; 
         }
         
         Empleado nuevoEmpleado = new Empleado(identificacion, nombre, telefono, puesto, salario);
@@ -315,7 +312,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empl
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-    String cedulaAEliminar = txtIdentificacion.getText();  // Obtén la cédula directamente de tu campo
+    String cedulaAEliminar = txtIdentificacion.getText();
     if (!cedulaAEliminar.isEmpty()) {
         Empleado empleadoAEliminar = new Empleado(cedulaAEliminar);
         controller.Eliminar(empleadoAEliminar);
@@ -334,7 +331,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empl
     private void txtPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPuestoActionPerformed
         String selectedPuesto = txtPuesto.getSelectedItem().toString();
     
-    double salario = 0; // Valor predeterminado si no se encuentra un puesto válido
+    double salario = 0;
     
     switch (selectedPuesto) {
         case "Recepcionista":

@@ -3,8 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/rsand/Desktop/GestionHotelera/GestionHotelera/src/Controller/Controller.java</file>
             <file>file:/C:/Users/rsand/Desktop/GestionHotelera/GestionHotelera/src/Servicio/FrmServicio.java</file>
+=======
+            <file>file:/C:/Users/´Felipe%20Chacón/OneDrive/Documentos/NetBeansProjects/GestionHotelera/src/Reserva/ReservaController.java</file>
+            <file>file:/C:/Users/´Felipe%20Chacón/OneDrive/Documentos/NetBeansProjects/GestionHotelera/src/Cliente/FrmCliente.java</file>
+            <file>file:/C:/Users/´Felipe%20Chacón/OneDrive/Documentos/NetBeansProjects/GestionHotelera/src/Reserva/EstadoReserva.java</file>
+            <file>file:/C:/Users/´Felipe%20Chacón/OneDrive/Documentos/NetBeansProjects/GestionHotelera/src/Reserva/Reserva.java</file>
+            <file>file:/C:/Users/´Felipe%20Chacón/OneDrive/Documentos/NetBeansProjects/GestionHotelera/src/Reserva/ReservaList.java</file>
+            <file>file:/C:/Users/´Felipe%20Chacón/OneDrive/Documentos/NetBeansProjects/GestionHotelera/src/Reserva/FrmReserva.java</file>
+>>>>>>> 141f89f691523b646d2952d7520df91a2fd67e1c
         </group>
     </open-files>
 </project-private>
