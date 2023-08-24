@@ -31,7 +31,7 @@ public class datosServicio extends javax.swing.JInternalFrame implements View<Se
     private Servicio servicio;
     
     
-    public datosServicio(FrmServicio FrmServicio) {
+    public datosServicio(FrmServicio frmServicio) {
        
         this.frmServicio = frmServicio;
         frmServicio.addObserver(this);

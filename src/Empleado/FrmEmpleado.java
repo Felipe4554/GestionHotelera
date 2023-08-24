@@ -289,15 +289,29 @@ public class FrmEmpleado extends javax.swing.JInternalFrame implements View<Empl
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-    String identificacion = txtIdentificacion.getText();
-    String nombre = txtNombre.getText();
-    String telefono = txtTelefono.getText();
-    String puesto = txtPuesto.getItemAt(WIDTH);
-    double salario = Double.parseDouble(txtSalario.getText());
-    
-    Empleado nuevoEmpleado = new Empleado(identificacion, nombre, telefono, puesto, salario);  // Cambio del nombre de la clase
-    controller.Agregar(nuevoEmpleado);
-    clear();
+    try {
+        String identificacion = txtIdentificacion.getText();
+        String nombre = txtNombre.getText();
+        String telefono = txtTelefono.getText();
+        String puesto = (String) txtPuesto.getSelectedItem(); // Asegurarse de que txtPuesto sea un JComboBox
+        double salario = 0.0; // Valor inicial por defecto
+        
+        try {
+            salario = Double.parseDouble(txtSalario.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese un número válido para el salario.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+            return; // Salir del método si no se puede convertir el salario
+        }
+        
+        Empleado nuevoEmpleado = new Empleado(identificacion, nombre, telefono, puesto, salario);
+        controller.Agregar(nuevoEmpleado);
+        clear();
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(this, "Por favor, ingrese un número válido para el salario.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Ha ocurrido un error inesperado: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed

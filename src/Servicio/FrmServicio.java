@@ -42,8 +42,8 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
         this.controller = new ServicioControler(this);  // Cambio del nombre de la clase
         this.controller.buscarTodo();
         
-        int proximoCodigo = ServicioList.getInstance().getNextCodigoServicio();
-        txtCodigo.setText(String.valueOf(proximoCodigo));
+       int proximoCodigo = ServicioList.getInstance().getNextCodigoServicio();
+       txtCodigo.setText(String.valueOf(proximoCodigo));
     }
   
     @Override
@@ -128,7 +128,6 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("Precio");
 
-        txtCodigo.setEditable(false);
         txtCodigo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#########"))));
         txtCodigo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtCodigo.addActionListener(new java.awt.event.ActionListener() {
@@ -312,7 +311,7 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-     int codigoServicio = Integer.parseInt(txtCodigo.getText());  // Obtén la cédula directamente de tu campo
+     int codigoServicio = Integer.parseInt(txtCodigo.getText());
     if (codigoServicio != 0) {
         Servicio servicioAEliminar = new Servicio(codigoServicio);
         controller.Eliminar(servicioAEliminar);
@@ -344,9 +343,15 @@ public class FrmServicio extends javax.swing.JInternalFrame implements View<Serv
     String nombre = txtnombre.getText();
     String descripcion = txtDescripcion.getText();
     double precio = Double.parseDouble(txtPrecio.getText());
-        Servicio actServ = new Servicio(codigoServicio, nombre,descripcion,precio);
-        controller.Actualizar(actServ);
-        clear();
+
+    // Crear un nuevo servicio con los datos actualizados
+    Servicio servicioActualizado = new Servicio(codigoServicio,nombre, descripcion, precio);
+
+    // Llamar al método Buscar en el controlador para obtener el servicio existente
+    controller.Actualizar(servicioActualizado); // Esto llamará al método que ya tienes en tu controlador
+
+    // Limpiar los campos
+    clear();
     }//GEN-LAST:event_btnActualizarActionPerformed
 
 

@@ -37,6 +37,12 @@ public class Servicio implements Entity {
    }
     // Métodos de acceso
 
+    public Servicio(String nombre, String descripcion, double precio) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+    }
+
     
 
     public int getCodigoServicio() {
@@ -75,4 +81,5 @@ public class Servicio implements Entity {
     public String toString() {
         return "Código de Servicio=" + codigoServicio + ", Nombre=" + nombre + ", Descripción=" + descripcion + ", Precio=" + precio;
     }
+
 }

@@ -8,6 +8,8 @@ package Servicio;
  *
  * @author rsand
  */
+import Cliente.Cliente;
+import Habitacion.Habitacion;
 import Models.List;
 import java.util.HashMap;
 
@@ -56,7 +58,11 @@ public boolean Agregar(Servicio obj) {
 
     @Override
     public boolean Actualizar(Servicio obj) {
-        return Agregar(obj);
+        if (obj != null && servicios.containsKey(obj.getCodigoServicio())) {
+            // Actualizar lógica aquí (solo permitir modificar el tipo)
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -69,12 +75,17 @@ public boolean Agregar(Servicio obj) {
     }
 
     @Override
-    public Servicio Buscar(Object id) {
-        if (id instanceof Integer) {
-            return servicios.get(id);
+public Servicio Buscar(Object codigoServicio) {
+    if (codigoServicio instanceof Integer) {
+        int id = (int) codigoServicio;
+        for (Servicio servicio : servicios.values()) {
+            if (servicio.getCodigoServicio() == id) {
+                return servicio;
+            }
         }
-        return null;
     }
+    return null;
+}
 
     @Override
     public Servicio[] toArray() {
